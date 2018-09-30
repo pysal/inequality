@@ -129,7 +129,7 @@ class TheilDSim:
     """Random permutation based inference on Theil's inequality decomposition.
 
     Provides for computationally based inference regarding the inequality
-    decomposition using random spatial permutations. [Rey2004b]_
+    decomposition using random spatial permutations. See :cite:`rey_interregional_2010`. 
 
     Parameters
     ----------
