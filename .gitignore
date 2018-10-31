@@ -13,7 +13,7 @@ notebooks/.ipynb_checkpoints/
 *.egg
 *.egg-info
 dist
-build
+_build
 eggs
 parts
 bin
