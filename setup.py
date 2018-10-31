@@ -1,9 +1,7 @@
 # coding: utf-8
 
 from setuptools import setup, find_packages
-
 from distutils.command.build_py import build_py
-
 import os
 
 with open('README.md', 'r', encoding='utf8') as file:
@@ -35,7 +33,8 @@ def setup_package():
     # assumes nested directories are only down one level
     _groups_files = {
         'base': 'requirements.txt',
-        'dev': 'requirements_dev.txt'
+        'tests': 'requirements_tests.txt',
+        'docs': 'requirements_docs.txt'
     }
 
     reqs = _get_requirements_from_files(_groups_files)
@@ -55,7 +54,7 @@ def setup_package():
         maintainer_email='pysal-dev@googlegroups.com',
         url='http://pysal.org',
         download_url='https://pypi.python.org/pypi/inequality',
-        license='BSD',
+        license='3-Clause BSD',
         py_modules=['inequality'],
         packages=find_packages(),
         test_suite='nose.collector',

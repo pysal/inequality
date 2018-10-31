@@ -28,26 +28,25 @@ before_install:
   - source activate test-env
 
 install:
-  - conda install --yes pip nose
-  - which pip
+  - conda install --yes pip
+  - pip install -r requirements.txt
+  - pip install -r requirements_tests.txt
   - if "$PYSAL_PYPI"; then
         echo 'testing pypi libpysal' && pip install libpysal;
         else echo 'testing git libpysal'; git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
     fi;
-  - conda install --yes --file requirements.txt;
 
 script:
-  - pwd
-  - ls -al
   - python setup.py sdist >/dev/null
   - python setup.py install
-  - nosetests -v inequality;
+  - nosetests --verbose --with-coverage --cover-package=inequality;
 
 notifications:
     email:
         recipients:
             - levi.john.wolf+travis@gmail.com
             - sjsrey+travis@gmail.com
+            - weikang9009@gmail.com
         on_change: always
         on_failure: always
 

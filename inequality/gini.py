@@ -119,6 +119,7 @@ class Gini_Spatial:
     --------
     >>> import libpysal
     >>> import numpy as np
+    >>> from inequality.gini import Gini_Spatial
 
     Use data from the 32 Mexican States, Decade frequency 1940-2010
 
