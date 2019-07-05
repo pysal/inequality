@@ -48,12 +48,11 @@ def setup_package():
     setup(
         name='inequality',
         version=__version__,
-        description="Spatial inequality analysis for PySAL A library of spatial analysis functions.",
+        description="inequality: Spatial inequality analysis.",
         long_description=long_description,
         maintainer="PySAL Developers",
         maintainer_email='pysal-dev@googlegroups.com',
-        url='http://pysal.org',
-        download_url='https://pypi.python.org/pypi/inequality',
+        url='https://github.com/pysal/inequality',
         license='3-Clause BSD',
         py_modules=['inequality'],
         packages=find_packages(),
@@ -69,14 +68,14 @@ def setup_package():
             'Topic :: Scientific/Engineering :: GIS',
             'License :: OSI Approved :: BSD License',
             'Programming Language :: Python',
-            'Programming Language :: Python :: 3.5',
-            'Programming Language :: Python :: 3.6'
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7'
         ],
-        package_data={'libpysal':list(example_data_files)},
         install_requires=install_reqs,
         extras_require=extras_reqs,
         cmdclass={'build_py': build_py},
-        python_requires='>3.4'
+        python_requires='>3.5',
+        zip_safe=False
     )
 
 
