@@ -42,8 +42,8 @@ extensions = [#'sphinx_gallery.gen_gallery',
               'sphinx.ext.mathjax',
               'sphinx.ext.doctest',
               'sphinx.ext.intersphinx',
-              'numpydoc',
-              'matplotlib.sphinxext.plot_directive']
+              'numpydoc']
+              # 'matplotlib.sphinxext.plot_directive'
 
 
 # Add any paths that contain templates here, relative to this directory.

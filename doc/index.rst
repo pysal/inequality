@@ -1,6 +1,15 @@
 .. documentation master file
 
-Spatial Inequality in Mexico: 1940-2000
+************
+Inequality
+************
+
+**inequality** implements measures for the analysis of inequality over space and time and is part of the  `PySAL family <https://pysal.org>`_
+
+Details are available in the `inequality api <api.html>`_.
+
+An Example: Spatial Inequality in Mexico: 1940-2000
+============================================================
 
 .. raw:: html
 
@@ -40,18 +49,12 @@ Spatial Inequality in Mexico: 1940-2000
     </div>
 
 
-************
-Introduction
-************
-
-**inequality** implements measures for the analysis of inequality over space and time and is part of the  `PySAL family <https://pysal.org>`_
-
-Details are available in the `inequality api <api.html>`_.
 
 
-***********
+
+
 Development
-***********
+===========
 
 inequality development is hosted on github_.
 
@@ -63,26 +66,24 @@ as well as gitter_.
 
 .. _gitter : https://gitter.im/pysal/pysal?
 
-****************
+
 Getting Involved
-****************
+======================
 
 If you are interested in contributing to PySAL please see our
 `development guidelines <http://pysal.readthedocs.org/en/latest/developers/index.html>`_.
 
 
-***********
 Bug reports
-***********
+===============
 
 To search for or report bugs, please see inequality's issues_.
 
 .. _issues :  http://github.com/pysal/inequality/issues
 
 
-*****************
 Citing inequality
-*****************
+==================
 
 If you use PySAL-inequality in a scientific publication, we would appreciate citations to the following paper:
 
@@ -103,9 +104,9 @@ If you use PySAL-inequality in a scientific publication, we would appreciate cit
 
 
 
-*******************
+
 License information
-*******************
+========================
 
 See the file "LICENSE.txt" for information on the history of this
 software, terms & conditions for usage, and a DISCLAIMER OF ALL
@@ -119,5 +120,6 @@ WARRANTIES.
 
    Installation <installation>
    API <api>
+   References <references>
    
 .. _PySAL: https://github.com/pysal/pysal

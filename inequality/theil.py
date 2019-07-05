@@ -40,9 +40,11 @@ class Theil:
     Examples
     --------
     >>> import libpysal
+    >>> import numpy as np
+    >>> from inequality.theil import Theil
     >>> f=libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
-    >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> y=np.array([f.by_col[v] for v in vnames]).T
     >>> theil_y=Theil(y)
     >>> theil_y.T
     array([0.20894344, 0.15222451, 0.10472941, 0.10194725, 0.09560113,
@@ -88,9 +90,11 @@ class TheilD:
     Examples
     --------
     >>> import libpysal
+    >>> from inequality.theil import TheilD
+    >>> import numpy as np
     >>> f=libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
-    >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> y = np.array([f.by_col[v] for v in vnames]).T
     >>> regimes=np.array(f.by_col('hanson98'))
     >>> theil_d=TheilD(y,regimes)
     >>> theil_d.bg
@@ -166,9 +170,11 @@ class TheilDSim:
     Examples
     --------
     >>> import libpysal
+    >>> from inequality.theil import TheilDSim
+    >>> import numpy as np
     >>> f=libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
-    >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> y=np.array([f.by_col[v] for v in vnames]).T
     >>> regimes=np.array(f.by_col('hanson98'))
     >>> np.random.seed(10)
     >>> theil_ds=TheilDSim(y,regimes,999)
