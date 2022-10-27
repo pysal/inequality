@@ -1,9 +1,9 @@
-__version__ = "1.0.0"
-
 """
 :mod:`inequality` --- Spatial Inequality Analysis
 =================================================
 
 """
 
-from . import gini, theil
+from . import _version, gini, theil
+
+__version__ = _version.get_versions()["version"]
