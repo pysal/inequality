@@ -5,9 +5,10 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 
 # from libpysal.common import *
 import numpy as np
-__all__ = ['Theil', 'TheilD', 'TheilDSim']
 
-SMALL = np.finfo('float').tiny
+__all__ = ["Theil", "TheilD", "TheilDSim"]
+
+SMALL = np.finfo("float").tiny
 
 
 class Theil:
@@ -16,7 +17,11 @@ class Theil:
 
     .. math::
 
-        T = \sum_{i=1}^n \left( \\frac{y_i}{\sum_{i=1}^n y_i} \ln \left[ N \\frac{y_i}{\sum_{i=1}^n y_i}\\right] \\right)
+        T = \\sum_{i=1}^n
+            \\left( \\frac{y_i}{\\sum_{i=1}^n y_i} \\ln
+                \\left[ N \\frac{y_i}{\\sum_{i=1}^n y_i}\\right]
+            \\right
+        )
 
     Parameters
     ----------
@@ -103,27 +108,28 @@ class TheilD:
     >>> theil_d.wg
     array([0.17435454, 0.12405598, 0.0521202 , 0.04263506, 0.06354856,
            0.07547525, 0.0702496 ])
-   """
+    """
+
     def __init__(self, y, partition):
         groups = np.unique(partition)
         T = Theil(y).T
         ytot = y.sum(axis=0)
 
-        #group totals
+        # group totals
         gtot = np.array([y[partition == gid].sum(axis=0) for gid in groups])
         mm = np.dot
 
         if ytot.size == 1:  # y is 1-d
-            sg = gtot / (ytot * 1.)
+            sg = gtot / (ytot * 1.0)
             sg.shape = (sg.size, 1)
         else:
-            sg = mm(gtot, np.diag(1. / ytot))
+            sg = mm(gtot, np.diag(1.0 / ytot))
         ng = np.array([sum(partition == gid) for gid in groups])
         ng.shape = (ng.size,)  # ensure ng is 1-d
         n = y.shape[0]
         # between group inequality
-        sg = sg + (sg==0) # handle case when a partition has 0 for sum
-        bg = np.multiply(sg, np.log(mm(np.diag(n * 1. / ng), sg))).sum(axis=0)
+        sg = sg + (sg == 0)  # handle case when a partition has 0 for sum
+        bg = np.multiply(sg, np.log(mm(np.diag(n * 1.0 / ng), sg))).sum(axis=0)
         self.T = T
         self.bg = bg
         self.wg = T - bg
@@ -133,7 +139,7 @@ class TheilDSim:
     """Random permutation based inference on Theil's inequality decomposition.
 
     Provides for computationally based inference regarding the inequality
-    decomposition using random spatial permutations. See :cite:`rey_interregional_2010`. 
+    decomposition using random spatial permutations. See :cite:`rey_interregional_2010`.
 
     Parameters
     ----------
@@ -182,6 +188,7 @@ class TheilDSim:
     array([0.4  , 0.344, 0.001, 0.001, 0.034, 0.072, 0.032])
 
     """
+
     def __init__(self, y, partition, permutations=99):
 
         observed = TheilD(y, partition)
@@ -191,11 +198,10 @@ class TheilDSim:
         for perm in range(permutations):
             yp = np.random.permutation(y)
             t = TheilD(yp, partition)
-            bg_ct += (1.0 * t.bg >= observed.bg)
+            bg_ct += 1.0 * t.bg >= observed.bg
             results.append(t)
         self.results = results
         self.T = observed.T
         self.bg_pvalue = bg_ct / (permutations * 1.0 + 1)
         self.bg = np.array([r.bg for r in results])
         self.wg = np.array([r.wg for r in results])
-

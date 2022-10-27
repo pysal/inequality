@@ -6,5 +6,4 @@ __version__ = "1.0.0"
 
 """
 
-from . import theil
-from . import gini
+from . import gini, theil

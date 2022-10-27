@@ -1,6 +1,8 @@
 import unittest
-import numpy as np
+
 import libpysal
+import numpy as np
+
 from inequality.gini import Gini, Gini_Spatial
 
 

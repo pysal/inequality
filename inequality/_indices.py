@@ -11,6 +11,7 @@ References
 """
 
 import itertools
+
 import numpy as np
 
 SMALL = np.finfo("float").tiny
@@ -523,7 +524,7 @@ def ellison_glaeser_egg(x, hs=None):
 
     """
     industry_totals = x.sum(axis=0)
-    if hs == None:
+    if hs is None:
         hs = 1.0 / industry_totals
     xs = x.sum(axis=1) * 1.0 / x.sum()
     part = 1.0 - (xs**2).sum()
@@ -575,8 +576,8 @@ def ellison_glaeser_egg_pop(x):
     for g in np.arange(x.shape[1]):
         pgas = x[:, g]
         pg = pgs[g]
-        num1n = (((pgas * 1.0 / pg) - (pas * 1.0 / p)) ** 2).sum()
-        num1d = 1.0 - ((pas * 1.0 / p) ** 2).sum()
+        num1n = (((pgas * 1.0 / pg) - pap) ** 2).sum()
+        num1d = 1.0 - (pap**2).sum()
         num2 = opg[g]
         den = oopg[g]
         eg_inds[g] = ((num1n / num1d) - num2) / den
@@ -614,7 +615,7 @@ def maurel_sedillot_msg(x, hs=None):
 
     """
     industry_totals = x.sum(axis=0)
-    if hs == None:
+    if hs is None:
         hs = 1.0 / industry_totals
     x2s = np.sum((x.sum(axis=1) * 1.0 / x.sum()) ** 2)
     ms_inds = np.zeros(x.shape[1])
@@ -665,8 +666,8 @@ def maurel_sedillot_msg_pop(x):
     for g in np.arange(x.shape[1]):
         pgas = x[:, g]
         pg = pgs[g]
-        num1n = ((pgas * 1.0 / pg) ** 2 - (pas * 1.0 / p) ** 2).sum()
-        num1d = 1.0 - ((pas * 1.0 / p) ** 2).sum()
+        num1n = ((pgas * 1.0 / pg) ** 2 - pap**2).sum()
+        num1d = 1.0 - (pap**2).sum()
         num2 = 1.0 / pg
         den = 1.0 - (1.0 / pg)
         eg_inds[g] = ((num1n / num1d) - num2) / den

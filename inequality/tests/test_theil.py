@@ -1,6 +1,8 @@
 import unittest
+
 import libpysal
 import numpy as np
+
 from inequality.theil import *
 
 
