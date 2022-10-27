@@ -7,7 +7,7 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import numpy as np
 from scipy.stats import norm as NORM
 
-__all__ = ['Gini', 'Gini_Spatial']
+__all__ = ["Gini", "Gini_Spatial"]
 
 
 def _gini(x):
@@ -37,7 +37,7 @@ def _gini(x):
         x = np.asarray(x)
         x_sum = x.sum()
     n_x_sum = n * x_sum
-    r_x = (2. * np.arange(1, len(x)+1) * x[np.argsort(x)]).sum()
+    r_x = (2.0 * np.arange(1, len(x) + 1) * x[np.argsort(x)]).sum()
     return (r_x - n_x_sum - x_sum) / n_x_sum
 
 
@@ -145,6 +145,7 @@ class Gini_Spatial:
     under the null of random spatial inequality.
 
     """
+
     def __init__(self, x, w, permutations=99):
 
         x = np.asarray(x)
@@ -164,7 +165,7 @@ class Gini_Spatial:
 
         if permutations:
             ids = np.arange(n)
-            wcgp = np.zeros((permutations, ))
+            wcgp = np.zeros((permutations,))
             for perm in range(permutations):
                 np.random.shuffle(ids)
                 wcgp[perm] = d - self._calc(x[ids], w)
@@ -173,7 +174,7 @@ class Gini_Spatial:
             if (permutations - larger) < larger:
                 larger = permutations - larger
             self.wcgp = wcgp
-            self.p_sim = (larger + 1.) / (permutations + 1.)
+            self.p_sim = (larger + 1.0) / (permutations + 1.0)
             self.e_wcg = wcgp.mean()
             self.s_wcg = wcgp.std()
             self.z_wcg = (self.wcg - self.e_wcg) / self.s_wcg
@@ -182,5 +183,5 @@ class Gini_Spatial:
     def _calc(self, x, w):
         sad_sum = 0.0
         for i, js in w.neighbors.items():
-            sad_sum += np.abs(x[i]-x[js]).sum()
+            sad_sum += np.abs(x[i] - x[js]).sum()
         return sad_sum
