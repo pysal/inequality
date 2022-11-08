@@ -1,83 +1,83 @@
-# coding: utf-8
-
-from setuptools import setup, find_packages
 from distutils.command.build_py import build_py
-import os
 
-with open('README.md', 'r', encoding='utf8') as file:
+import versioneer
+from setuptools import setup
+
+package = "inequality"
+
+description = "inequality: Spatial inequality analysis."
+
+# Fetch README.md for the `long_description`
+with open("README.md", "r", encoding="utf-8") as file:
     long_description = file.read()
 
-# Get __version__ from PACKAGE_NAME/__init__.py without importing the package
-# __version__ has to be defined in the first line
-with open('inequality/__init__.py', 'r') as f:
-    exec(f.readline())
-
-
-# BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
-# update it when the contents of directories change.
-if os.path.exists('MANIFEST'):
-    os.remove('MANIFEST')
 
 def _get_requirements_from_files(groups_files):
-    groups_reqlist = {}
+    """returns a dictionary of all requirements
+    keyed by type of requirement.
+    Parameters
+    ----------
+    groups_files : dict
+        k - descriptive name, v - file name (including extension)
+    Returns
+    -------
+    groups_reqlist : dict
+        k - descriptive name, v - list of required packages
+    """
 
-    for k,v in groups_files.items():
-        with open(v, 'r') as f:
+    groups_reqlist = {}
+    for k, v in groups_files.items():
+        with open(v, "r") as f:
             pkg_list = f.read().splitlines()
         groups_reqlist[k] = pkg_list
-
     return groups_reqlist
 
-def setup_package():
-    # get all file endings and copy whole file names without a file suffix
-    # assumes nested directories are only down one level
-    _groups_files = {
-        'base': 'requirements.txt',
-        'tests': 'requirements_tests.txt',
-        'docs': 'requirements_docs.txt'
-    }
 
+def setup_package():
+    """sets up the python package"""
+
+    # Requirements for: base, dev, docs, plus, and test builds
+    _groups_files = {
+        "base": "requirements.txt",
+        "tests": "requirements_tests.txt",
+        "docs": "requirements_docs.txt",
+    }
     reqs = _get_requirements_from_files(_groups_files)
-    install_reqs = reqs.pop('base')
+    install_reqs = reqs.pop("base")
     extras_reqs = reqs
 
-    # get all file endings and copy whole file names without a file suffix
-    # assumes nested directories are only down one level
-    example_data_files = set()
-
     setup(
-        name='inequality',
-        version=__version__,
-        description="inequality: Spatial inequality analysis.",
+        name=package,
+        version=versioneer.get_version(),
+        cmdclass=versioneer.get_cmdclass({"build_py": build_py}),
+        description=description,
         long_description=long_description,
+        long_description_content_type="text/markdown",
+        url="https://github.com/pysal/" + package,
+        download_url="https://pypi.org/project/" + package,
         maintainer="PySAL Developers",
-        maintainer_email='pysal-dev@googlegroups.com',
-        url='https://github.com/pysal/inequality',
-        license='3-Clause BSD',
-        py_modules=['inequality'],
-        packages=find_packages(),
-        test_suite='nose.collector',
-        tests_require=['nose'],
-        keywords='spatial statistics',
+        maintainer_email="pysal-dev@googlegroups.com",
+        keywords="spatial statistics",
         classifiers=[
-            'Development Status :: 5 - Production/Stable',
-            'Intended Audience :: Science/Research',
-            'Intended Audience :: Developers',
-            'Intended Audience :: Education',
-            'Topic :: Scientific/Engineering',
-            'Topic :: Scientific/Engineering :: GIS',
-            'License :: OSI Approved :: BSD License',
-            'Programming Language :: Python',
-            'Programming Language :: Python :: 3.6',
-            'Programming Language :: Python :: 3.7'
+            "Development Status :: 5 - Production/Stable",
+            "Intended Audience :: Science/Research",
+            "Intended Audience :: Developers",
+            "Intended Audience :: Education",
+            "Topic :: Scientific/Engineering",
+            "Topic :: Scientific/Engineering :: GIS",
+            "License :: OSI Approved :: BSD License",
+            "Programming Language :: Python",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.10",
         ],
+        license="3-Clause BSD",
+        packages=[package],
+        py_modules=[package],
         install_requires=install_reqs,
         extras_require=extras_reqs,
-        cmdclass={'build_py': build_py},
-        python_requires='>3.5',
-        zip_safe=False
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     setup_package()

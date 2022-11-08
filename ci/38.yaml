@@ -1,0 +1,14 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  # required
+  - libpysal
+  - numpy
+  - scipy
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov
