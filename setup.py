@@ -1,7 +1,8 @@
 from distutils.command.build_py import build_py
 
-import versioneer
 from setuptools import setup
+
+import versioneer
 
 package = "inequality"
 

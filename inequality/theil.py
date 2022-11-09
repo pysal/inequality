@@ -139,7 +139,8 @@ class TheilDSim:
     """Random permutation based inference on Theil's inequality decomposition.
 
     Provides for computationally based inference regarding the inequality
-    decomposition using random spatial permutations. See :cite:`rey_interregional_2010`.
+    decomposition using random spatial permutations.
+    See :cite:`rey_interregional_2010`.
 
     Parameters
     ----------
@@ -171,7 +172,8 @@ class TheilDSim:
                  value.
 
     wg         : array (size=permutations+1)
-                 within group inequality Depending on the shape of y, 1 or 2-dimensional
+                 within group inequality Depending on the
+                 shape of y, 1 or 2-dimensional
 
     Examples
     --------
