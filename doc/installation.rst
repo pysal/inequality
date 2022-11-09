@@ -3,8 +3,8 @@
 Installation
 ============
 
-inequality supports python `3.5`_ and `3.6`_ only. Please make sure that you are
-operating in a python 3 environment.
+inequality supports Python `3.8`_, `3.9`_, `3.10`_ and `3.11`_. Please make sure that you are
+operating in a Python >= 3.8 environment.
 
 Installing released version
 ---------------------------
@@ -36,11 +36,10 @@ your fork. By making changes
 to your local clone and submitting a pull request to `pysal/inequality`_, you can
 contribute to inequality development.
 
-.. _3.5: https://docs.python.org/3.5/
-.. _3.6: https://docs.python.org/3.6/
+.. _3.8: https://docs.python.org/3.8/
+.. _3.9: https://docs.python.org/3.9/
+.. _3.10: https://docs.python.org/3.10/
+.. _3.11: https://docs.python.org/3.11/
 .. _Python Package Index: https://pypi.org/project/inequality/
 .. _pysal/inequality: https://github.com/pysal/inequality
 .. _fork: https://help.github.com/articles/fork-a-repo/
-
-
-
