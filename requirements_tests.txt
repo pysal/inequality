@@ -1,5 +1,5 @@
-nose
-nose-progressive
-nose-exclude
+codecov
 coverage
-coveralls
+pytest
+pytest-cov
+pytest-xdist
