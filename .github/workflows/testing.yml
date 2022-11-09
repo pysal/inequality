@@ -18,7 +18,15 @@
          required: false
 
  jobs:
-   tests:
+   linting:
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v3
+       - uses: actions/setup-python@v4
+       - uses: pre-commit/action@v3.0.0
+   
+   testing:
+     needs: linting
      env:
        RUN_TEST: pytest inequality -v -r a -n auto --cov inequality --doctest-modules --cov-config .coveragerc --cov-report xml --color yes --cov-append --cov-report term-missing
      name: ${{ matrix.os }}, ${{ matrix.environment-file }}
@@ -31,11 +39,12 @@
            - ci/38.yaml
            - ci/39.yaml
            - ci/310.yaml
-           - ci/310-DEV.yaml
+           - ci/311.yaml
+           - ci/311-DEV.yaml
          include:
-           - environment-file: ci/310.yaml
+           - environment-file: ci/311.yaml
              os: macos-latest
-           - environment-file: ci/310.yaml
+           - environment-file: ci/311.yaml
              os: windows-latest
        fail-fast: false
      
@@ -49,7 +58,7 @@
            environment-file: ${{ matrix.environment-file }}
            micromamba-version: 'latest'
       
-       - name: install bleeding edge libpysal (Ubuntu / Python 3.10)
+       - name: install bleeding edge libpysal (Ubuntu / Python 3.11)
          shell: bash -l {0}
          run: |
            pip install git+https://github.com/pysal/libpysal.git@master

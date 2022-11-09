@@ -69,7 +69,8 @@ class Gini_Spatial:
     Spatial Gini coefficient
 
     Provides for computationally based inference regarding the contribution of
-    spatial neighbor pairs to overall inequality across a set of regions. See :cite:`Rey_2013_sea`.
+    spatial neighbor pairs to overall inequality across a set of regions.
+    See :cite:`Rey_2013_sea`.
 
     Parameters
     ----------
@@ -106,13 +107,15 @@ class Gini_Spatial:
        expected value of non-neighbor inequality component (level) from permutations
 
     s_wcg : float
-           standard deviation non-neighbor inequality component (level) from permutations
+           standard deviation non-neighbor inequality
+           component (level) from permutations
 
     z_wcg : float
            z-value non-neighbor inequality component (level) from permutations
 
     p_z_sim : float
-             pseudo  p-value based on standard normal approximation of permutation based values
+             pseudo  p-value based on standard normal approximation of
+             permutation based values
 
 
     Examples

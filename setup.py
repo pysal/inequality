@@ -1,7 +1,8 @@
 from distutils.command.build_py import build_py
 
-import versioneer
 from setuptools import setup
+
+import versioneer
 
 package = "inequality"
 
@@ -70,6 +71,7 @@ def setup_package():
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: 3.9",
             "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3.11",
         ],
         license="3-Clause BSD",
         packages=[package],
