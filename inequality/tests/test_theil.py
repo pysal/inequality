@@ -1,21 +1,18 @@
-import unittest
-
 import libpysal
-import numpy as np
+import numpy
 
-from inequality.theil import *
+from inequality.theil import Theil, TheilD, TheilDSim
 
 
-class test_Theil(unittest.TestCase):
+class TestTheil:
     def test___init__(self):
-        # theil = Theil(y)
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
         vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
-        y = np.transpose(np.array([f.by_col[v] for v in vnames]))
+        y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
         theil_y = Theil(y)
-        np.testing.assert_almost_equal(
+        numpy.testing.assert_almost_equal(
             theil_y.T,
-            np.array(
+            numpy.array(
                 [
                     0.20894344,
                     0.15222451,
@@ -29,17 +26,16 @@ class test_Theil(unittest.TestCase):
         )
 
 
-class test_TheilD(unittest.TestCase):
+class TestTheilD:
     def test___init__(self):
-        # theil_d = TheilD(y, partition)
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
         vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
-        y = np.transpose(np.array([f.by_col[v] for v in vnames]))
-        regimes = np.array(f.by_col("hanson98"))
+        y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
+        regimes = numpy.array(f.by_col("hanson98"))
         theil_d = TheilD(y, regimes)
-        np.testing.assert_almost_equal(
+        numpy.testing.assert_almost_equal(
             theil_d.bg,
-            np.array(
+            numpy.array(
                 [
                     0.0345889,
                     0.02816853,
@@ -53,19 +49,15 @@ class test_TheilD(unittest.TestCase):
         )
 
 
-class test_TheilDSim(unittest.TestCase):
+class TestTheilDSim:
     def test___init__(self):
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
         vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
-        y = np.transpose(np.array([f.by_col[v] for v in vnames]))
-        regimes = np.array(f.by_col("hanson98"))
-        np.random.seed(10)
+        y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
+        regimes = numpy.array(f.by_col("hanson98"))
+        numpy.random.seed(10)
         theil_ds = TheilDSim(y, regimes, 999)
-        np.testing.assert_almost_equal(
+        numpy.testing.assert_almost_equal(
             theil_ds.bg_pvalue,
-            np.array([0.4, 0.344, 0.001, 0.001, 0.034, 0.072, 0.032]),
+            numpy.array([0.4, 0.344, 0.001, 0.001, 0.034, 0.072, 0.032]),
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
