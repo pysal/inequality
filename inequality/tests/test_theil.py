@@ -7,7 +7,7 @@ from inequality.theil import Theil, TheilD, TheilDSim
 class TestTheil:
     def test___init__(self):
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
-        vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
+        vnames = [f"pcgdp{dec}" for dec in range(1940, 2010, 10)]
         y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
         theil_y = Theil(y)
         numpy.testing.assert_almost_equal(
@@ -29,7 +29,7 @@ class TestTheil:
 class TestTheilD:
     def test___init__(self):
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
-        vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
+        vnames = [f"pcgdp{dec}" for dec in range(1940, 2010, 10)]
         y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
         regimes = numpy.array(f.by_col("hanson98"))
         theil_d = TheilD(y, regimes)
@@ -52,7 +52,7 @@ class TestTheilD:
 class TestTheilDSim:
     def test___init__(self):
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
-        vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
+        vnames = [f"pcgdp{dec}" for dec in range(1940, 2010, 10)]
         y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
         regimes = numpy.array(f.by_col("hanson98"))
         numpy.random.seed(10)

@@ -7,11 +7,12 @@ from inequality.gini import Gini, Gini_Spatial
 class TestGini:
     def setup_method(self):
         f = libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
-        vnames = ["pcgdp%d" % dec for dec in range(1940, 2010, 10)]
+        vnames = [f"pcgdp{dec}" for dec in range(1940, 2010, 10)]
         y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
         self.y = y[:, 0]
         regimes = numpy.array(f.by_col("hanson98"))
-        self.w = libpysal.weights.block_weights(regimes)
+
+        self.w = libpysal.weights.block_weights(regimes, silence_warnings=True)
 
     def test_Gini(self):
         g = Gini(self.y)
