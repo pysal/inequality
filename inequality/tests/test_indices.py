@@ -3,7 +3,6 @@ import pytest
 
 from inequality._indices import ellison_glaeser_egg  # noqa F401
 from inequality._indices import ellison_glaeser_egg_pop  # noqa F401
-from inequality._indices import hoover_hi  # noqa F401
 from inequality._indices import isolation_ii  # noqa F401
 from inequality._indices import isolation_isg  # noqa F401
 from inequality._indices import maurel_sedillot_msg  # noqa F401
@@ -17,6 +16,7 @@ from inequality._indices import (
     gini_gi_m,
     gini_gig,
     herfindahl_hd,
+    hoover_hi,
     margalev_md,
     menhinick_mi,
     polarization,
@@ -124,4 +124,11 @@ class TestGiniGIM:
     def test_gini_gi_m(self):
         known = 0.05128205128205132
         observed = gini_gi_m(y)
+        assert known == pytest.approx(observed)
+
+
+class TestHooverHI:
+    def test_hoover_hi(self):
+        known = 0.041025641025641046
+        observed = hoover_hi(y)
         assert known == pytest.approx(observed)

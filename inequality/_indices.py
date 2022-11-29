@@ -476,7 +476,7 @@ def gini_gi_m(x):
 
             http://mathworld.wolfram.com/GiniCoefficient.html
 
-    Returns same value as `gini_gi`.
+    Returns same value as ``gini_gi``.
 
     Parameters
     ----------
@@ -487,6 +487,7 @@ def gini_gi_m(x):
 
     Returns
     -------
+
     ggim : float
         Gini GI index.
 
@@ -516,29 +517,48 @@ def gini_gi_m(x):
 
 def hoover_hi(x):
     """
-    Hoover index HI
+    Hoover index HI. :cite:`nijkamp2015cultural`
 
     NOTE: based on
 
             http://en.wikipedia.org/wiki/Hoover_index
 
-    ...
+     Parameters
+    ----------
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : float
-              Hoover HI index
+
+    hhi : float
+        Hoover HI index.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> round(hoover_hi(y), 10)
+    0.041025641
+
     """
+
     es = x.sum(axis=0)
     e_total = es.sum()
     a_total = es.shape[0]
     s = numpy.abs((es * 1.0 / e_total) - (1.0 / a_total)).sum()
-    return s / 2.0
+    hhi = s / 2.0
+    return hhi
 
 
 def similarity_w_wd(x, tau):
