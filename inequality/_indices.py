@@ -523,7 +523,7 @@ def hoover_hi(x):
 
             http://en.wikipedia.org/wiki/Hoover_index
 
-     Parameters
+    Parameters
     ----------
 
     x : numpy.array
@@ -563,23 +563,51 @@ def hoover_hi(x):
 
 def similarity_w_wd(x, tau):
     """
-    Similarity weighted diversity
-    ...
+    Similarity weighted diversity. :cite:`nijkamp2015cultural`
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
-    tau     : array
-              k x k array where tau_ij represents dissimilarity between group
-              i and group j. Diagonal elements are assumed to be one.
+    Parameters
+    ----------
+
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+    tau : numpy.array
+        A :math:`(k, k)` array where :math:`tau_{ij}` represents dissimilarity
+        between group :math:`i` and group :math:`j`. Diagonal elements are
+        assumed to be one.
 
     Returns
     -------
-    a       : float
-              Similarity weighted diversity index
+
+    swwd : float
+        Similarity weighted diversity index.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> numpy.random.seed(0)
+    >>> tau = numpy.random.uniform(size=(3,3))
+    >>> numpy.fill_diagonal(tau, 0.)
+    >>> tau = (tau + tau.T)/2
+    >>> tau
+    array([[0.        , 0.63003627, 0.52017529],
+           [0.63003627, 0.        , 0.76883356],
+           [0.52017529, 0.76883356, 0.        ]])
+
+    >>> round(similarity_w_wd(y, tau), 10)
+    0.581859634
+
     """
+
     pgs = x.sum(axis=0)
     pgs = pgs * 1.0 / pgs.sum()
     s = sum(
@@ -588,34 +616,54 @@ def similarity_w_wd(x, tau):
             for i, j in itertools.product(numpy.arange(pgs.shape[0]), repeat=2)
         ]
     )
-    return 1.0 - s
+    swwd = 1.0 - s
+    return swwd
 
 
 def segregation_gsg(x):
     """
-    Segregation index GS
+    Segregation index GS.
 
-    This is a Duncan&Duncan index of a group against the rest combined
-    ...
+    This is a Duncan&Duncan index of a group against the rest combined.
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    Parameters
+    ----------
+
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : array
-              Array with GSg indices for the k groups
+    sgsg : array
+        An array with GSg indices for the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> numpy.round(segregation_gsg(y), 6)
+    array([0.182927, 0.24714 , 0.097252])
+
     """
+
     pgs = x.sum(axis=0)
     pas = x.sum(axis=1)
     p = pgs.sum()
     first = (x.T * 1.0 / pgs[:, None]).T
-    paMpga = pas[:, None] - x
-    pMpg = p - pgs
-    second = paMpga * 1.0 / pMpg[None, :]
-    return 0.5 * (numpy.abs(first - second)).sum(axis=0)
+    pampga = pas[:, None] - x
+    pmpg = p - pgs
+    second = pampga * 1.0 / pmpg[None, :]
+    sgsg = 0.5 * (numpy.abs(first - second)).sum(axis=0)
+    return sgsg
 
 
 def modified_segregation_msg(x):

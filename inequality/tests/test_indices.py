@@ -8,7 +8,6 @@ from inequality._indices import isolation_isg  # noqa F401
 from inequality._indices import maurel_sedillot_msg  # noqa F401
 from inequality._indices import maurel_sedillot_msg_pop  # noqa F401
 from inequality._indices import modified_segregation_msg  # noqa F401
-from inequality._indices import segregation_gsg  # noqa F401
 from inequality._indices import (
     abundance,
     fractionalization_gs,
@@ -20,7 +19,9 @@ from inequality._indices import (
     margalev_md,
     menhinick_mi,
     polarization,
+    segregation_gsg,
     shannon_se,
+    similarity_w_wd,
     simpson_sd,
     simpson_so,
     theil_th,
@@ -28,8 +29,15 @@ from inequality._indices import (
 )
 
 x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
+
 numpy.random.seed(0)
 y = numpy.random.randint(1, 10, size=(4, 3))
+
+numpy.random.seed(0)
+tau = numpy.random.uniform(size=(3, 3))
+numpy.fill_diagonal(tau, 0.0)
+tau = (tau + tau.T) / 2
+tau
 
 
 class TestAbundance:
@@ -132,3 +140,17 @@ class TestHooverHI:
         known = 0.041025641025641046
         observed = hoover_hi(y)
         assert known == pytest.approx(observed)
+
+
+class TestSimilarityWWD:
+    def test_similarity_w_wd(self):
+        known = 0.5818596340322582
+        observed = similarity_w_wd(y, tau)
+        assert known == pytest.approx(observed)
+
+
+class TestSegregationGSG:
+    def test_segregation_gsg(self):
+        known = numpy.array([0.18292683, 0.24713959, 0.09725159])
+        observed = segregation_gsg(y)
+        numpy.testing.assert_array_almost_equal(known, observed)

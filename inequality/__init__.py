@@ -25,6 +25,7 @@ from ._indices import (
     polarization,
     segregation_gsg,
     shannon_se,
+    similarity_w_wd,
     simpson_sd,
     simpson_so,
     theil_th,
