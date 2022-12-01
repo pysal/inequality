@@ -195,7 +195,7 @@ def herfindahl_hd(x):
     Returns
     -------
 
-    a : float
+    hhd : float
         Herfindahl index HD.
 
     Examples
@@ -402,6 +402,7 @@ def gini_gi(x):
 
     Returns
     -------
+
     ggi : float
         Gini GI index.
 
@@ -463,7 +464,7 @@ def gini_gig(x):
 
     """
 
-    ggig = numpy.apply_along_axis(_gini, 0, x)
+    ggig = numpy.apply_along_axis(_gini, 0, x.copy())
     return ggig
 
 
@@ -635,6 +636,7 @@ def segregation_gsg(x):
 
     Returns
     -------
+
     sgsg : array
         An array with GSg indices for the :math:`k` groups.
 
@@ -650,7 +652,7 @@ def segregation_gsg(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> numpy.round(segregation_gsg(y), 6)
+    >>> segregation_gsg(y).round(6)
     array([0.182927, 0.24714 , 0.097252])
 
     """
@@ -668,21 +670,41 @@ def segregation_gsg(x):
 
 def modified_segregation_msg(x):
     """
-    Modified segregation index GS
+    Modified segregation index GS.
 
     This is a modified version of GSg index as used by Van Mourik et al. (1989)
-    ...
+    :cite:`van_Mourik_1989`.
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    Parameters
+    ----------
+
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : array
-              Array with MSg indices for the k groups
+
+    ms_inds : numpy.array
+        An array with MSg indices for the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> modified_segregation_msg(y).round(6)
+    array([0.085207, 0.102249, 0.04355 ])
+
     """
+
     pgs = x.sum(axis=0)
     p = pgs.sum()
     ms_inds = segregation_gsg(x)  # To be updated in loop below
@@ -695,42 +717,80 @@ def modified_segregation_msg(x):
 
 def isolation_isg(x):
     """
-    Isolation index IS
+    Isolation index IS. :cite:`nijkamp2015cultural`
 
-    ...
+    Parameters
+    ----------
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : array
-              Array with ISg indices for the k groups
+
+    iisg : numpy.array
+        An array with ISg indices for the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> isolation_isg(y).round(6)
+    array([1.07327 , 1.219953, 1.022711])
+
     """
+
     ws = x * 1.0 / x.sum(axis=0)
     pgapa = (x.T * 1.0 / x.sum(axis=1)).T
     pgp = x.sum(axis=0) * 1.0 / x.sum()
-    return (ws * pgapa / pgp).sum(axis=0)
+    iisg = (ws * pgapa / pgp).sum(axis=0)
+    return iisg
 
 
 def isolation_ii(x):
     """
-    Isolation index II_g as in equation (23) of [2].
+    Isolation index :math:`II_g` as in equation (23) of [2].
+    :cite:`nijkamp2015cultural`
 
-    ...
+    Parameters
+    ----------
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : array
-              Array with IIg indices for the k groups
+
+    iso_ii : numpy.array
+        An array with IIg indices for the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> isolation_ii(y).round(6)
+    array([1.11616 , 1.310804, 1.03433 ])
+
     """
+
     pa = x.sum(axis=1).astype(float)  # Area totals
     pg = x.sum(axis=0).astype(float)  # Group totals
     p = pa.sum()
@@ -739,40 +799,64 @@ def isolation_ii(x):
     block = (ws * (x / pa[:, None])).sum(axis=0)
     num = (block / (pg / p)) - (pg / p)
     den = 1.0 - (pg / p)
-    return num / den
+    iso_ii = num / den
+    return iso_ii
 
 
 def ellison_glaeser_egg(x, hs=None):
     """
-    Ellison and Glaeser (1997) [1]_ index of concentration. Implemented as in
-    equation (5) of original reference
-    ...
+    Ellison and Glaeser (1997) :cite:`ellison_1997` index of concentration.
+    Implemented as in equation (5) of original reference.
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per area) and k columns
-              (one per industry). Each cell indicates employment figures for
-              area n and industry k
-    hs      : array
-              [Optional] Array of dimension (k,) containing the Herfindahl
-              indices of each industry's plant sizes. If not passed, it is
-              assumed every plant contains one and only one worker and thus
-              H_k = 1 / P_k, where P_k is the total employment in k
+    Parameters
+    ----------
+
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        area) and :math:`k` columns (one per industry). Each cell indicates
+        employment figures for area :math:`n` and industry :math:`k`.
+    hs : numpy.array (default None)
+        An array of dimension :math:`(k,)` containing the Herfindahl
+        indices of each industry's plant sizes. If not passed, it is
+        assumed every plant contains one and only one worker and thus
+        :math:`H_k = 1 / P_k`, where :math:`P_k` is the total
+        employment in :math:`k`.
 
     Returns
     -------
-    a       : array
-              EG index for every group k
+
+    eg_inds : numpy.array
+        EG index for each of the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> z = numpy.random.randint(10, 50, size=(3,4))
+    >>> z
+    array([[10, 13, 13, 49],
+           [19, 29, 31, 46],
+           [33, 16, 34, 34]])
+
+    >>> ellison_glaeser_egg(z).round(6)
+    array([0.054499, 0.016242, 0.010141, 0.028803])
+
+    >>> numpy.random.seed(0)
+    >>> v = numpy.random.uniform(0, 1, size=(4,)).round(3)
+    >>> v
+    array([0.549, 0.715, 0.603, 0.545])
+
+    >>> ellison_glaeser_egg(z, hs=v).round(6)
+    array([-1.06264 , -2.39227 , -1.461383, -1.117953])
 
     References
     ----------
 
-    .. [1] Ellison, G. and Glaeser, E. L. "Geographic Concentration in U.S.
-    Manufacturing Industries: A Dartboard Approach". Journal of Political
-    Economy. 105: 889-927
+    - :cite:`ellison_1997` Ellison, G. and Glaeser, E. L. "Geographic Concentration in U.S. Manufacturing Industries: A Dartboard Approach". Journal of Political Economy. 105: 889-927
 
-    """
+    """  # noqa E501
+
     industry_totals = x.sum(axis=0)
     if hs is None:
         hs = 1.0 / industry_totals
@@ -789,33 +873,48 @@ def ellison_glaeser_egg(x, hs=None):
 
 def ellison_glaeser_egg_pop(x):
     """
-    Ellison and Glaeser (1997) [1]_ index of concentration. Implemented to be
-    computed with data about people (segregation/diversity) rather than as
-    industry concentration, following Mare et al (2012) [2]_
-    ...
+    Ellison and Glaeser (1997) :cite:`ellison_1997` index of concentration.
+    Implemented to be computed with data about people (segregation/diversity)
+    rather than as industry concentration, following Mare et al (2012)
+    :cite:`care_2012`.
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    Parameters
+    ----------
+
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : array
-              EG index for every group k
+
+    eg_inds : numpy.array
+        EG index for each of the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> ellison_glaeser_egg_pop(y).round(6)
+    array([-0.021508,  0.013299, -0.038946])
 
     References
     ----------
 
-    .. [1] Ellison, G. and Glaeser, E. L. "Geographic Concentration in U.S.
-    Manufacturing Industries: A Dartboard Approach". Journal of Political
-    Economy. 105: 889-927
+    - :cite:`ellison_1997` – Ellison, G. and Glaeser, E. L. "Geographic Concentration in U.S. Manufacturing Industries: A Dartboard Approach". Journal of Political Economy. 105: 889-927
 
-    .. [2] Mare, D., Pinkerton, R., Poot, J. and Coleman, A. (2012)
-    Residential Sorting Across Auckland Neighbourhoods. Mimeo. Wellington:
-    Motu Economic and Public Policy Research.
+    - :cite:`care_2012` – Care, D., Pinkerton, R., Poot, J. and Coleman, A. (2012) "Residential sorting across Auckland neighbourhoods." New Zealand Population Review, 38, 23-54.
 
-    """
+    """  # noqa E501
+
     pas = x.sum(axis=1)
     pgs = x.sum(axis=0)
     p = pas.sum()
@@ -836,34 +935,58 @@ def ellison_glaeser_egg_pop(x):
 
 def maurel_sedillot_msg(x, hs=None):
     """
-    Maurel and Sedillot (1999) [1]_ index of concentration. Implemented as in
-    equation (7) of original reference
-    ...
+    Maurel and Sedillot (1999) :cite:`maurel_1999` index of concentration.
+    Implemented as in equation (7) of original reference.
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
-    hs      : array
-              [Optional] Array of dimension (k,) containing the Herfindahl
-              indices of each industry's plant sizes. If not passed, it is
-              assumed every plant contains one and only one worker and thus
-              H_k = 1 / P_k, where P_k is the total employment in k
+    Parameters
+    ----------
+
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        area) and :math:`k` columns (one per industry). Each cell indicates
+        employment figures for area :math:`n` and industry :math:`k`.
+    hs : numpy.array (default None)
+        An array of dimension :math:`(k,)` containing the Herfindahl
+        indices of each industry's plant sizes. If not passed, it is
+        assumed every plant contains one and only one worker and thus
+        :math:`H_k = 1 / P_k`, where :math:`P_k` is the total
+        employment in :math:`k`.
 
     Returns
     -------
-    a       : array
-              MS index for every group k
+
+    ms_inds : numpy.array
+        MS index for each of the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> z = numpy.random.randint(10, 50, size=(3,4))
+    >>> z
+    array([[10, 13, 13, 49],
+           [19, 29, 31, 46],
+           [33, 16, 34, 34]])
+
+    >>> maurel_sedillot_msg(z).round(6)
+    array([ 0.078583,  0.035977,  0.039374, -0.009049])
+
+    >>> numpy.random.seed(0)
+    >>> v = numpy.random.uniform(0, 1, size=(4,)).round(3)
+    >>> v
+    array([0.549, 0.715, 0.603, 0.545])
+
+    >>> maurel_sedillot_msg(z, hs=v).round(6)
+    array([-1.010102, -2.324216, -1.38869 , -1.200499])
 
     References
     ----------
 
-    .. [1] Maurel, F. and Sedillot, B. (1999). "A Measure of the Geographic
-    Concentration in French Manufacturing Industries". Regional Science
-    and Urban Economics 29: 575-604
+    - :cite:`maurel_1999` – Maurel, F. and Sédillot, B. (1999). "A Measure of the Geographic Concentration in French Manufacturing Industries." Regional Science and Urban Economics 29: 575-604.
 
-    """
+    """  # noqa E501
+
     industry_totals = x.sum(axis=0)
     if hs is None:
         hs = 1.0 / industry_totals
@@ -880,34 +1003,48 @@ def maurel_sedillot_msg(x, hs=None):
 
 def maurel_sedillot_msg_pop(x):
     """
-    Maurel and Sedillot (1999) [1]_ index of concentration. Implemented to be
-    computed with data about people (segregation/diversity) rather than as
-    industry concentration, following Mare et al (2012) [2]_
+    Maurel and Sedillot (1999) :cite:`maurel_1999` index of concentration.
+    Implemented to be computed with data about people (segregation/diversity)
+    rather than as industry concentration, following Mare et al (2012)
+    :cite:`care_2012`.
 
-    ...
+    Parameters
+    ----------
 
-    Arguments
-    ---------
-    x       : array
-              N x k array containing N rows (one per neighborhood) and k columns
-              (one per cultural group)
+    x : numpy.array
+        An :math:`(N, k)` shaped array containing :math:`N` rows (one per
+        neighborhood) and :math:`k` columns (one per cultural group).
+
     Returns
     -------
-    a       : array
-              MS index for every group k
+
+    eg_inds : numpy.array
+        MS index for each of the :math:`k` groups.
+
+    Examples
+    --------
+
+    >>> import numpy
+    >>> numpy.random.seed(0)
+    >>> y = numpy.random.randint(1, 10, size=(4,3))
+    >>> y
+    array([[6, 1, 4],
+           [4, 8, 4],
+           [6, 3, 5],
+           [8, 7, 9]])
+
+    >>> maurel_sedillot_msg_pop(y).round(6)
+    array([-0.055036,  0.044147, -0.028666])
 
     References
     ----------
 
-    .. [1] Maurel, F. and Sedillot, B. (1999). "A Measure of the Geographic
-    Concentration in French Manufacturing Industries". Regional Science
-    and Urban Economics 29: 575-604
+    - :cite:`maurel_1999` – Maurel, F. and Sédillot, B. (1999). "A Measure of the Geographic Concentration in French Manufacturing Industries." Regional Science and Urban Economics 29: 575-604.
 
-    .. [2] Mare, D., Pinkerton, R., Poot, J. and Coleman, A. (2012)
-    Residential Sorting Across Auckland Neighbourhoods. Mimeo. Wellington:
-    Motu Economic and Public Policy Research.
+    - :cite:`care_2012` – Care, D., Pinkerton, R., Poot, J. and Coleman, A. (2012) "Residential sorting across Auckland neighbourhoods." New Zealand Population Review, 38, 23-54.
 
-    """
+    """  # noqa E501
+
     pas = x.sum(axis=1)
     pgs = x.sum(axis=0)
     p = pas.sum()
@@ -922,42 +1059,3 @@ def maurel_sedillot_msg_pop(x):
         den = 1.0 - (1.0 / pg)
         eg_inds[g] = ((num1n / num1d) - num2) / den
     return eg_inds
-
-
-if __name__ == "__main__":
-    numpy.random.seed(1)
-    x = numpy.round(numpy.random.random((10, 3)) * 100).astype(int)
-    # x[:, 2] = 0
-    ids = [
-        # abundance, \
-        # margalev_md, \
-        # menhinick_mi, \
-        # simpson_so, \
-        # simpson_sd, \
-        # fractionalization_gs, \
-        # herfindahl_hd, \
-        # shannon_se, \
-        # gini_gi, \
-        # gini_gi_m, \
-        # hoover_hi, \
-        # segregation_gsg, \
-        # modified_segregation_msg, \
-        # isolation_isg, \
-        isolation_ii,
-        # gini_gig, \
-        # ellison_glaeser_egg, \
-        # ellison_glaeser_egg_pop, \
-        # maurel_sedillot_msg, \
-        # maurel_sedillot_msg_pop, \
-        # theil_th, \
-        # theil_th_brute, \
-    ]
-    res = [(f_i.__name__, f_i(x)) for f_i in ids]
-    print("\nIndices")
-    for r in res:
-        print(r[1], "\t", r[0])
-
-    tau = numpy.random.random((x.shape[1], x.shape[1]))
-    for i in range(tau.shape[0]):
-        tau[i, i] = 1.0
-    # print similarity_w_wd(x, tau)

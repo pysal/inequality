@@ -135,19 +135,20 @@ class TheilD:
 
         # group totals
         gtot = numpy.array([y[partition == gid].sum(axis=0) for gid in groups])
-        mm = numpy.dot
 
         if ytot.size == 1:  # y is 1-d
             sg = gtot / (ytot * 1.0)
             sg.shape = (sg.size, 1)
         else:
-            sg = mm(gtot, numpy.diag(1.0 / ytot))
+            sg = numpy.dot(gtot, numpy.diag(1.0 / ytot))
         ng = numpy.array([sum(partition == gid) for gid in groups])
         ng.shape = (ng.size,)  # ensure ng is 1-d
         n = y.shape[0]
         # between group inequality
         sg = sg + (sg == 0)  # handle case when a partition has 0 for sum
-        bg = numpy.multiply(sg, numpy.log(mm(numpy.diag(n * 1.0 / ng), sg))).sum(axis=0)
+        bg = numpy.multiply(sg, numpy.log(numpy.dot(numpy.diag(n * 1.0 / ng), sg))).sum(
+            axis=0
+        )
 
         self.T = T
         self.bg = bg
