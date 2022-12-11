@@ -4,15 +4,16 @@ Gini based Inequality Metrics
 
 __author__ = "Sergio J. Rey <srey@asu.edu> "
 
-import numpy as np
-from scipy.stats import norm as NORM
+import numpy
+from scipy.stats import norm
 
 __all__ = ["Gini", "Gini_Spatial"]
 
 
 def _gini(x):
     """
-    Memory efficient calculation of Gini coefficient in relative mean difference form
+    Memory efficient calculation of Gini coefficient
+    in relative mean difference form.
 
     Parameters
     ----------
@@ -23,39 +24,40 @@ def _gini(x):
     ----------
 
     g : float
-        Gini coefficient
+        Gini coefficient.
 
     Notes
     -----
-    Based on http://www.statsdirect.com/help/default.htm#nonparametric_methods/gini.htm
+    Based on
+    http://www.statsdirect.com/help/default.htm#nonparametric_methods/gini.htm.
 
     """
     n = len(x)
     try:
         x_sum = x.sum()
     except AttributeError:
-        x = np.asarray(x)
+        x = numpy.asarray(x)
         x_sum = x.sum()
     n_x_sum = n * x_sum
-    r_x = (2.0 * np.arange(1, len(x) + 1) * x[np.argsort(x)]).sum()
+    r_x = (2.0 * numpy.arange(1, len(x) + 1) * x[numpy.argsort(x)]).sum()
     return (r_x - n_x_sum - x_sum) / n_x_sum
 
 
 class Gini:
     """
-    Classic Gini coefficient in absolute deviation form
+    Classic Gini coefficient in absolute deviation form.
 
     Parameters
     ----------
 
-    y : array (n,1)
-       attribute
+    y : numpy.array
+        An array in the shape :math:`(n,1)` containing the attribute values.
 
     Attributes
     ----------
 
     g : float
-       Gini coefficient
+       Gini coefficient.
 
     """
 
@@ -66,7 +68,7 @@ class Gini:
 
 class Gini_Spatial:
     """
-    Spatial Gini coefficient
+    Spatial Gini coefficient.
 
     Provides for computationally based inference regarding the contribution of
     spatial neighbor pairs to overall inequality across a set of regions.
@@ -75,71 +77,65 @@ class Gini_Spatial:
     Parameters
     ----------
 
-    y : array (n,1)
-       attribute
-
-    w : binary spatial weights object
-
-    permutations : int (default = 99)
-       number of permutations for inference
+    y : numpy.array
+        An array in the shape :math:`(n,1)` containing the attribute values.
+    w : libpysal.weights.W
+        Binary spatial weights object.
+    permutations : int (default 99)
+       The number of permutations for inference.
 
     Attributes
     ----------
 
     g : float
-       Gini coefficient
-
+       Gini coefficient.
     wg : float
-       Neighbor inequality component (geographic inequality)
-
+       Neighbor inequality component (geographic inequality).
     wcg : float
-       Non-neighbor inequality component (geographic complement inequality)
-
+       Non-neighbor inequality component (geographic complement inequality).
     wcg_share : float
-       Share of inequality in non-neighbor component
-
-    If Permuations > 0
-
+       Share of inequality in non-neighbor component.
     p_sim : float
-       pseudo p-value for spatial gini
-
+       (If ``permuations > 0``) pseudo :math:`p`-value for spatial gini.
     e_wcg : float
-       expected value of non-neighbor inequality component (level) from permutations
-
+       (If ``permuations > 0``) expected value of non-neighbor
+       inequality component (level) from permutations.
     s_wcg : float
-           standard deviation non-neighbor inequality
-           component (level) from permutations
-
+        (If ``permuations > 0``) standard deviation non-neighbor
+        inequality component (level) from permutations.
     z_wcg : float
-           z-value non-neighbor inequality component (level) from permutations
-
+        (If ``permuations > 0``) z-value non-neighbor inequality
+        component (level) from permutations.
     p_z_sim : float
-             pseudo  p-value based on standard normal approximation of
-             permutation based values
-
+        (If ``permuations > 0``) pseudo :math:`p`-value based on
+        standard normal approximation of permutation based values.
 
     Examples
     --------
+
     >>> import libpysal
-    >>> import numpy as np
+    >>> import numpy
     >>> from inequality.gini import Gini_Spatial
 
-    Use data from the 32 Mexican States, Decade frequency 1940-2010
+    Use data from the 32 Mexican States, decade frequency 1940-2010.
 
-    >>> f=libpysal.io.open(libpysal.examples.get_path("mexico.csv"))
-    >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
-    >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> f = libpysal.io.open(libpysal.examples.get_path('mexico.csv'))
+    >>> vnames = [f'pcgdp{dec}' for dec in range(1940, 2010, 10)]
+    >>> y = numpy.transpose(numpy.array([f.by_col[v] for v in vnames]))
 
-    Define regime neighbors
+    Define regime neighbors.
 
-    >>> regimes=np.array(f.by_col('hanson98'))
-    >>> w = libpysal.weights.block_weights(regimes)
-    >>> np.random.seed(12345)
-    >>> gs = Gini_Spatial(y[:,0],w)
+    >>> regimes = numpy.array(f.by_col('hanson98'))
+    >>> w = libpysal.weights.block_weights(regimes, silence_warnings=True)
+    >>> numpy.random.seed(12345)
+    >>> gs = Gini_Spatial(y[:,0], w)
+
     >>> gs.p_sim
     0.04
+
     >>> gs.wcg
     4353856.0
+
     >>> gs.e_wcg
     4170356.7474747472
 
@@ -151,7 +147,7 @@ class Gini_Spatial:
 
     def __init__(self, x, w, permutations=99):
 
-        x = np.asarray(x)
+        x = numpy.asarray(x)
         g = _gini(x)
         self.g = g
         n = len(x)
@@ -167,10 +163,10 @@ class Gini_Spatial:
         self.wcg_share = wcg / den
 
         if permutations:
-            ids = np.arange(n)
-            wcgp = np.zeros((permutations,))
+            ids = numpy.arange(n)
+            wcgp = numpy.zeros((permutations,))
             for perm in range(permutations):
-                np.random.shuffle(ids)
+                numpy.random.shuffle(ids)
                 wcgp[perm] = d - self._calc(x[ids], w)
             above = wcgp >= self.wcg
             larger = above.sum()
@@ -181,10 +177,10 @@ class Gini_Spatial:
             self.e_wcg = wcgp.mean()
             self.s_wcg = wcgp.std()
             self.z_wcg = (self.wcg - self.e_wcg) / self.s_wcg
-            self.p_z_sim = 1.0 - NORM.cdf(self.z_wcg)
+            self.p_z_sim = 1.0 - norm.cdf(self.z_wcg)
 
     def _calc(self, x, w):
         sad_sum = 0.0
         for i, js in w.neighbors.items():
-            sad_sum += np.abs(x[i] - x[js]).sum()
+            sad_sum += numpy.abs(x[i] - x[js]).sum()
         return sad_sum
