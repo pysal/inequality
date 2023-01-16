@@ -39,9 +39,9 @@ If you are having issues, please talk to us in the [gitter room](https://gitter.
 License
 -------
 
-The project is licensed under the [BSD license](https://github.com/pysal/giddy/blob/master/LICENSE.txt).
+The project is licensed under the [BSD license](https://github.com/pysal/giddy/blob/main/LICENSE.txt).
 
 Funding
 -------
 
-<img src="figs/nsf_logo.jpg" width="50"> Award #1421935 [New Approaches to Spatial Distribution Dynamics](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1421935)
+<img src="docs/_static/images/nsf_logo.jpg" width="50"> Award #1421935 [New Approaches to Spatial Distribution Dynamics](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1421935)
