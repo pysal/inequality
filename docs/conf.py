@@ -117,7 +117,7 @@ html_favicon = "_static/images/pysal_favicon.ico"
 #
 html_theme_options = {
     # Navigation bar title. (Default: ``project`` value)
-    "navbar_title": "inequality",  # string of your project name, for example, 'giddy'
+    "navbar_title": project,  # string of your project name, for example, 'giddy'
     # Render the next and previous page links in navbar. (Default: true)
     "navbar_sidebarrel": False,
     # Render the current pages TOC in the navbar. (Default: true)
@@ -158,6 +158,7 @@ html_theme_options = {
     # Navigation bar menu
     "navbar_links": [
         ("Installation", "installation"),
+        ("Tutorials", "tutorials"),
         ("API", "api"),
         ("References", "references"),
     ],
@@ -267,15 +268,22 @@ intersphinx_mapping = {
 # This is processed by Jinja2 and inserted before each notebook
 nbsphinx_prolog = r"""
 {% set docname = env.doc2path(env.docname, base=None) %}
+
 .. only:: html
+
     .. role:: raw-html(raw)
         :format: html
+
     .. nbinfo::
+
         This page was generated from `{{ docname }}`__.
         Interactive online version:
         :raw-html:`<a href="https://mybinder.org/v2/gh/pysal/inequality/main?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
+    
     __ https://github.com/pysal/inequality/blob/main/{{ docname }}
+
 .. raw:: latex
+
     \nbsphinxstartnotebook{\scriptsize\noindent\strut
     \textcolor{gray}{The following section was generated from
     \sphinxcode{\sphinxupquote{\strut {{ docname | escape_latex }}}} \dotfill}}
@@ -284,6 +292,7 @@ nbsphinx_prolog = r"""
 # This is processed by Jinja2 and inserted after each notebook
 nbsphinx_epilog = r"""
 .. raw:: latex
+
     \nbsphinxstopnotebook{\scriptsize\noindent\strut
     \textcolor{gray}{\dotfill\ \sphinxcode{\sphinxupquote{\strut
     {{ env.doc2path(env.docname, base='doc') | escape_latex }}}} ends here.}}
