@@ -73,6 +73,7 @@ def setup_package():
             "Programming Language :: Python :: 3.10",
             "Programming Language :: Python :: 3.11",
         ],
+        python_requires=">=3.8",
         license="3-Clause BSD",
         packages=[package],
         py_modules=[package],
