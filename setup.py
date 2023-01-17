@@ -1,5 +1,3 @@
-from distutils.command.build_py import build_py
-
 from setuptools import setup
 
 import versioneer
@@ -50,7 +48,7 @@ def setup_package():
     setup(
         name=package,
         version=versioneer.get_version(),
-        cmdclass=versioneer.get_cmdclass({"build_py": build_py}),
+        cmdclass=versioneer.get_cmdclass(),
         description=description,
         long_description=long_description,
         long_description_content_type="text/markdown",
