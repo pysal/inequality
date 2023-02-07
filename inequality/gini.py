@@ -62,7 +62,6 @@ class Gini:
     """
 
     def __init__(self, x):
-
         self.g = _gini(x)
 
 
@@ -146,7 +145,6 @@ class Gini_Spatial:
     """
 
     def __init__(self, x, w, permutations=99):
-
         x = numpy.asarray(x)
         g = _gini(x)
         self.g = g

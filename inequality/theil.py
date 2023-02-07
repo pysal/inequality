@@ -64,7 +64,6 @@ class Theil:
     """
 
     def __init__(self, y):
-
         n = len(y)
         y = y + SMALL * (y == 0)  # can't have 0 values
         yt = y.sum(axis=0)
@@ -216,7 +215,6 @@ class TheilDSim:
     """
 
     def __init__(self, y, partition, permutations=99):
-
         observed = TheilD(y, partition)
         bg_ct = observed.bg == observed.bg  # already have one extreme value
         bg_ct = bg_ct * 1.0
