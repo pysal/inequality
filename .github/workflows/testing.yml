@@ -61,7 +61,7 @@
        - name: install bleeding edge libpysal (Ubuntu / Python 3.11)
          shell: bash -l {0}
          run: |
-           pip install git+https://github.com/pysal/libpysal.git@master
+           pip install git+https://github.com/pysal/libpysal.git@main
          if: matrix.os == 'ubuntu-latest' && contains(matrix.environment-file, 'DEV')
        
        - name: run tests - bash
