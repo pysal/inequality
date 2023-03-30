@@ -18,7 +18,7 @@ An Example: Spatial Inequality in Mexico: 1940-2000
         <div class="col-sm-1 col-xs-hidden">
         </div>
         <div class="col-md-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/master/notebooks/gini.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
                 <img src="_static/images/1940.png" class="img-responsive center-block">
                 <div class="caption text-center">
                 <h6>State PC GDP 1940</h6>
@@ -26,7 +26,7 @@ An Example: Spatial Inequality in Mexico: 1940-2000
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/master/notebooks/gini.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
                 <img src="_static/images/regions.png" class="img-responsive center-block">
                 <div class="caption text-center">
                 <h6>Regions</h6>
@@ -34,7 +34,7 @@ An Example: Spatial Inequality in Mexico: 1940-2000
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/master/notebooks/Rank%20based%20Methods.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
                 <img src="_static/images/share.png"
                 class="img-responsive center-block">
                 <div class="caption text-center">
@@ -119,6 +119,7 @@ WARRANTIES.
    :caption: Contents:
 
    Installation <installation>
+   Tutorials <tutorials>
    API <api>
    References <references>
    
