@@ -65,7 +65,7 @@ class Gini:
         self.g = _gini(x)
 
 
-class Gini_Spatial:
+class Gini_Spatial:  # noqa N801
     """
     Spatial Gini coefficient.
 

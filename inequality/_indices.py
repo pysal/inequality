@@ -326,7 +326,7 @@ def fractionalization_gs(x):
     return fgs
 
 
-def polarization(x):
+def polarization(x):  # noqa ARG001
     raise RuntimeError("Not currently implemented.")
 
 

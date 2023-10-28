@@ -4,7 +4,10 @@
 
 """
 
-from . import _version, gini, theil
+import contextlib
+from importlib.metadata import PackageNotFoundError, version
+
+from . import gini, theil
 from ._indices import (
     abundance,
     ellison_glaeser_egg,
@@ -31,4 +34,5 @@ from ._indices import (
     theil_th,
 )
 
-__version__ = _version.get_versions()["version"]
+with contextlib.suppress(PackageNotFoundError):
+    __version__ = version("inequality")

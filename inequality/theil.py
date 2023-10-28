@@ -129,7 +129,7 @@ class TheilD:
 
     def __init__(self, y, partition):
         groups = numpy.unique(partition)
-        T = Theil(y).T
+        T = Theil(y).T  # noqa N806
         ytot = y.sum(axis=0)
 
         # group totals
@@ -219,7 +219,7 @@ class TheilDSim:
         bg_ct = observed.bg == observed.bg  # already have one extreme value
         bg_ct = bg_ct * 1.0
         results = [observed]
-        for perm in range(permutations):
+        for _ in range(permutations):
             yp = numpy.random.permutation(y)
             t = TheilD(yp, partition)
             bg_ct += 1.0 * t.bg >= observed.bg

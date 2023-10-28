@@ -6,23 +6,29 @@ Spatial Inequality  Analysis in PySAL
 [![codecov](https://codecov.io/gh/pysal/inequality/branch/main/graph/badge.svg)](https://codecov.io/gh/pysal/inequality)
 [![Documentation](https://img.shields.io/static/v1.svg?label=docs&message=current&color=9cf)](http://pysal.org/inequality/)
 
-
-
 Methods for measuring spatial inequality.
 
 
 Installation
 ------------
 
-Install inequality by running:
+Install inequality from PyPI by running:
 
 ```
 $ pip install inequality 
 ```
 
+Install inequality from conda-forge by running:
+
+```
+$ conda install -c conda-forge inequality 
+```
+
 #### Requirements
 
 - libpysal
+- numpy
+- scipy
 
 Contribute
 ----------
