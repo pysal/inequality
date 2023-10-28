@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Demonstrating the Gini Coefficient: &#8212; inequality v1.0.1 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=38b0ce36" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <script src="../_static/documentation_options.js?v=292eb321"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API reference" href="../api.html" />
+    <link rel="prev" title="Tutorials" href="../tutorials.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          inequality</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../installation.html">Installation</a></li>
+                <li><a href="../tutorials.html">Tutorials</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#conda">conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#pypi">pypi</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Demonstrating the Gini Coefficient:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#theil-inequality-measures">Theil Inequality Measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#gini-inequality-measures">Gini Inequality Measures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Demonstrating the Gini Coefficient:</a><ul>
+<li><a class="reference internal" href="#Spatial-Inequality-in-Mexico:-1940-2000">Spatial Inequality in Mexico: 1940-2000</a><ul>
+<li><a class="reference internal" href="#1.-Imports-&amp;-Input-Data">1. Imports &amp; Input Data</a></li>
+<li><a class="reference internal" href="#2.-Classic-Gini-Coefficient">2. Classic Gini Coefficient</a></li>
+<li><a class="reference internal" href="#3.-Spatial-Gini-Coefficient">3. Spatial Gini Coefficient</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/inequality/blob/main/notebooks/gini.ipynb">notebooks/gini.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/inequality/main?filepath=notebooks/gini.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Demonstrating-the-Gini-Coefficient:">
+<h1>Demonstrating the Gini Coefficient:<a class="headerlink" href="#Demonstrating-the-Gini-Coefficient:" title="Link to this heading">¶</a></h1>
+<section id="Spatial-Inequality-in-Mexico:-1940-2000">
+<h2>Spatial Inequality in Mexico: 1940-2000<a class="headerlink" href="#Spatial-Inequality-in-Mexico:-1940-2000" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Imports &amp; Input Data</p></li>
+<li><p>Classic Gini Coefficient</p></li>
+<li><p>Spatial Gini Coefficient</p></li>
+</ol>
+<hr class="docutils" />
+<section id="1.-Imports-&amp;-Input-Data">
+<h3>1. Imports &amp; Input Data<a class="headerlink" href="#1.-Imports-&-Input-Data" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%config InlineBackend.figure_format = &quot;retina&quot;
+%load_ext watermark
+%watermark
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Last updated: 2023-01-16T21:00:59.129990-05:00
+
+Python implementation: CPython
+Python version       : 3.10.8
+IPython version      : 8.8.0
+
+Compiler    : Clang 14.0.6
+OS          : Darwin
+Release     : 22.2.0
+Machine     : x86_64
+Processor   : i386
+CPU cores   : 8
+Architecture: 64bit
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas
+import inequality
+import libpysal
+import matplotlib.pyplot as plt
+import numpy
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%watermark -w
+%watermark -iv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Watermark: 2.3.1
+
+libpysal  : 4.7.0
+inequality: 1.0.0+28.g078a825.dirty
+matplotlib: 3.6.2
+numpy     : 1.24.1
+json      : 2.0.9
+geopandas : 0.12.2
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>libpysal.examples.explain(&quot;mexico&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mexico
+======
+
+Decennial per capita incomes of Mexican states 1940-2000
+--------------------------------------------------------
+
+* mexico.csv: attribute data. (n=32, k=13)
+* mexico.gal: spatial weights in GAL format.
+* mexicojoin.shp: Polygon shapefile. (n=32)
+
+Data used in Rey, S.J. and M.L. Sastre Gutierrez. (2010) &#34;Interregional inequality dynamics in Mexico.&#34; Spatial Economic Analysis, 5: 277-298.
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pth = libpysal.examples.get_path(&quot;mexicojoin.shp&quot;)
+gdf = geopandas.read_file(pth)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = gdf.plot()
+ax.set_axis_off()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_gini_6_0.png" class="no-scaled-link" src="../_images/notebooks_gini_6_0.png" style="width: 515px; height: 316px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf.head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>POLY_ID</th>
+      <th>AREA</th>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>PERIMETER</th>
+      <th>ACRES</th>
+      <th>HECTARES</th>
+      <th>PCGDP1940</th>
+      <th>PCGDP1950</th>
+      <th>PCGDP1960</th>
+      <th>...</th>
+      <th>GR9000</th>
+      <th>LPCGDP40</th>
+      <th>LPCGDP50</th>
+      <th>LPCGDP60</th>
+      <th>LPCGDP70</th>
+      <th>LPCGDP80</th>
+      <th>LPCGDP90</th>
+      <th>LPCGDP00</th>
+      <th>TEST</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7.252751e+10</td>
+      <td>MX02</td>
+      <td>Baja California Norte</td>
+      <td>2040312.385</td>
+      <td>1.792187e+07</td>
+      <td>7252751.376</td>
+      <td>22361.0</td>
+      <td>20977.0</td>
+      <td>17865.0</td>
+      <td>...</td>
+      <td>0.05</td>
+      <td>4.35</td>
+      <td>4.32</td>
+      <td>4.25</td>
+      <td>4.40</td>
+      <td>4.47</td>
+      <td>4.43</td>
+      <td>4.48</td>
+      <td>1.0</td>
+      <td>MULTIPOLYGON (((-113.13972 29.01778, -113.2405...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7.225988e+10</td>
+      <td>MX03</td>
+      <td>Baja California Sur</td>
+      <td>2912880.772</td>
+      <td>1.785573e+07</td>
+      <td>7225987.769</td>
+      <td>9573.0</td>
+      <td>16013.0</td>
+      <td>16707.0</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>3.98</td>
+      <td>4.20</td>
+      <td>4.22</td>
+      <td>4.39</td>
+      <td>4.46</td>
+      <td>4.41</td>
+      <td>4.42</td>
+      <td>2.0</td>
+      <td>MULTIPOLYGON (((-111.20612 25.80278, -111.2302...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2.731957e+10</td>
+      <td>MX18</td>
+      <td>Nayarit</td>
+      <td>1034770.341</td>
+      <td>6.750785e+06</td>
+      <td>2731956.859</td>
+      <td>4836.0</td>
+      <td>7515.0</td>
+      <td>7621.0</td>
+      <td>...</td>
+      <td>-0.05</td>
+      <td>3.68</td>
+      <td>3.88</td>
+      <td>3.88</td>
+      <td>4.04</td>
+      <td>4.13</td>
+      <td>4.11</td>
+      <td>4.06</td>
+      <td>3.0</td>
+      <td>MULTIPOLYGON (((-106.62108 21.56531, -106.6475...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>7.961008e+10</td>
+      <td>MX14</td>
+      <td>Jalisco</td>
+      <td>2324727.436</td>
+      <td>1.967200e+07</td>
+      <td>7961008.285</td>
+      <td>5309.0</td>
+      <td>8232.0</td>
+      <td>9953.0</td>
+      <td>...</td>
+      <td>0.03</td>
+      <td>3.73</td>
+      <td>3.92</td>
+      <td>4.00</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.30</td>
+      <td>4.33</td>
+      <td>4.0</td>
+      <td>POLYGON ((-101.52490 21.85664, -101.58830 21.7...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.467030e+09</td>
+      <td>MX01</td>
+      <td>Aguascalientes</td>
+      <td>313895.530</td>
+      <td>1.350927e+06</td>
+      <td>546702.985</td>
+      <td>10384.0</td>
+      <td>6234.0</td>
+      <td>8714.0</td>
+      <td>...</td>
+      <td>0.13</td>
+      <td>4.02</td>
+      <td>3.79</td>
+      <td>3.94</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.32</td>
+      <td>4.44</td>
+      <td>5.0</td>
+      <td>POLYGON ((-101.84620 22.01176, -101.96530 21.8...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = gdf.plot(column=&quot;PCGDP1940&quot;, k=5, scheme=&quot;Quantiles&quot;, legend=True)
+ax.set_axis_off()
+ax.set_title(&quot;PC GDP 1940&quot;);
+# plt.savefig(&quot;1940.png&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_gini_8_0.png" class="no-scaled-link" src="../_images/notebooks_gini_8_0.png" style="width: 515px; height: 337px;" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="2.-Classic-Gini-Coefficient">
+<h3>2. Classic Gini Coefficient<a class="headerlink" href="#2.-Classic-Gini-Coefficient" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gini_1940 = inequality.gini.Gini(gdf[&quot;PCGDP1940&quot;])
+gini_1940.g
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.3537237117345285
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>decades = range(1940, 2010, 10)
+decades
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+range(1940, 2010, 10)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ginis = [inequality.gini.Gini(gdf[&quot;PCGDP%s&quot; % decade]).g for decade in decades]
+ginis
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.3537237117345285,
+ 0.29644613439022827,
+ 0.2537183285655905,
+ 0.25513356494927303,
+ 0.24505338049421577,
+ 0.25181825879538217,
+ 0.2581130824882791]
+</pre></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="3.-Spatial-Gini-Coefficient">
+<h3>3. Spatial Gini Coefficient<a class="headerlink" href="#3.-Spatial-Gini-Coefficient" title="Link to this heading">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>inequality.gini.Gini_Spatial
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+inequality.gini.Gini_Spatial
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>regimes = gdf[&quot;HANSON98&quot;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>w = libpysal.weights.block_weights(regimes, silence_warnings=True)
+w
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;libpysal.weights.weights.W at 0x16b9e22c0&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = gdf.plot(column=&quot;HANSON98&quot;, categorical=True)
+ax.set_title(&quot;Regions&quot;)
+ax.set_axis_off()
+# plt.savefig(&quot;regions.png&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_gini_17_0.png" class="no-scaled-link" src="../_images/notebooks_gini_17_0.png" style="width: 515px; height: 337px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>numpy.random.seed(12345)
+gs = inequality.gini.Gini_Spatial(gdf[&quot;PCGDP1940&quot;], w)
+gs.p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.01
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gs_all = [
+    inequality.gini.Gini_Spatial(gdf[&quot;PCGDP%s&quot; % decade], w) for decade in decades
+]
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>p_values = [gs.p_sim for gs in gs_all]
+p_values
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.04, 0.01, 0.01, 0.01, 0.02, 0.01, 0.01]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wgs = [gs.wcg_share for gs in gs_all]
+wgs
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.2940179879590452,
+ 0.24885041274552472,
+ 0.21715641601961586,
+ 0.2212882581200239,
+ 0.20702733316567423,
+ 0.21270360014540865,
+ 0.2190953550725723]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bgs = [1 - wg for wg in wgs]
+bgs
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.7059820120409548,
+ 0.7511495872544753,
+ 0.7828435839803841,
+ 0.778711741879976,
+ 0.7929726668343258,
+ 0.7872963998545913,
+ 0.7809046449274277]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>years = numpy.array(decades)
+years
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1940, 1950, 1960, 1970, 1980, 1990, 2000])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax1 = plt.subplots()
+t = years
+s1 = ginis
+ax1.plot(t, s1, &quot;b-&quot;)
+ax1.set_xlabel(&quot;Year&quot;)
+# Make the y-axis label, ticks and tick labels match the line color.
+ax1.set_ylabel(&quot;Gini&quot;, color=&quot;b&quot;)
+ax1.tick_params(&quot;y&quot;, colors=&quot;b&quot;)
+
+ax2 = ax1.twinx()
+s2 = bgs
+ax2.plot(t, s2, &quot;r-.&quot;)
+ax2.set_ylabel(&quot;Spatial Inequality Share&quot;, color=&quot;r&quot;)
+ax2.tick_params(&quot;y&quot;, colors=&quot;r&quot;)
+
+fig.tight_layout()
+
+# plt.savefig(&quot;share.png&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_gini_24_0.png" class="no-scaled-link" src="../_images/notebooks_gini_24_0.png" style="width: 629px; height: 469px;" />
+</div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/notebooks/gini.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
