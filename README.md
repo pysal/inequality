@@ -6,8 +6,6 @@ Spatial Inequality  Analysis in PySAL
 [![codecov](https://codecov.io/gh/pysal/inequality/branch/main/graph/badge.svg)](https://codecov.io/gh/pysal/inequality)
 [![Documentation](https://img.shields.io/static/v1.svg?label=docs&message=current&color=9cf)](http://pysal.org/inequality/)
 
-
-
 Methods for measuring spatial inequality.
 
 
