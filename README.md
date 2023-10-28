@@ -12,15 +12,23 @@ Methods for measuring spatial inequality.
 Installation
 ------------
 
-Install inequality by running:
+Install inequality from PyPI by running:
 
 ```
 $ pip install inequality 
 ```
 
+Install inequality from conda-forge by running:
+
+```
+$ conda install -c conda-forge inequality 
+```
+
 #### Requirements
 
 - libpysal
+- numpy
+- scipy
 
 Contribute
 ----------
