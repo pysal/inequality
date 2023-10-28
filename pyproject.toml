@@ -64,23 +64,10 @@ line-length = 88
 line-length = 88
 select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
 target-version = "py310"
-ignore = [
-    "B006",
-    "B008",
-    "B009",
-    "B010",
-    "C408",
-    "E731",
-    "N803",
-    "N806",
-    "N999",
-    "UP007"
-]
 exclude = ["inequality/tests/*", "docs/*"]
 [tool.ruff.per-file-ignores]
 "*__init__.py" = [
     "F401",  # imported but unused
-    "F403",  # star import; unable to detect undefined names
 ]
 
 
@@ -95,21 +82,3 @@ exclude_lines = [
 ]
 ignore_errors = true
 omit = ["inequality/tests/*", "docs/conf.py"]
-
-[tool.pytest.ini_options]
-filterwarnings = [
-    "ignore:The numba package is used",
-    "ignore:numba cannot be imported",
-    "ignore:Numba not imported",
-    "ignore:The weights matrix is not fully connected",
-    "ignore:You are trying to build a full W object from",
-    "ignore:Multiple layers detected. Using first layer as default",
-    "ignore:Geometry is in a geographic CRS",
-    "ignore:`use_index` defaults to False",
-    "ignore:Objects based on the `Geometry` class will deprecated",
-    "ignore:PolygonLocator is deprecated",
-    "ignore:SegmentGrid is deprecated",
-    "ignore:In the next version of libpysal, observations with no neighbors",
-    "ignore:divide by zero encountered",
-    "ignore:invalid value encountered",
-]
