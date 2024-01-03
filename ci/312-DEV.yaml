@@ -3,6 +3,8 @@ channels:
   - conda-forge
 dependencies:
   - python=3.12
+  - geos
+  - Cython
   # testing
   - pytest
   - pytest-cov
@@ -14,3 +16,4 @@ dependencies:
     - numpy
     - scipy
     - git+https://github.com/pysal/libpysal.git@main
+    - git+https://github.com/shapely/shapely.git@main
