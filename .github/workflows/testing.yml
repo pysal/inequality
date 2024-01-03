@@ -1,10 +1,9 @@
 
  name: Continuous Integration
- 
+
  on:
    push:
-     branches:
-       - '*'
+     branches: [main]
    pull_request:
      branches:
        - '*'
@@ -40,13 +39,13 @@
      defaults:
        run:
          shell: bash -l {0}
-     
+
      steps:
        - name: checkout repo
          uses: actions/checkout@v4
          with:
            fetch-depth: 0 # Fetch all history for all branches and tags.
-       
+
        - name: setup micromamba
          uses: mamba-org/setup-micromamba@v1
          with:
@@ -65,7 +64,7 @@
            --cov-report term-missing \
            --cov-append \
            --doctest-modules
-       
+
        - name: codecov
          uses: codecov/codecov-action@v3
          with:
