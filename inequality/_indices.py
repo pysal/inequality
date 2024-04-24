@@ -13,7 +13,11 @@ References
 """
 import warnings
 
-warnings.warn("The module _indices is deprecated and will be removed on 2025-01-01.", DeprecationWarning)
+warnings.warn(
+    "The module _indices is deprecated and will be removed on 2025-01-01.",
+    DeprecationWarning,
+    stacklevel=2
+)
 
 import itertools
 
