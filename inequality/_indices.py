@@ -11,6 +11,9 @@ References
      :cite:`nijkamp2015cultural`
      https://www.econstor.eu/bitstream/10419/107568/1/dp8782.pdf
 """
+import warnings
+
+warnings.warn("The module _indices is deprecated and will be removed on 2025-01-01.", DeprecationWarning)
 
 import itertools
 
