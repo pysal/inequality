@@ -15,7 +15,7 @@ import warnings
 
 warnings.warn(
     "The module _indices is deprecated and will be removed on 2025-01-01.",
-    DeprecationWarning,
+    FutureWarning,
     stacklevel=2
 )
 
