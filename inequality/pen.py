@@ -21,21 +21,36 @@ def pen(df, col, x, ascending=True,
         ax.set(xlabel='')
 
     # Remove the legend from the barplot
-    #ax.get_legend().remove()
+    # ax.get_legend().remove()
 
     # Adjust layout for better visualization
     plt.tight_layout()
     return fig
 
 
+def pengram(gdf,
+            col,
+            x,
+            figsize=(8, 6), k=5,
+            scheme='Quantiles',
+            xticks=True,
+            leg_pos="lower right",
+            orientation='r',
+            fmt="{:.2f}",
+            ratio=[3, 1]):
 
-def pengram(gdf, col, x, figsize=(8, 6), k=5, scheme='Quantiles', xticks=True,
-        leg_pos="lower right", orientation = 'r',
-        fmt="{:.2f}", ratio=[3,1]):
+    if orientation == 'r':
+        nrow = 1
+        ncol = 2
+        dim_ratios = 'width_ratios'
+    elif orientation == 'b':
+        nrow = 2
+        ncol = 1
+        dim_ratios = 'height_ratios'
 
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize,
-                                   gridspec_kw={'width_ratios': ratio})
+    fig, (ax1, ax2) = plt.subplots(nrow, ncol, figsize=figsize,
+                                   gridspec_kw={dim_ratios: ratio})
 
     # Plot the map on the first axis
     gdf.plot(column=col, scheme=scheme, k=k, ax=ax1, legend=True,
