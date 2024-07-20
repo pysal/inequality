@@ -4,14 +4,44 @@ import geopandas as gpd
 import mapclassify as mc
 
 
-def pen(gdf, col, x, figsize=(8, 6), k=5, scheme='Quantiles', xticks=True,
-        leg_pos="lower right"):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6),
-                                   gridspec_kw={'width_ratios': [3, 1]})
+def pen(df, col, x, ascending=True,
+        xticks=True, figsize=[8, 6]):
+
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    dbfs = df.sort_values(col, ascending=ascending).reset_index(drop=True)
+    sns.barplot(x=x, y=col, data=dbfs, ax=ax)
+    ax.set_ylabel(col)
+    ax.set_xlabel(x)
+    plt.xticks(rotation=90)
+    ax.set_xticks(dbfs.index)
+    ax.set_xticklabels(dbfs[x], rotation=90)
+    # Optionally, remove the x-axis labels
+    if not xticks:
+        ax.set(xticks=[])
+        ax.set(xlabel='')
+
+    # Remove the legend from the barplot
+    #ax.get_legend().remove()
+
+    # Adjust layout for better visualization
+    plt.tight_layout()
+    return fig
+
+
+
+def pengram(gdf, col, x, figsize=(8, 6), k=5, scheme='Quantiles', xticks=True,
+        leg_pos="lower right", orientation = 'r',
+        fmt="{:.2f}", ratio=[3,1]):
+
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize,
+                                   gridspec_kw={'width_ratios': ratio})
 
     # Plot the map on the first axis
     gdf.plot(column=col, scheme=scheme, k=k, ax=ax1, legend=True,
-             legend_kwds={'loc': leg_pos})
+             legend_kwds={'loc': leg_pos,
+                          'fmt': fmt},
+             )
     ax1.axis('off')
 
     # Classify the data
