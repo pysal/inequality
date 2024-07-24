@@ -137,7 +137,8 @@ class Schutz:
         return coefficient
 
 
-    def plot(self):
+    def plot(self, xlabel="Cumulative Share of the Population",
+        ylabel="Cumulative Share of Income", grid=True):
         """
         Plot the Lorenz curve, the line of perfect equality, and the Schutz line.
 
@@ -170,9 +171,9 @@ class Schutz:
         )
 
         # Add labels and title
-        plt.xlabel("Cumulative Share of Population")
-        plt.ylabel("Cumulative Share of Income")
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
         plt.title("Lorenz Curve with Line of Perfect Equality and Schutz Line")
         plt.legend()
-        plt.grid(True)
+        plt.grid(grid)
         plt.show()
