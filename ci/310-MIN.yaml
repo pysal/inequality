@@ -8,6 +8,7 @@ dependencies:
   - numpy=1.23
   - scipy=1.8
   - seaborn
+  - mapclassify
   # testing
   - pytest
   - pytest-cov
