@@ -11,6 +11,7 @@ References
      :cite:`nijkamp2015cultural`
      https://www.econstor.eu/bitstream/10419/107568/1/dp8782.pdf
 """
+
 import numpy
 import itertools
 import warnings
