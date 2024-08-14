@@ -41,7 +41,7 @@ def abundance(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> abundance(x)
+    >>> abundance(x)  # doctest: +FLOAT_CMP
     2
 
     """
@@ -73,7 +73,7 @@ def margalev_md(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> margalev_md(x)
+    >>> margalev_md(x) # doctest: +FLOAT_CMP
     0.40242960438184466
 
     """
@@ -105,7 +105,7 @@ def menhinick_mi(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> menhinick_mi(x)
+    >>> menhinick_mi(x) # doctest: +FLOAT_CMP
     0.2886751345948129
 
     """
@@ -172,7 +172,7 @@ def simpson_sd(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> simpson_sd(x)
+    >>> simpson_sd(x) # doctest: +FLOAT_CMP
     0.40909090909090906
 
     """
@@ -203,7 +203,7 @@ def herfindahl_hd(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> herfindahl_hd(x)
+    >>> herfindahl_hd(x) # doctest: +FLOAT_CMP
     0.625
 
     """
@@ -238,7 +238,7 @@ def theil_th(x, ridz=True):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> theil_th(x)
+    >>> theil_th(x) # doctest: +FLOAT_CMP
     0.15106563978903298
 
     """
@@ -317,7 +317,7 @@ def fractionalization_gs(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> fractionalization_gs(x)
+    >>> fractionalization_gs(x) # doctest: +FLOAT_CMP
     0.375
 
     """
@@ -359,7 +359,7 @@ def shannon_se(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> shannon_se(y)
+    >>> shannon_se(y) # doctest: +FLOAT_CMP
     1.094070862104929
 
     """
@@ -418,7 +418,7 @@ def gini_gi(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> round(gini_gi(y), 10)
+    >>> round(gini_gi(y), 10) # doctest: +FLOAT_CMP
     0.0512820513
 
     """
@@ -504,13 +504,14 @@ def gini_gi_m(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> round(gini_gi_m(y), 10)
+    >>> round(gini_gi_m(y), 10) # doctest: +FLOAT_CMP
     0.0512820513
 
     """
 
     xs = x.sum(axis=0)
-    num = numpy.sum([numpy.abs(xi - xj) for xi, xj in itertools.permutations(xs, 2)])
+    num = numpy.sum([numpy.abs(xi - xj)
+                    for xi, xj in itertools.permutations(xs, 2)])
     den = 2.0 * xs.shape[0] ** 2 * numpy.mean(xs)
     ggim = num / den
     return ggim
@@ -549,7 +550,7 @@ def hoover_hi(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> round(hoover_hi(y), 10)
+    >>> round(hoover_hi(y), 10) # doctest: +FLOAT_CMP
     0.041025641
 
     """
@@ -604,7 +605,7 @@ def similarity_w_wd(x, tau):
            [0.63003627, 0.        , 0.76883356],
            [0.52017529, 0.76883356, 0.        ]])
 
-    >>> round(similarity_w_wd(y, tau), 10)
+    >>> round(similarity_w_wd(y, tau), 10) # doctest: +FLOAT_CMP
     0.581859634
 
     """
