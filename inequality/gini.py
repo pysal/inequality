@@ -7,6 +7,7 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import numpy
 from scipy.stats import norm
 
+
 __all__ = ["Gini", "Gini_Spatial"]
 
 
@@ -129,13 +130,13 @@ class Gini_Spatial:  # noqa N801
     >>> numpy.random.seed(12345)
     >>> gs = Gini_Spatial(y[:,0], w)
 
-    >>> gs.p_sim
+    >>> float(gs.p_sim) 
     0.04
 
-    >>> gs.wcg
+    >>> float(gs.wcg)
     4353856.0
 
-    >>> gs.e_wcg
+    >>> float(gs.e_wcg)
     4170356.7474747472
 
     Thus, the amount of inequality between pairs of states that are not in the
