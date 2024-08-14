@@ -133,11 +133,11 @@ class Gini_Spatial:  # noqa N801
     >>> float(gs.p_sim) 
     0.04
 
-    >>> gs.wcg
-    np.float64(4353856.0)
+    >>> float(gs.wcg)
+    4353856.0
 
-    >>> gs.e_wcg
-    np.float64(4170356.7474747472)
+    >>> float(gs.e_wcg)
+    4170356.7474747472
 
     Thus, the amount of inequality between pairs of states that are not in the
     same regime (neighbors) is significantly higher than what is expected
