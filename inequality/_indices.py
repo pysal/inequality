@@ -12,11 +12,11 @@ References
      https://www.econstor.eu/bitstream/10419/107568/1/dp8782.pdf
 """
 
-import numpy
+import functools
 import itertools
 import warnings
-import functools
 
+import numpy
 
 SMALL = numpy.finfo("float").tiny
 
