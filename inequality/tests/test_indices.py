@@ -1,32 +1,16 @@
 import numpy
 import pytest
 
-from inequality._indices import (
-    abundance,
-    ellison_glaeser_egg,
-    ellison_glaeser_egg_pop,
-    fractionalization_gs,
-    gini_gi,
-    gini_gi_m,
-    gini_gig,
-    herfindahl_hd,
-    hoover_hi,
-    isolation_ii,
-    isolation_isg,
-    margalev_md,
-    maurel_sedillot_msg,
-    maurel_sedillot_msg_pop,
-    menhinick_mi,
-    modified_segregation_msg,
-    polarization,
-    segregation_gsg,
-    shannon_se,
-    similarity_w_wd,
-    simpson_sd,
-    simpson_so,
-    theil_th,
-    theil_th_brute,
-)
+from inequality._indices import (abundance, ellison_glaeser_egg,
+                                 ellison_glaeser_egg_pop, fractionalization_gs,
+                                 gini_gi, gini_gi_m, gini_gig, herfindahl_hd,
+                                 hoover_hi, isolation_ii, isolation_isg,
+                                 margalev_md, maurel_sedillot_msg,
+                                 maurel_sedillot_msg_pop, menhinick_mi,
+                                 modified_segregation_msg, polarization,
+                                 segregation_gsg, shannon_se, similarity_w_wd,
+                                 simpson_sd, simpson_so, theil_th,
+                                 theil_th_brute)
 
 x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
 

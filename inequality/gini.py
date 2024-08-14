@@ -7,7 +7,6 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import numpy
 from scipy.stats import norm
 
-
 __all__ = ["Gini", "Gini_Spatial"]
 
 
