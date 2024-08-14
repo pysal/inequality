@@ -550,7 +550,7 @@ def hoover_hi(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> f'{(hoover_hi(y):.3f}'
+    >>> f'{hoover_hi(y):.3f}'
     '0.041'
 
     """
@@ -605,7 +605,7 @@ def similarity_w_wd(x, tau):
            [0.63003627, 0.        , 0.76883356],
            [0.52017529, 0.76883356, 0.        ]])
 
-    >>> f'{(similarity_w_wd(y, tau):.3f}'
+    >>> f'{similarity_w_wd(y, tau):.3f}'
     '0.582'
 
     """
