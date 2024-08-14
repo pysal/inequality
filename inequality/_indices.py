@@ -19,7 +19,6 @@ import numpy
 SMALL = numpy.finfo("float").tiny
 
 
-
 def abundance(x):
     """
     Abundance index. :cite:`nijkamp2015cultural`
@@ -42,8 +41,8 @@ def abundance(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> abundance(x)  
-    np.int64(2)
+    >>> int(abundance(x)) 
+    2
 
     """
 
