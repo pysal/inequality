@@ -353,12 +353,6 @@ def shannon_se(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> float(shannon_se(y))
     1.094070862104929
 
@@ -412,12 +406,6 @@ def gini_gi(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> float(round(gini_gi(y), 10))
     0.0512820513
 
@@ -453,12 +441,6 @@ def gini_gig(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> gini_gig(y)
     array([0.125     , 0.32894737, 0.18181818])
 
@@ -498,12 +480,6 @@ def gini_gi_m(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> float(round(gini_gi_m(y), 10)) 
     0.0512820513
 
@@ -544,12 +520,6 @@ def hoover_hi(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> f'{hoover_hi(y):.3f}'
     '0.041'
 
@@ -590,12 +560,6 @@ def similarity_w_wd(x, tau):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> numpy.random.seed(0)
     >>> tau = numpy.random.uniform(size=(3,3))
     >>> numpy.fill_diagonal(tau, 0.)
@@ -647,12 +611,6 @@ def segregation_gsg(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> segregation_gsg(y).round(6)
     array([0.182927, 0.24714 , 0.097252])
 
@@ -695,12 +653,6 @@ def modified_segregation_msg(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> modified_segregation_msg(y).round(6)
     array([0.085207, 0.102249, 0.04355 ])
 
@@ -739,12 +691,6 @@ def isolation_isg(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> isolation_isg(y).round(6)
     array([1.07327 , 1.219953, 1.022711])
 
@@ -781,12 +727,6 @@ def isolation_ii(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> isolation_ii(y).round(6)
     array([1.11616 , 1.310804, 1.03433 ])
 
@@ -835,10 +775,6 @@ def ellison_glaeser_egg(x, hs=None):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> z = numpy.random.randint(10, 50, size=(3,4))
-    >>> z
-    array([[10, 13, 13, 49],
-           [19, 29, 31, 46],
-           [33, 16, 34, 34]])
 
     >>> ellison_glaeser_egg(z).round(6)
     array([0.054499, 0.016242, 0.010141, 0.028803])
@@ -898,12 +834,6 @@ def ellison_glaeser_egg_pop(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> ellison_glaeser_egg_pop(y).round(6)
     array([-0.021508,  0.013299, -0.038946])
 
