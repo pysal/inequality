@@ -7,6 +7,7 @@ dependencies:
   - libpysal=4.5
   - numpy=1.23
   - scipy=1.8
+  - seaborn
   # testing
   - pytest
   - pytest-cov
