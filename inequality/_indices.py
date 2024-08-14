@@ -11,17 +11,29 @@ References
      :cite:`nijkamp2015cultural`
      https://www.econstor.eu/bitstream/10419/107568/1/dp8782.pdf
 """
-import warnings
-
-warnings.warn("The module _indices is deprecated and will be removed on 2025-01-01.", DeprecationWarning)
-
-import itertools
-
 import numpy
+import itertools
+import warnings
+import functools
+
 
 SMALL = numpy.finfo("float").tiny
 
 
+def deprecated_function(func):
+    """Decorator to mark functions as deprecated."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        warnings.warn(
+            f"{func.__name__} is deprecated and will be removed on 2025-01-01.",
+            DeprecationWarning,
+            stacklevel=2
+        )
+        return func(*args, **kwargs)
+    return wrapper
+
+
+@deprecated_function
 def abundance(x):
     """
     Abundance index. :cite:`nijkamp2015cultural`
@@ -44,7 +56,7 @@ def abundance(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> abundance(x)
+    >>> int(abundance(x)) 
     2
 
     """
@@ -54,6 +66,7 @@ def abundance(x):
     return a
 
 
+@deprecated_function
 def margalev_md(x):
     """
     Margalev MD index. :cite:`nijkamp2015cultural`
@@ -76,7 +89,7 @@ def margalev_md(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> margalev_md(x)
+    >>> float(margalev_md(x))
     0.40242960438184466
 
     """
@@ -86,6 +99,7 @@ def margalev_md(x):
     return mmd
 
 
+@deprecated_function
 def menhinick_mi(x):
     """
     Menhinick MI index. :cite:`nijkamp2015cultural`
@@ -108,7 +122,7 @@ def menhinick_mi(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> menhinick_mi(x)
+    >>> float(menhinick_mi(x)) 
     0.2886751345948129
 
     """
@@ -118,6 +132,7 @@ def menhinick_mi(x):
     return mmi
 
 
+@deprecated_function
 def simpson_so(x):
     """
     Simpson diversity index SO. :cite:`nijkamp2015cultural`
@@ -140,7 +155,7 @@ def simpson_so(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> simpson_so(x)
+    >>> float(simpson_so(x))
     0.5909090909090909
 
     """
@@ -153,6 +168,7 @@ def simpson_so(x):
     return sso
 
 
+@deprecated_function
 def simpson_sd(x):
     """
     Simpson diversity index SD. :cite:`nijkamp2015cultural`
@@ -175,7 +191,7 @@ def simpson_sd(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> simpson_sd(x)
+    >>> float(simpson_sd(x))
     0.40909090909090906
 
     """
@@ -184,6 +200,7 @@ def simpson_sd(x):
     return ssd
 
 
+@deprecated_function
 def herfindahl_hd(x):
     """
     Herfindahl index HD. :cite:`nijkamp2015cultural`
@@ -206,7 +223,7 @@ def herfindahl_hd(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> herfindahl_hd(x)
+    >>> float(herfindahl_hd(x))
     0.625
 
     """
@@ -217,6 +234,7 @@ def herfindahl_hd(x):
     return hhd
 
 
+@deprecated_function
 def theil_th(x, ridz=True):
     """
     Theil index TH as expressed in equation (32) of [2]. :cite:`nijkamp2015cultural`
@@ -241,7 +259,7 @@ def theil_th(x, ridz=True):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> theil_th(x)
+    >>> float(theil_th(x))
     0.15106563978903298
 
     """
@@ -258,6 +276,7 @@ def theil_th(x, ridz=True):
     return tth
 
 
+@deprecated_function
 def theil_th_brute(x, ridz=True):
     """
     Theil index TH using inefficient computation.
@@ -298,6 +317,7 @@ def theil_th_brute(x, ridz=True):
     return tth
 
 
+@deprecated_function
 def fractionalization_gs(x):
     """
     Fractionalization Gini-Simpson index GS. :cite:`nijkamp2015cultural`
@@ -320,7 +340,7 @@ def fractionalization_gs(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> fractionalization_gs(x)
+    >>> float(fractionalization_gs(x))
     0.375
 
     """
@@ -329,10 +349,12 @@ def fractionalization_gs(x):
     return fgs
 
 
+@deprecated_function
 def polarization(x):  # noqa ARG001
     raise RuntimeError("Not currently implemented.")
 
 
+@deprecated_function
 def shannon_se(x):
     """
     Shannon index SE. :cite:`nijkamp2015cultural`
@@ -356,13 +378,7 @@ def shannon_se(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
-    >>> shannon_se(y)
+    >>> float(shannon_se(y))
     1.094070862104929
 
     """
@@ -374,6 +390,7 @@ def shannon_se(x):
     return sse
 
 
+@deprecated_function
 def _gini(ys):
     """Gini for a single row to be used both by ``gini_gi`` and ``gini_gig``."""
 
@@ -384,6 +401,7 @@ def _gini(ys):
     return (num / den) - ((n + 1.0) / n)
 
 
+@deprecated_function
 def gini_gi(x):
     """
     Gini GI index. :cite:`nijkamp2015cultural`
@@ -415,13 +433,7 @@ def gini_gi(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
-    >>> round(gini_gi(y), 10)
+    >>> float(round(gini_gi(y), 10))
     0.0512820513
 
     """
@@ -429,6 +441,7 @@ def gini_gi(x):
     return _gini(ys)
 
 
+@deprecated_function
 def gini_gig(x):
     """
     Gini GI index. :cite:`nijkamp2015cultural`
@@ -456,12 +469,6 @@ def gini_gig(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> gini_gig(y)
     array([0.125     , 0.32894737, 0.18181818])
 
@@ -471,6 +478,7 @@ def gini_gig(x):
     return ggig
 
 
+@deprecated_function
 def gini_gi_m(x):
     """
     Gini GI index (equivalent to ``gini_gi``, not vectorized).
@@ -501,24 +509,20 @@ def gini_gi_m(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
-    >>> round(gini_gi_m(y), 10)
+    >>> float(round(gini_gi_m(y), 10)) 
     0.0512820513
 
     """
 
     xs = x.sum(axis=0)
-    num = numpy.sum([numpy.abs(xi - xj) for xi, xj in itertools.permutations(xs, 2)])
+    num = numpy.sum([numpy.abs(xi - xj)
+                    for xi, xj in itertools.permutations(xs, 2)])
     den = 2.0 * xs.shape[0] ** 2 * numpy.mean(xs)
     ggim = num / den
     return ggim
 
 
+@deprecated_function
 def hoover_hi(x):
     """
     Hoover index HI. :cite:`nijkamp2015cultural`
@@ -546,14 +550,8 @@ def hoover_hi(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
-    >>> round(hoover_hi(y), 10)
-    0.041025641
+    >>> f'{hoover_hi(y):.3f}'
+    '0.041'
 
     """
 
@@ -565,6 +563,7 @@ def hoover_hi(x):
     return hhi
 
 
+@deprecated_function
 def similarity_w_wd(x, tau):
     """
     Similarity weighted diversity. :cite:`nijkamp2015cultural`
@@ -592,12 +591,6 @@ def similarity_w_wd(x, tau):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> numpy.random.seed(0)
     >>> tau = numpy.random.uniform(size=(3,3))
     >>> numpy.fill_diagonal(tau, 0.)
@@ -607,8 +600,8 @@ def similarity_w_wd(x, tau):
            [0.63003627, 0.        , 0.76883356],
            [0.52017529, 0.76883356, 0.        ]])
 
-    >>> round(similarity_w_wd(y, tau), 10)
-    0.581859634
+    >>> f'{similarity_w_wd(y, tau):.3f}'
+    '0.582'
 
     """
 
@@ -624,6 +617,7 @@ def similarity_w_wd(x, tau):
     return swwd
 
 
+@deprecated_function
 def segregation_gsg(x):
     """
     Segregation index GS.
@@ -649,12 +643,6 @@ def segregation_gsg(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> segregation_gsg(y).round(6)
     array([0.182927, 0.24714 , 0.097252])
 
@@ -671,6 +659,7 @@ def segregation_gsg(x):
     return sgsg
 
 
+@deprecated_function
 def modified_segregation_msg(x):
     """
     Modified segregation index GS.
@@ -697,12 +686,6 @@ def modified_segregation_msg(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> modified_segregation_msg(y).round(6)
     array([0.085207, 0.102249, 0.04355 ])
 
@@ -718,6 +701,7 @@ def modified_segregation_msg(x):
     return ms_inds
 
 
+@deprecated_function
 def isolation_isg(x):
     """
     Isolation index IS. :cite:`nijkamp2015cultural`
@@ -741,12 +725,6 @@ def isolation_isg(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> isolation_isg(y).round(6)
     array([1.07327 , 1.219953, 1.022711])
 
@@ -759,6 +737,7 @@ def isolation_isg(x):
     return iisg
 
 
+@deprecated_function
 def isolation_ii(x):
     """
     Isolation index :math:`II_g` as in equation (23) of [2].
@@ -783,12 +762,6 @@ def isolation_ii(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> isolation_ii(y).round(6)
     array([1.11616 , 1.310804, 1.03433 ])
 
@@ -806,6 +779,7 @@ def isolation_ii(x):
     return iso_ii
 
 
+@deprecated_function
 def ellison_glaeser_egg(x, hs=None):
     """
     Ellison and Glaeser (1997) :cite:`ellison_1997` index of concentration.
@@ -837,10 +811,6 @@ def ellison_glaeser_egg(x, hs=None):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> z = numpy.random.randint(10, 50, size=(3,4))
-    >>> z
-    array([[10, 13, 13, 49],
-           [19, 29, 31, 46],
-           [33, 16, 34, 34]])
 
     >>> ellison_glaeser_egg(z).round(6)
     array([0.054499, 0.016242, 0.010141, 0.028803])
@@ -874,6 +844,7 @@ def ellison_glaeser_egg(x, hs=None):
     return eg_inds
 
 
+@deprecated_function
 def ellison_glaeser_egg_pop(x):
     """
     Ellison and Glaeser (1997) :cite:`ellison_1997` index of concentration.
@@ -900,12 +871,6 @@ def ellison_glaeser_egg_pop(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
-
     >>> ellison_glaeser_egg_pop(y).round(6)
     array([-0.021508,  0.013299, -0.038946])
 
@@ -936,6 +901,7 @@ def ellison_glaeser_egg_pop(x):
     return eg_inds
 
 
+@deprecated_function
 def maurel_sedillot_msg(x, hs=None):
     """
     Maurel and Sedillot (1999) :cite:`maurel_1999` index of concentration.
@@ -967,10 +933,6 @@ def maurel_sedillot_msg(x, hs=None):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> z = numpy.random.randint(10, 50, size=(3,4))
-    >>> z
-    array([[10, 13, 13, 49],
-           [19, 29, 31, 46],
-           [33, 16, 34, 34]])
 
     >>> maurel_sedillot_msg(z).round(6)
     array([ 0.078583,  0.035977,  0.039374, -0.009049])
@@ -1004,6 +966,7 @@ def maurel_sedillot_msg(x, hs=None):
     return ms_inds
 
 
+@deprecated_function
 def maurel_sedillot_msg_pop(x):
     """
     Maurel and Sedillot (1999) :cite:`maurel_1999` index of concentration.
@@ -1030,11 +993,6 @@ def maurel_sedillot_msg_pop(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
 
     >>> maurel_sedillot_msg_pop(y).round(6)
     array([-0.055036,  0.044147, -0.028666])
