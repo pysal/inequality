@@ -11,7 +11,6 @@ from scipy.stats import norm
 __all__ = ["Gini", "Gini_Spatial"]
 
 
-
 def _gini(x):
     """
     Memory efficient calculation of Gini coefficient
@@ -131,8 +130,8 @@ class Gini_Spatial:  # noqa N801
     >>> numpy.random.seed(12345)
     >>> gs = Gini_Spatial(y[:,0], w)
 
-    >>> gs.p_sim 
-    np.float64(0.04)
+    >>> float(gs.p_sim) 
+    0.04
 
     >>> gs.wcg
     np.float64(4353856.0)

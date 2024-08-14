@@ -73,8 +73,8 @@ def margalev_md(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> margalev_md(x) 
-    np.float64(0.40242960438184466)
+    >>> float(margalev_md(x))
+    0.40242960438184466
 
     """
 
@@ -105,8 +105,8 @@ def menhinick_mi(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> menhinick_mi(x) 
-    np.float64(0.2886751345948129)
+    >>> float(menhinick_mi(x)) 
+    0.2886751345948129
 
     """
 
@@ -137,8 +137,8 @@ def simpson_so(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> simpson_so(x)
-    np.float64(0.5909090909090909)
+    >>> float(simpson_so(x))
+    0.5909090909090909
 
     """
 
@@ -172,8 +172,8 @@ def simpson_sd(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> simpson_sd(x) 
-    np.float64(0.40909090909090906)
+    >>> float(simpson_sd(x))
+    0.40909090909090906
 
     """
 
@@ -203,8 +203,8 @@ def herfindahl_hd(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> herfindahl_hd(x) 
-    np.float64(0.625)
+    >>> float(herfindahl_hd(x))
+    0.625
 
     """
 
@@ -238,8 +238,8 @@ def theil_th(x, ridz=True):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> theil_th(x) 
-    np.float64(0.15106563978903298)
+    >>> float(theil_th(x))
+    0.15106563978903298
 
     """
 
@@ -317,8 +317,8 @@ def fractionalization_gs(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> fractionalization_gs(x) 
-    np.float64(0.375)
+    >>> float(fractionalization_gs(x))
+    0.375
 
     """
 
@@ -359,8 +359,8 @@ def shannon_se(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> shannon_se(y) 
-    np.float64(1.094070862104929)
+    >>> float(shannon_se(y))
+    1.094070862104929
 
     """
 
@@ -418,8 +418,8 @@ def gini_gi(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> round(gini_gi(y), 10) 
-    np.float64(0.0512820513)
+    >>> float(round(gini_gi(y), 10))
+    0.0512820513
 
     """
     ys = x.sum(axis=0)
@@ -504,8 +504,8 @@ def gini_gi_m(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> round(gini_gi_m(y), 10) 
-    np.float64(0.0512820513)
+    >>> float(round(gini_gi_m(y), 10)) 
+    0.0512820513
 
     """
 
@@ -550,8 +550,8 @@ def hoover_hi(x):
            [6, 3, 5],
            [8, 7, 9]])
 
-    >>> round(hoover_hi(y), 10) 
-    np.float64(0.041025641)
+    >>> float(hoover_hi(y)) 
+    0.041025641
 
     """
 
@@ -605,8 +605,8 @@ def similarity_w_wd(x, tau):
            [0.63003627, 0.        , 0.76883356],
            [0.52017529, 0.76883356, 0.        ]])
 
-    >>> round(similarity_w_wd(y, tau), 10) 
-    np.float64(0.581859634)
+    >>> float(similarity_w_wd(y, tau)) 
+    0.581859634
 
     """
 
