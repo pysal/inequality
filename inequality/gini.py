@@ -7,7 +7,10 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import numpy
 from scipy.stats import norm
 
+
 __all__ = ["Gini", "Gini_Spatial"]
+
+numpy.set_printoptions(legacy='1.25')
 
 
 def _gini(x):
@@ -129,7 +132,7 @@ class Gini_Spatial:  # noqa N801
     >>> numpy.random.seed(12345)
     >>> gs = Gini_Spatial(y[:,0], w)
 
-    >>> gs.p_sim # doctest: +FLOAT_CMP
+    >>> gs.p_sim 
     0.04
 
     >>> gs.wcg
