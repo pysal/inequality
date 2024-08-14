@@ -895,10 +895,6 @@ def maurel_sedillot_msg(x, hs=None):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> z = numpy.random.randint(10, 50, size=(3,4))
-    >>> z
-    array([[10, 13, 13, 49],
-           [19, 29, 31, 46],
-           [33, 16, 34, 34]])
 
     >>> maurel_sedillot_msg(z).round(6)
     array([ 0.078583,  0.035977,  0.039374, -0.009049])
@@ -958,11 +954,6 @@ def maurel_sedillot_msg_pop(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> y
-    array([[6, 1, 4],
-           [4, 8, 4],
-           [6, 3, 5],
-           [8, 7, 9]])
 
     >>> maurel_sedillot_msg_pop(y).round(6)
     array([-0.055036,  0.044147, -0.028666])
