@@ -28,7 +28,7 @@ def deprecated_function(func):
     def wrapper(*args, **kwargs):
         warnings.warn(
             f"{func.__name__} is deprecated and will be removed on 2025-01-01.",
-            DeprecationWarning,
+            FutureWarning,
             stacklevel=2,
         )
         return func(*args, **kwargs)
