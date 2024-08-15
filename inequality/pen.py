@@ -20,7 +20,8 @@ import numpy as np
 
 
 def pen(
-    df, col, x, weight=None, ascending=True, xticks=True, total_bars=100, figsize=[8, 6]
+    df, col, x, weight=None, ascending=True, xticks=True, total_bars=100,
+    figsize=(8, 6)
 ):
     """
     Creates the Pen's Parade visualization.
@@ -59,24 +60,24 @@ def pen(
     """
     try:
         import seaborn as sns
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
-            "Seaborn is required for pen. Please install it using 'pip install seaborn'."
-        )
+            "Seaborn is required for pen. Install it using 'pip install seaborn'."
+        ) from e
 
     try:
         import matplotlib.pyplot as plt
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
-            "Matplotlib is required for pen. Please install it using 'pip install matplotlib'."
-        )
+            "Matplotlib is required for pen. Install it using 'pip install matplotlib'."
+        ) from e
 
     try:
         import pandas as pd
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
-            "Pandas is required for pen. Please install it using 'pip install pandas'."
-        )
+            "Pandas is required for pen. Install it using 'pip install pandas'."
+        ) from e
 
     if weight is None:
         fig, ax = plt.subplots(1, 1, figsize=figsize)
@@ -96,7 +97,9 @@ def pen(
         return fig
     else:
         df["NumBars"] = (
-            (df[weight] / df[weight].sum() * total_bars).apply(math.ceil).astype(int)
+            (df[weight] / df[weight].sum() * total_bars)
+            .apply(math.ceil)
+            .astype(int)
         )
 
         repeated_rows = []
@@ -169,26 +172,17 @@ def pen(
 
 
 def pengram(
-    gdf,
-    col,
-    name,
-    figsize=(8, 6),
-    k=5,
-    scheme="quantiles",
-    xticks=True,
-    leg_pos="lower right",
-    orientation="r",
-    fmt="{:.2f}",
-    ratio=[3, 1],
-    query=[],
+    gdf, col, name, figsize=(8, 6), k=5, scheme="quantiles", xticks=True,
+    leg_pos="lower right", orientation="r", fmt="{:.2f}", ratio=(3, 1),
+    query=None,
 ):
     """
     Pen's Parade combined with a choropleth map.
 
     This function generates a Pen’s Parade plot combined with a choropleth
     map. It allows for highlighting specific geographic regions, applying a
-    classification scheme, and optionally querying to identify
-    specific observations in both graphics.
+    classification scheme, and optionally querying to identify specific
+    observations in both graphics.
 
     Parameters
     ----------
@@ -203,15 +197,16 @@ def pengram(
     k : int, optional
         Number of classes for the classification scheme. Default is 5.
     scheme : str, optional
-        Classification scheme to use (e.g., 'Quantiles'). Default is 'quantiles'.
+        Classification scheme to use (e.g., 'Quantiles'). Default is
+        'quantiles'.
     xticks : bool, optional
         Whether to show x-axis ticks. Default is True.
     leg_pos : str, optional
         The position of the legend on the choropleth map. Default is
         "lower right".
     orientation : str, optional
-        Orientation of the plots ('r' for right, 'b' for bottom). Default is
-        'r'.
+        Orientation of the plots ('r' for right, 'b' for bottom). Default
+        is 'r'.
     fmt : str, optional
         Format string for legend labels. Default is "{:.2f}".
     ratio : list, optional
@@ -227,44 +222,24 @@ def pengram(
     """
     try:
         import seaborn as sns
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
-            "Seaborn is required for pengram. Please install it using 'pip install seaborn'."
-        )
-    try:
-        import geopandas as gpd
-    except ImportError:
-        raise ImportError(
-            "GeoPandas is required for pengram. Please install it using 'pip install geopandas'."
-        )
-
+            "pengram requires Seaborn. Please install it using 'pip install seaborn'."
+        ) from e
     try:
         import mapclassify as mc
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
-            "mapclassify is required for pengram. Please install it using 'pip install mapclassify'."
-        )
+            "pengram requires mapclassify. Install with 'pip install mapclassify'."
+        ) from e
 
     try:
         import matplotlib.patches as patches
         import matplotlib.pyplot as plt
-    except ImportError:
+    except ImportError as e:
         raise ImportError(
-            "Matplotlib is required for pengram. Please install it using 'pip install matplotlib'."
-        )
-
-    try:
-        import mapclassify as mc
-    except ImportError:
-        raise ImportError(
-            "Mapclassify is required for pengram. Please install it using 'pip install mapclassify'."
-        )
-    try:
-        import pandas as pd
-    except ImportError:
-        raise ImportError(
-            "Pandas is required for pengram. Please install it using 'pip install pandas'."
-        )
+            "pengram requires Matplotlib. Install with 'pip install matplotlib'."
+        ) from e
 
     if orientation == "r":
         nrow = 1
