@@ -129,7 +129,7 @@ class Gini_Spatial:  # noqa N801
     >>> numpy.random.seed(12345)
     >>> gs = Gini_Spatial(y[:,0], w)
 
-    >>> float(gs.p_sim) 
+    >>> float(gs.p_sim)
     0.04
 
     >>> float(gs.wcg)
