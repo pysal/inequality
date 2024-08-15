@@ -23,14 +23,16 @@ SMALL = numpy.finfo("float").tiny
 
 def deprecated_function(func):
     """Decorator to mark functions as deprecated."""
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         warnings.warn(
             f"{func.__name__} is deprecated and will be removed on 2025-01-01.",
             DeprecationWarning,
-            stacklevel=2
+            stacklevel=2,
         )
         return func(*args, **kwargs)
+
     return wrapper
 
 
@@ -57,7 +59,7 @@ def abundance(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> int(abundance(x)) 
+    >>> int(abundance(x))
     2
 
     """
@@ -123,7 +125,7 @@ def menhinick_mi(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> float(menhinick_mi(x)) 
+    >>> float(menhinick_mi(x))
     0.2886751345948129
 
     """
@@ -510,14 +512,13 @@ def gini_gi_m(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> float(round(gini_gi_m(y), 10)) 
+    >>> float(round(gini_gi_m(y), 10))
     0.0512820513
 
     """
 
     xs = x.sum(axis=0)
-    num = numpy.sum([numpy.abs(xi - xj)
-                    for xi, xj in itertools.permutations(xs, 2)])
+    num = numpy.sum([numpy.abs(xi - xj) for xi, xj in itertools.permutations(xs, 2)])
     den = 2.0 * xs.shape[0] ** 2 * numpy.mean(xs)
     ggim = num / den
     return ggim
