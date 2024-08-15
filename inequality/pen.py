@@ -20,8 +20,7 @@ import numpy as np
 
 
 def pen(
-    df, col, x, weight=None, ascending=True, xticks=True, total_bars=100,
-    figsize=(8, 6)
+    df, col, x, weight=None, ascending=True, xticks=True, total_bars=100, figsize=(8, 6)
 ):
     """
     Creates the Pen's Parade visualization.
@@ -97,9 +96,7 @@ def pen(
         return fig
     else:
         df["NumBars"] = (
-            (df[weight] / df[weight].sum() * total_bars)
-            .apply(math.ceil)
-            .astype(int)
+            (df[weight] / df[weight].sum() * total_bars).apply(math.ceil).astype(int)
         )
 
         repeated_rows = []
@@ -172,8 +169,17 @@ def pen(
 
 
 def pengram(
-    gdf, col, name, figsize=(8, 6), k=5, scheme="quantiles", xticks=True,
-    leg_pos="lower right", orientation="r", fmt="{:.2f}", ratio=(3, 1),
+    gdf,
+    col,
+    name,
+    figsize=(8, 6),
+    k=5,
+    scheme="quantiles",
+    xticks=True,
+    leg_pos="lower right",
+    orientation="r",
+    fmt="{:.2f}",
+    ratio=(3, 1),
     query=None,
 ):
     """
