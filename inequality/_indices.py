@@ -12,13 +12,31 @@ References
      https://www.econstor.eu/bitstream/10419/107568/1/dp8782.pdf
 """
 
+import functools
 import itertools
+import warnings
 
 import numpy
 
 SMALL = numpy.finfo("float").tiny
 
 
+def deprecated_function(func):
+    """Decorator to mark functions as deprecated."""
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        warnings.warn(
+            f"{func.__name__} is deprecated and will be removed on 2025-01-01.",
+            FutureWarning,
+            stacklevel=2,
+        )
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+@deprecated_function
 def abundance(x):
     """
     Abundance index. :cite:`nijkamp2015cultural`
@@ -41,7 +59,7 @@ def abundance(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> int(abundance(x)) 
+    >>> int(abundance(x))
     2
 
     """
@@ -51,6 +69,7 @@ def abundance(x):
     return a
 
 
+@deprecated_function
 def margalev_md(x):
     """
     Margalev MD index. :cite:`nijkamp2015cultural`
@@ -83,6 +102,7 @@ def margalev_md(x):
     return mmd
 
 
+@deprecated_function
 def menhinick_mi(x):
     """
     Menhinick MI index. :cite:`nijkamp2015cultural`
@@ -105,7 +125,7 @@ def menhinick_mi(x):
 
     >>> import numpy
     >>> x = numpy.array([[0, 1, 2], [0, 2, 4], [0, 0, 3]])
-    >>> float(menhinick_mi(x)) 
+    >>> float(menhinick_mi(x))
     0.2886751345948129
 
     """
@@ -115,6 +135,7 @@ def menhinick_mi(x):
     return mmi
 
 
+@deprecated_function
 def simpson_so(x):
     """
     Simpson diversity index SO. :cite:`nijkamp2015cultural`
@@ -150,6 +171,7 @@ def simpson_so(x):
     return sso
 
 
+@deprecated_function
 def simpson_sd(x):
     """
     Simpson diversity index SD. :cite:`nijkamp2015cultural`
@@ -181,6 +203,7 @@ def simpson_sd(x):
     return ssd
 
 
+@deprecated_function
 def herfindahl_hd(x):
     """
     Herfindahl index HD. :cite:`nijkamp2015cultural`
@@ -214,6 +237,7 @@ def herfindahl_hd(x):
     return hhd
 
 
+@deprecated_function
 def theil_th(x, ridz=True):
     """
     Theil index TH as expressed in equation (32) of [2]. :cite:`nijkamp2015cultural`
@@ -255,6 +279,7 @@ def theil_th(x, ridz=True):
     return tth
 
 
+@deprecated_function
 def theil_th_brute(x, ridz=True):
     """
     Theil index TH using inefficient computation.
@@ -295,6 +320,7 @@ def theil_th_brute(x, ridz=True):
     return tth
 
 
+@deprecated_function
 def fractionalization_gs(x):
     """
     Fractionalization Gini-Simpson index GS. :cite:`nijkamp2015cultural`
@@ -326,10 +352,12 @@ def fractionalization_gs(x):
     return fgs
 
 
+@deprecated_function
 def polarization(x):  # noqa ARG001
     raise RuntimeError("Not currently implemented.")
 
 
+@deprecated_function
 def shannon_se(x):
     """
     Shannon index SE. :cite:`nijkamp2015cultural`
@@ -365,6 +393,7 @@ def shannon_se(x):
     return sse
 
 
+@deprecated_function
 def _gini(ys):
     """Gini for a single row to be used both by ``gini_gi`` and ``gini_gig``."""
 
@@ -375,6 +404,7 @@ def _gini(ys):
     return (num / den) - ((n + 1.0) / n)
 
 
+@deprecated_function
 def gini_gi(x):
     """
     Gini GI index. :cite:`nijkamp2015cultural`
@@ -414,6 +444,7 @@ def gini_gi(x):
     return _gini(ys)
 
 
+@deprecated_function
 def gini_gig(x):
     """
     Gini GI index. :cite:`nijkamp2015cultural`
@@ -450,6 +481,7 @@ def gini_gig(x):
     return ggig
 
 
+@deprecated_function
 def gini_gi_m(x):
     """
     Gini GI index (equivalent to ``gini_gi``, not vectorized).
@@ -480,19 +512,19 @@ def gini_gi_m(x):
     >>> import numpy
     >>> numpy.random.seed(0)
     >>> y = numpy.random.randint(1, 10, size=(4,3))
-    >>> float(round(gini_gi_m(y), 10)) 
+    >>> float(round(gini_gi_m(y), 10))
     0.0512820513
 
     """
 
     xs = x.sum(axis=0)
-    num = numpy.sum([numpy.abs(xi - xj)
-                    for xi, xj in itertools.permutations(xs, 2)])
+    num = numpy.sum([numpy.abs(xi - xj) for xi, xj in itertools.permutations(xs, 2)])
     den = 2.0 * xs.shape[0] ** 2 * numpy.mean(xs)
     ggim = num / den
     return ggim
 
 
+@deprecated_function
 def hoover_hi(x):
     """
     Hoover index HI. :cite:`nijkamp2015cultural`
@@ -533,6 +565,7 @@ def hoover_hi(x):
     return hhi
 
 
+@deprecated_function
 def similarity_w_wd(x, tau):
     """
     Similarity weighted diversity. :cite:`nijkamp2015cultural`
@@ -586,6 +619,7 @@ def similarity_w_wd(x, tau):
     return swwd
 
 
+@deprecated_function
 def segregation_gsg(x):
     """
     Segregation index GS.
@@ -627,6 +661,7 @@ def segregation_gsg(x):
     return sgsg
 
 
+@deprecated_function
 def modified_segregation_msg(x):
     """
     Modified segregation index GS.
@@ -668,6 +703,7 @@ def modified_segregation_msg(x):
     return ms_inds
 
 
+@deprecated_function
 def isolation_isg(x):
     """
     Isolation index IS. :cite:`nijkamp2015cultural`
@@ -703,6 +739,7 @@ def isolation_isg(x):
     return iisg
 
 
+@deprecated_function
 def isolation_ii(x):
     """
     Isolation index :math:`II_g` as in equation (23) of [2].
@@ -744,6 +781,7 @@ def isolation_ii(x):
     return iso_ii
 
 
+@deprecated_function
 def ellison_glaeser_egg(x, hs=None):
     """
     Ellison and Glaeser (1997) :cite:`ellison_1997` index of concentration.
@@ -808,6 +846,7 @@ def ellison_glaeser_egg(x, hs=None):
     return eg_inds
 
 
+@deprecated_function
 def ellison_glaeser_egg_pop(x):
     """
     Ellison and Glaeser (1997) :cite:`ellison_1997` index of concentration.
@@ -864,6 +903,7 @@ def ellison_glaeser_egg_pop(x):
     return eg_inds
 
 
+@deprecated_function
 def maurel_sedillot_msg(x, hs=None):
     """
     Maurel and Sedillot (1999) :cite:`maurel_1999` index of concentration.
@@ -928,6 +968,7 @@ def maurel_sedillot_msg(x, hs=None):
     return ms_inds
 
 
+@deprecated_function
 def maurel_sedillot_msg_pop(x):
     """
     Maurel and Sedillot (1999) :cite:`maurel_1999` index of concentration.
