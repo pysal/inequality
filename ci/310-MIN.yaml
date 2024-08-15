@@ -7,9 +7,10 @@ dependencies:
   - libpysal=4.5
   - numpy=1.23
   - scipy=1.8
+  # testing
   - seaborn
   - mapclassify
-  # testing
+  - geopandas
   - pytest
   - pytest-cov
   - pytest-xdist
