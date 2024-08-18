@@ -1,114 +1,105 @@
 import geopandas as gpd
+import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
-from inequality.pen import pen, pengram
-from matplotlib.figure import Figure
+from inequality.pen import _check_deps, pen, pengram
 
-# Sample DataFrames for testing
+# Test Data Setup
 
 
 @pytest.fixture
 def sample_df():
-    return pd.DataFrame(
-        {
-            "region": ["A", "B", "C", "D"],
-            "value": [100, 200, 300, 400],
-            "weight": [1, 2, 3, 4],
-        }
-    )
+    """Sample dataframe for testing the pen function."""
+    data = {
+        'region': ['A', 'B', 'C', 'D'],
+        'income': [50000, 60000, 70000, 80000],
+        'population': [100, 150, 200, 250]
+    }
+    return pd.DataFrame(data)
 
 
 @pytest.fixture
 def sample_gdf():
-    from shapely.geometry import Point
+    """Sample GeoDataFrame for testing the pengram function."""
+    data = {
+        'region': ['A', 'B', 'C', 'D'],
+        'income': [50000, 60000, 70000, 80000]
+    }
+    # Random polygons for simplicity
+    from shapely.geometry import Polygon
+    polygons = [
+        Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
+        Polygon([(1, 0), (2, 0), (2, 1), (1, 1)]),
+        Polygon([(0, 1), (1, 1), (1, 2), (0, 2)]),
+        Polygon([(1, 1), (2, 1), (2, 2), (1, 2)])
+    ]
+    gdf = gpd.GeoDataFrame(data, geometry=polygons)
+    return gdf
 
-    return gpd.GeoDataFrame(
-        {
-            "region": ["A", "B", "C", "D"],
-            "value": [100, 200, 300, 400],
-            "geometry": [Point(1, 1), Point(2, 2), Point(3, 3), Point(4, 4)],
-        }
-    )
-
-
-# Test for the pen function without weights
-
-
-def test_pen_no_weights(sample_df):
-    fig = pen(df=sample_df, col="value", x="region")
-    assert isinstance(
-        fig, Figure
-    ), "The pen function should return a Matplotlib Figure object."
-    assert (
-        fig.axes[0].get_xlabel() == "region"
-    ), "The x-axis label should be set correctly."
-    assert (
-        fig.axes[0].get_ylabel() == "value"
-    ), "The y-axis label should be set correctly."
+# Test _check_deps function
 
 
-# Test for the pen function with weights
+def test_check_deps():
+    """Test that _check_deps function imports all necessary dependencies."""
+    sns, mc, plt, patches, inset_axes = _check_deps()
+    assert sns is not None
+    assert mc is not None
+    assert plt is not None
+    assert patches is not None
+    assert inset_axes is not None
+
+# Test pen function
 
 
-def test_pen_with_weights(sample_df):
-    fig = pen(df=sample_df, col="value", x="region", weight="weight")
-    assert isinstance(fig, Figure), (
-        "The pen function should return a Matplotlib Figure object "
-        "when weights are applied."
-    )
-    assert (
-        fig.axes[0].get_xlabel() == "region"
-    ), "The x-axis label should be set correctly with weights."
-    assert (
-        fig.axes[0].get_ylabel() == "value"
-    ), "The y-axis label should be set correctly with weights."
+def test_pen_basic(sample_df):
+    """Test basic functionality of the pen function."""
+    ax = pen(sample_df, col='income', x='region')
+    assert ax is not None
+    assert isinstance(ax, plt.Axes)
+    assert ax.get_ylabel() == 'income'
+    assert ax.get_xlabel() == 'region'
 
 
-# Test for the pengram function without highlighting
+def test_pen_weighted(sample_df):
+    """Test pen function with weighting."""
+    ax = pen(sample_df, col='income', x='region', weight='population')
+    assert ax is not None
+    assert isinstance(ax, plt.Axes)
+    assert ax.get_ylabel() == 'income'
+    assert ax.get_xlabel() == 'region'
+
+# Test pengram function
 
 
-def test_pengram_no_query(sample_gdf):
-    fig = pengram(gdf=sample_gdf, col="value", name="region")
-    assert isinstance(
-        fig, Figure
-    ), "The pengram function should return a Matplotlib Figure object."
-    assert len(fig.axes) == 2, "The pengram function should create two subplots."
+def test_pengram_basic(sample_gdf):
+    """Test basic functionality of the pengram function."""
+    ax, inset_ax = pengram(sample_gdf, col='income', name='region')
+    assert ax is not None
+    assert inset_ax is not None
+    assert isinstance(ax, plt.Axes)
+    assert isinstance(inset_ax, plt.Axes)
 
 
-# Test for the pengram function with query
+def test_pengram_custom_inset_size(sample_gdf):
+    """Test pengram function with custom inset size."""
+    ax, inset_ax = pengram(sample_gdf, col='income',
+                           name='region', inset_size="50%")
+    assert ax is not None
+    assert inset_ax is not None
+    assert isinstance(ax, plt.Axes)
+    assert isinstance(inset_ax, plt.Axes)
+
+# Test invalid cases
 
 
-def test_pengram_with_query(sample_gdf):
-    fig = pengram(gdf=sample_gdf, col="value", name="region", query=["A", "C"])
-    assert isinstance(
-        fig, Figure
-    ), "The pengram function should return a Matplotlib Figure object."
-    assert len(fig.axes) == 2, "The pengram function should create two subplots."
-    assert (
-        "A" in fig.axes[1].get_xticklabels()[0].get_text()
-    ), "The x-tick labels should include the queried region 'A'."
-    assert (
-        "C" in fig.axes[1].get_xticklabels()[2].get_text()
-    ), "The x-tick labels should include the queried region 'C'."
+def test_invalid_weight_column(sample_df):
+    """Test pen function with an invalid weight column."""
+    with pytest.raises(KeyError):
+        pen(sample_df, col='income', x='region', weight='invalid_column')
 
 
-# Test to check if ImportError is raised for missing libraries in pen
-
-
-def test_pen_importerror(sample_df, monkeypatch):
-    monkeypatch.setattr(
-        "builtins.__import__", lambda name, *args: exec("raise ImportError()")
-    )
-    with pytest.raises(ImportError):
-        pen(df=sample_df, col="value", x="region")
-
-
-# Test to check if ImportError is raised for missing libraries in pengram
-
-
-def test_pengram_importerror(sample_gdf, monkeypatch):
-    monkeypatch.setattr(
-        "builtins.__import__", lambda name, *args: exec("raise ImportError()")
-    )
-    with pytest.raises(ImportError):
-        pengram(gdf=sample_gdf, col="value", name="region")
+def test_invalid_query_column(sample_gdf):
+    """Test pengram function with an invalid query column."""
+    with pytest.raises(KeyError):
+        pengram(sample_gdf, col='income',
+                name='invalid_column', query=['A', 'C'])

@@ -20,7 +20,8 @@ import numpy as np
 
 
 def pen(
-    df, col, x, weight=None, ascending=True, xticks=True, total_bars=100, figsize=(8, 6)
+    df, col, x, weight=None, ascending=True, xticks=True,
+    total_bars=100, figsize=(8, 6), ax=None
 ):
     """
     Creates the Pen's Parade visualization.
@@ -50,36 +51,45 @@ def pen(
         is 100.
     figsize : list, optional
         The size of the figure as a list [width, height]. Default is [8, 6].
+    ax : matplotlib.axes.Axes, optional
+        Matplotlib Axes instance to plot on. If None, a new figure and axes
+        will be created. Default is None.
 
     Returns
     -------
-    matplotlib.figure.Figure
-        A Matplotlib figure object with the Pen's Parade plot.
+    matplotlib.axes.Axes
+        A Matplotlib Axes object with the Pen's Parade plot.
 
     """
     try:
         import seaborn as sns
     except ImportError as e:
         raise ImportError(
-            "Seaborn is required for pen. Install it using 'pip install seaborn'."
+            "Seaborn is required for pen. Install with  'pip install seaborn'."
         ) from e
 
     try:
         import matplotlib.pyplot as plt
     except ImportError as e:
-        raise ImportError(
-            "Matplotlib is required for pen. Install it using 'pip install matplotlib'."
-        ) from e
+        error_msg = (
+            "Matplotlib is required for pen. Install with 'pip install "
+            "matplotlib'."
+        )
+        raise ImportError(error_msg) from e
 
     try:
         import pandas as pd
     except ImportError as e:
-        raise ImportError(
-            "Pandas is required for pen. Install it using 'pip install pandas'."
-        ) from e
+        error_msg = (
+            "Pandas is required for pen. Install it using 'pip install "
+            "pandas'."
+        )
+        raise ImportError(error_msg) from e
+
+    if ax is None:
+        fig, ax = plt.subplots(1, 1, figsize=figsize)
 
     if weight is None:
-        fig, ax = plt.subplots(1, 1, figsize=figsize)
         dbfs = df.sort_values(col, ascending=ascending).reset_index(drop=True)
         sns.barplot(x=x, y=col, data=dbfs, ax=ax)
         ax.set_ylabel(col)
@@ -91,12 +101,10 @@ def pen(
         if not xticks:
             ax.set(xticks=[])
             ax.set(xlabel="")
-
-        plt.tight_layout()
-        return fig
     else:
         df["NumBars"] = (
-            (df[weight] / df[weight].sum() * total_bars).apply(math.ceil).astype(int)
+            (df[weight] / df[weight].sum() *
+             total_bars).apply(math.ceil).astype(int)
         )
 
         repeated_rows = []
@@ -112,8 +120,6 @@ def pen(
         colors = plt.cm.get_cmap("tab20", len(unique_obs))
         color_map = {state: colors(i) for i, state in enumerate(unique_obs)}
         bar_colors = df_sorted[name].map(color_map)
-
-        fig, ax = plt.subplots(figsize=figsize)
 
         bar_positions = np.arange(len(df_sorted))
         bar_heights = df_sorted[col]
@@ -165,7 +171,44 @@ def pen(
         ax.set_ylabel(col)
         ax.set_title(f"Weighted Pen Parade of {name} by {col}")
 
-        return fig
+    plt.tight_layout()
+    return ax
+
+
+def _check_deps():
+    """
+    Check for required dependencies.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the imported modules (Seaborn, mapclassify,
+        Matplotlib pyplot, Matplotlib patches).
+    """
+    try:
+        import seaborn as sns
+    except ImportError as e:
+        raise ImportError(
+            "pengram requires Seaborn. Install it using 'pip install seaborn'."
+        ) from e
+
+    try:
+        import mapclassify as mc
+    except ImportError as e:
+        raise ImportError(
+            "pengram requires mapclassify. Install it using 'pip install mapclassify'."
+        ) from e
+
+    try:
+        import matplotlib.pyplot as plt
+        import matplotlib.patches as patches
+        from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+    except ImportError as e:
+        raise ImportError(
+            "pengram requires Matplotlib. Install it using 'pip install matplotlib'."
+        ) from e
+
+    return sns, mc, plt, patches, inset_axes
 
 
 def pengram(
@@ -176,19 +219,21 @@ def pengram(
     k=5,
     scheme="quantiles",
     xticks=True,
+    legend=True,
     leg_pos="lower right",
     orientation="r",
     fmt="{:.2f}",
     ratio=(3, 1),
     query=None,
+    ax=None,
+    inset_size="30%"
 ):
     """
     Pen's Parade combined with a choropleth map.
 
     This function generates a Pen’s Parade plot combined with a choropleth
-    map. It allows for highlighting specific geographic regions, applying a
-    classification scheme, and optionally querying to identify specific
-    observations in both graphics.
+    map. Both plots are placed within the same subplot, with the choropleth
+    map as the main plot and the Pen's Parade as an inset.
 
     Parameters
     ----------
@@ -207,90 +252,72 @@ def pengram(
         'quantiles'.
     xticks : bool, optional
         Whether to show x-axis ticks. Default is True.
+    legend : bool, optional
+        Whether to show the map legend. Default is True.
     leg_pos : str, optional
         The position of the legend on the choropleth map. Default is
         "lower right".
-    orientation : str, optional
-        Orientation of the plots ('r' for right, 'b' for bottom). Default
-        is 'r'.
     fmt : str, optional
         Format string for legend labels. Default is "{:.2f}".
     ratio : list, optional
         Ratio of the plot dimensions. Default is [3, 1].
     query : list, optional
         Specific geographic units to highlight. Default is an empty list.
+    ax : matplotlib.axes.Axes, optional
+        Matplotlib Axes instance to plot on. If None, a new figure and axes
+        will be created. Default is None.
+    inset_size : str, optional
+        Size of the inset plot as a percentage of the main plot. Default is "30%".
 
     Returns
     -------
-    None
-        The function generates and displays a plot.
-
+    matplotlib.axes.Axes
+        Matplotlib Axes objects for the combined choropleth and Pen's parade.
     """
-    try:
-        import seaborn as sns
-    except ImportError as e:
-        raise ImportError(
-            "pengram requires Seaborn. Please install it using 'pip install seaborn'."
-        ) from e
-    try:
-        import mapclassify as mc
-    except ImportError as e:
-        raise ImportError(
-            "pengram requires mapclassify. Install with 'pip install mapclassify'."
-        ) from e
+    sns, mc, plt, patches, inset_axes = _check_deps()
 
-    try:
-        import matplotlib.patches as patches
-        import matplotlib.pyplot as plt
-    except ImportError as e:
-        raise ImportError(
-            "pengram requires Matplotlib. Install with 'pip install matplotlib'."
-        ) from e
+    if ax is None:
+        fig, ax = plt.subplots(figsize=figsize)
+    else:
+        fig = ax.figure
 
-    if orientation == "r":
-        nrow = 1
-        ncol = 2
-        dim_ratios = "width_ratios"
-    elif orientation == "b":
-        nrow = 2
-        ncol = 1
-        dim_ratios = "height_ratios"
-
-    fig, (ax1, ax2) = plt.subplots(
-        nrow, ncol, figsize=figsize, gridspec_kw={dim_ratios: ratio}
-    )
-
+    # Main plot: Choropleth map
     _ = gdf.plot(
         column=col,
         scheme=scheme,
         k=k,
-        ax=ax1,
-        legend=True,
+        ax=ax,
+        legend=legend,
         legend_kwds={"loc": leg_pos, "fmt": fmt},
     )
-    ax1.axis("off")
+    ax.axis("off")
 
     if query:
         highlight = gdf[gdf[name].isin(query)]
-        highlight.boundary.plot(ax=ax1, edgecolor="red", linewidth=2)
+        highlight.boundary.plot(ax=ax, edgecolor="red", linewidth=2)
+
+    # Inset plot: Pen's Parade
+    inset_ax = inset_axes(ax, width=inset_size,
+                          height=inset_size, loc='upper right')
 
     binned = mc.classify(gdf[col], scheme, k=k)
     gdf["_bin"] = binned.yb
 
     sgdf = gdf.sort_values(by=col, ascending=True).reset_index(drop=True)
 
-    sns.barplot(x=sgdf.index, y=col, hue="_bin", data=sgdf, palette="viridis", ax=ax2)
-    ax2.set_ylabel(col)
-    ax2.set_xlabel(name)
+    sns.barplot(x=sgdf.index, y=col, hue="_bin",
+                data=sgdf, palette="viridis", ax=inset_ax)
+    inset_ax.set_ylabel(col)
+    inset_ax.set_xlabel(name)
     plt.xticks(rotation=90)
-    ax2.set_title("Pen's Parade")
+    inset_ax.set_title("Pen's Parade", fontsize=10)
 
-    ax2.set_xticks(sgdf.index)
-    ax2.set_xticklabels(sgdf[name], rotation=90)
+    inset_ax.set_xticks(sgdf.index)
+    inset_ax.set_xticklabels(sgdf[name], rotation=90, fontsize=8)
 
     if not xticks:
-        ax2.set(xticks=[])
-        ax2.set(xlabel="")
+        inset_ax.set(xticks=[])
+        inset_ax.set(xlabel="")
 
     if query:
         for obs in query:
@@ -304,9 +331,9 @@ def pengram(
                     edgecolor="red",
                     facecolor="none",
                 )
-                ax2.add_patch(rect)
+                inset_ax.add_patch(rect)
 
-    ax2.get_legend().remove()
+    inset_ax.get_legend().remove()
 
-    plt.tight_layout()
-    return fig
+    # plt.tight_layout()
+    return ax, inset_ax
