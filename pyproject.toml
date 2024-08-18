@@ -55,7 +55,10 @@ tests = [
     "pytest-cov",
     "pytest-xdist",
 ]
-
+pen = [
+    "matplotlib",
+    "pandas",
+]
 [tool.setuptools.packages.find]
 include = ["inequality", "inequality.*"]
 
