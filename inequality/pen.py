@@ -19,6 +19,48 @@ import math
 import numpy as np
 
 
+def _check_deps(caller="pen"):
+    """
+    Check for required dependencies.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the imported modules (Seaborn, mapclassify,
+        Matplotlib pyplot, Matplotlib patches).
+    """
+    try:
+        import seaborn as sns
+    except ImportError as e:
+        msg = f"{caller} requires Seaborn."
+        msg = f"{msg} Install it using `conda install -c conda-forge seaborn`"
+        raise ImportError(msg) from e
+
+    try:
+        import mapclassify as mc
+    except ImportError as e:
+        msg = f"{caller} requires mapclassify."
+        msg = f"{msg} Install it using `conda install -c conda-forge mapclassify`"
+        raise ImportError(msg) from e
+
+    try:
+        import matplotlib.patches as patches
+        import matplotlib.pyplot as plt
+        from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+    except ImportError as e:
+        msg = f"{caller} requires matplotlib. "
+        msg = f"{msg} Install it using `conda install -c conda-forge matplotlib`"
+        raise ImportError(msg) from e
+    try:
+        import pandas as pd
+    except ImportError as e:
+        msg = f"{caller} requires pandas. "
+        msg = f"{msg} Install it using `conda install -c conda-forge pandas`"
+        raise ImportError(msg) from e
+
+    return sns, mc, plt, patches, inset_axes, pd
+
+
 def pen(
     df,
     col,
@@ -68,28 +110,8 @@ def pen(
         A Matplotlib Axes object with the Pen's Parade plot.
 
     """
-    try:
-        import seaborn as sns
-    except ImportError as e:
-        raise ImportError(
-            "Seaborn is required for pen. Install with  'pip install seaborn'."
-        ) from e
 
-    try:
-        import matplotlib.pyplot as plt
-    except ImportError as e:
-        error_msg = (
-            "Matplotlib is required for pen. Install with 'pip install " "matplotlib'."
-        )
-        raise ImportError(error_msg) from e
-
-    try:
-        import pandas as pd
-    except ImportError as e:
-        error_msg = (
-            "Pandas is required for pen. Install it using 'pip install " "pandas'."
-        )
-        raise ImportError(error_msg) from e
+    sns, mc, plt, patches, inset_axes, pd = _check_deps()
 
     if ax is None:
         fig, ax = plt.subplots(1, 1, figsize=figsize)
@@ -179,42 +201,6 @@ def pen(
     return ax
 
 
-def _check_deps():
-    """
-    Check for required dependencies.
-
-    Returns
-    -------
-    tuple
-        A tuple containing the imported modules (Seaborn, mapclassify,
-        Matplotlib pyplot, Matplotlib patches).
-    """
-    try:
-        import seaborn as sns
-    except ImportError as e:
-        raise ImportError(
-            "pengram requires Seaborn. Install it using 'pip install seaborn'."
-        ) from e
-
-    try:
-        import mapclassify as mc
-    except ImportError as e:
-        raise ImportError(
-            "pengram requires mapclassify. Install it using 'pip install mapclassify'."
-        ) from e
-
-    try:
-        import matplotlib.patches as patches
-        import matplotlib.pyplot as plt
-        from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-    except ImportError as e:
-        raise ImportError(
-            "pengram requires Matplotlib. Install it using 'pip install matplotlib'."
-        ) from e
-
-    return sns, mc, plt, patches, inset_axes
-
-
 def pengram(
     gdf,
     col,
@@ -274,7 +260,7 @@ def pengram(
     matplotlib.axes.Axes
         Matplotlib Axes objects for the combined choropleth and Pen's parade.
     """
-    sns, mc, plt, patches, inset_axes = _check_deps()
+    sns, mc, plt, patches, inset_axes, pd = _check_deps()
 
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)

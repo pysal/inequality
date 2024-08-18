@@ -2,6 +2,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
+
 from inequality.pen import _check_deps, pen, pengram
 
 # Test Data Setup
@@ -40,12 +41,13 @@ def sample_gdf():
 
 def test_check_deps():
     """Test that _check_deps function imports all necessary dependencies."""
-    sns, mc, plt, patches, inset_axes = _check_deps()
+    sns, mc, plt, patches, inset_axes, pd = _check_deps()
     assert sns is not None
     assert mc is not None
     assert plt is not None
     assert patches is not None
     assert inset_axes is not None
+    assert pd is not None
 
 
 # Test pen function
