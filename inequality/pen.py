@@ -226,7 +226,6 @@ def pengram(
     legend=True,
     leg_pos="lower right",
     fmt="{:.2f}",
-    ratio=(3, 1),
     query=None,
     ax=None,
     inset_size="30%",
