@@ -20,8 +20,15 @@ import numpy as np
 
 
 def pen(
-    df, col, x, weight=None, ascending=True, xticks=True,
-    total_bars=100, figsize=(8, 6), ax=None
+    df,
+    col,
+    x,
+    weight=None,
+    ascending=True,
+    xticks=True,
+    total_bars=100,
+    figsize=(8, 6),
+    ax=None,
 ):
     """
     Creates the Pen's Parade visualization.
@@ -72,8 +79,7 @@ def pen(
         import matplotlib.pyplot as plt
     except ImportError as e:
         error_msg = (
-            "Matplotlib is required for pen. Install with 'pip install "
-            "matplotlib'."
+            "Matplotlib is required for pen. Install with 'pip install " "matplotlib'."
         )
         raise ImportError(error_msg) from e
 
@@ -81,8 +87,7 @@ def pen(
         import pandas as pd
     except ImportError as e:
         error_msg = (
-            "Pandas is required for pen. Install it using 'pip install "
-            "pandas'."
+            "Pandas is required for pen. Install it using 'pip install " "pandas'."
         )
         raise ImportError(error_msg) from e
 
@@ -103,8 +108,7 @@ def pen(
             ax.set(xlabel="")
     else:
         df["NumBars"] = (
-            (df[weight] / df[weight].sum() *
-             total_bars).apply(math.ceil).astype(int)
+            (df[weight] / df[weight].sum() * total_bars).apply(math.ceil).astype(int)
         )
 
         repeated_rows = []
@@ -225,7 +229,7 @@ def pengram(
     ratio=(3, 1),
     query=None,
     ax=None,
-    inset_size="30%"
+    inset_size="30%",
 ):
     """
     Pen's Parade combined with a choropleth map.
@@ -292,16 +296,16 @@ def pengram(
         highlight.boundary.plot(ax=ax, edgecolor="red", linewidth=2)
 
     # Inset plot: Pen's Parade
-    inset_ax = inset_axes(ax, width=inset_size,
-                          height=inset_size, loc='upper right')
+    inset_ax = inset_axes(ax, width=inset_size, height=inset_size, loc="upper right")
 
     binned = mc.classify(gdf[col], scheme, k=k)
     gdf["_bin"] = binned.yb
 
     sgdf = gdf.sort_values(by=col, ascending=True).reset_index(drop=True)
 
-    sns.barplot(x=sgdf.index, y=col, hue="_bin",
-                data=sgdf, palette="viridis", ax=inset_ax)
+    sns.barplot(
+        x=sgdf.index, y=col, hue="_bin", data=sgdf, palette="viridis", ax=inset_ax
+    )
     inset_ax.set_ylabel(col)
     inset_ax.set_xlabel(name)
     plt.xticks(rotation=90)
