@@ -200,8 +200,8 @@ def _check_deps():
         ) from e
 
     try:
-        import matplotlib.pyplot as plt
         import matplotlib.patches as patches
+        import matplotlib.pyplot as plt
         from mpl_toolkits.axes_grid1.inset_locator import inset_axes
     except ImportError as e:
         raise ImportError(
@@ -221,7 +221,6 @@ def pengram(
     xticks=True,
     legend=True,
     leg_pos="lower right",
-    orientation="r",
     fmt="{:.2f}",
     ratio=(3, 1),
     query=None,
@@ -259,8 +258,6 @@ def pengram(
         "lower right".
     fmt : str, optional
         Format string for legend labels. Default is "{:.2f}".
-    ratio : list, optional
-        Ratio of the plot dimensions. Default is [3, 1].
     query : list, optional
         Specific geographic units to highlight. Default is an empty list.
     ax : matplotlib.axes.Axes, optional
@@ -278,8 +275,6 @@ def pengram(
 
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)
-    else:
-        fig = ax.figure
 
     # Main plot: Choropleth map
     _ = gdf.plot(
