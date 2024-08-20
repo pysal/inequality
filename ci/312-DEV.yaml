@@ -8,9 +8,11 @@ dependencies:
   - pytest-cov
   - pytest-xdist
   - codecov
+  - seaborn
   - pip:
     # dev versions of packages
     - --pre --index-url   https://pypi.anaconda.org/scientific-python-nightly-wheels/simple   --extra-index-url https://pypi.org/simple
     - numpy
     - scipy
     - git+https://github.com/pysal/libpysal.git@main
+    - git+https://github.com/pysal/mapclassify.git@main
