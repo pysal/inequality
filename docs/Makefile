@@ -1,10 +1,10 @@
 # Minimal makefile for Sphinx documentation
 #
 
-# You can set these variables from the command line.
-SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = inequality
+# You can set these variables from the command line, and also
+# from the environment for the first two.
+SPHINXOPTS    ?=
+SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
@@ -17,18 +17,4 @@ help:
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
-	@rsync -r --exclude '.ipynb_checkpoints/' ../notebooks/ ./notebooks/
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-
-github:
-	@make html
-
-sync:
-	@rsync -avh _build/html/ ../docs/ --delete
-	@make clean
-	touch .nojekyll
-
-clean:
-	rm -rf $(BUILDDIR)/*
-	rm -rf auto_examples/
-	rm -rf generated/

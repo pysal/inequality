@@ -12,6 +12,8 @@ dependencies:
   - pytest-cov
   - pytest-xdist
   - codecov
+  - seaborn
+  - mapclassify
   # docs
   - nbsphinx
   - numpydoc
