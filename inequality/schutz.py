@@ -53,7 +53,6 @@ class Schutz:
     >>> print("Schutz Distance:", round(float(schutz_obj.distance),2))
     Schutz Distance: 0.15
     >>> print("Intersection Point:", round(schutz_obj.intersection_point, 1))
-
     Intersection Point (x=y): 0.6
     >>> print("Schutz Coefficient:", round(schutz_obj.coefficient, 1))
     Schutz Coefficient: 7.5
