@@ -37,7 +37,6 @@ Repository = "https://github.com/pysal/inequality"
 
 [project.optional-dependencies]
 dev = [
-    "black",
     "pre-commit",
     "ruff",
 ]
@@ -62,12 +61,9 @@ pen = [
 [tool.setuptools.packages.find]
 include = ["inequality", "inequality.*"]
 
-[tool.black]
-line-length = 88
 
 [tool.ruff]
 line-length = 88
-target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
