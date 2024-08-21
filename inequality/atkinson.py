@@ -110,27 +110,3 @@ class Atkinson:
         self.epsilon = epsilon
         self.A = _atkinson(y, epsilon)
         self.EDE = y.mean() * (1 - self.A)
-
-
-# Example usage
-if __name__ == "__main__":
-    incomes = np.array([10, 20, 30, 40, 50])
-
-    # Using the _atkinson function
-    # Output: 0.06315339222708616
-    print(f"_atkinson(incomes, 0.5): {_atkinson(incomes, 0.5)}")
-    # Output: 0.1316096384342157
-    print(f"_atkinson(incomes, 1): {_atkinson(incomes, 1)}")
-
-    # Using the Atkinson class
-    atkinson = Atkinson(incomes, 0.5)
-    # Output: 0.06315339222708616
-    print(f"Atkinson index (epsilon=0.5): {atkinson.A}")
-    # Output: 28.105398233187415
-    print(f"EDE (epsilon=0.5): {atkinson.EDE}")
-
-    atkinson = Atkinson(incomes, 1)
-    # Output: 0.1316096384342157
-    print(f"Atkinson index (epsilon=1): {atkinson.A}")
-    # Output: 26.051710846973528
-    print(f"EDE (epsilon=1): {atkinson.EDE}")
