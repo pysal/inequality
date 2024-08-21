@@ -7,8 +7,8 @@ def _atkinson(y, epsilon):
     """
     Compute the Atkinson index for a given distribution of income or wealth.
 
-    The Atkinson index is a measure of economic inequality that takes into account 
-    the social aversion to inequality. It is sensitive to changes in different parts 
+    The Atkinson index is a measure of economic inequality that takes into account
+    the social aversion to inequality. It is sensitive to changes in different parts
     of the income distribution depending on the value of the parameter epsilon.
 
     Parameters
@@ -16,8 +16,8 @@ def _atkinson(y, epsilon):
     y : array-like
         An array of income or wealth values.
     epsilon : float
-        The inequality aversion parameter. Higher values of epsilon give more weight 
-        to the lower end of the distribution, making the index more sensitive to 
+        The inequality aversion parameter. Higher values of epsilon give more weight
+        to the lower end of the distribution, making the index more sensitive to
         changes in the lower tail.
 
     Returns
@@ -27,7 +27,7 @@ def _atkinson(y, epsilon):
 
     Notes
     -----
-    - If epsilon equals 0, the Atkinson index is 0 regardless of the distribution, 
+    - If epsilon equals 0, the Atkinson index is 0 regardless of the distribution,
       as it implies no aversion to inequality.
     - If epsilon equals 1, the Atkinson index is calculated using the geometric mean.
     - The input array y should contain positive values for a meaningful calculation.
@@ -56,8 +56,8 @@ class Atkinson:
     """
     A class to calculate and store the Atkinson index and the equally distributed equivalent (EDE).
 
-    The Atkinson index is a measure of economic inequality that takes into account the social aversion 
-    to inequality. The equally distributed equivalent (EDE) represents the level of income that, if 
+    The Atkinson index is a measure of economic inequality that takes into account the social aversion
+    to inequality. The equally distributed equivalent (EDE) represents the level of income that, if
     equally distributed, would give the same level of social welfare as the actual distribution.
 
     See :cite:`Atkinson_1970_Measurement`.
@@ -67,8 +67,8 @@ class Atkinson:
     y : array-like
         An array of income or wealth values.
     epsilon : float
-        The inequality aversion parameter. Higher values of epsilon give more weight 
-        to the lower end of the distribution, making the index more sensitive to 
+        The inequality aversion parameter. Higher values of epsilon give more weight
+        to the lower end of the distribution, making the index more sensitive to
         changes in the lower tail.
 
     Attributes
