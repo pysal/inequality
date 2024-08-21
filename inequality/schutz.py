@@ -1,37 +1,44 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 
 __all__ = ["Schutz"]
 
 
 class Schutz:
-    """
-    The Schutz class calculates measures of inequality based on the given income distribution.
+    """The Schutz class calculates measures of inequality in an income
+    distribution.
 
-    It calculates the Schutz distance, which is the maximum distance between
-    the line of perfect equality and the Lorenz curve. Additionally, it computes
-    the intersection point with the line of perfect equality where the Schutz distance occurs
-    and the original Schutz coefficient.
+    It calculates the Schutz distance, which is the maximum distance
+    between the line of perfect equality and the Lorenz curve.
+    Additionally, it computes the intersection point with the line of
+    perfect equality where the Schutz distance occurs and the original
+    Schutz coefficient.
+    See :cite:`schutz1951MeasurementIncome`.
+
+
 
     Parameters
     ----------
     df : pd.DataFrame
         The input DataFrame containing the data.
     column_name : str
-        The name of the column for which the Schutz coefficient is to be calculated.
+        The name of the column for which the Schutz coefficient is to
+        be calculated.
 
     Attributes
     ----------
     df : pd.DataFrame
         The input DataFrame containing the data.
     column_name : str
-        The name of the column for which the Schutz coefficient is to be calculated.
+        The name of the column for which the Schutz coefficient is to
+        be calculated.
     df_processed : pd.DataFrame
         The processed DataFrame with additional columns.
     distance : float
-        The maximum distance between the line of perfect equality and the Lorenz curve.
+        The maximum distance between the line of perfect equality and
+        the Lorenz curve.
     intersection_point : float
-        The x and y coordinate of the intersection point where the Schutz distance occurs.
+        The x and y coordinate of the intersection point where the
+        Schutz distance occurs.
     coefficient : float
         The original Schutz coefficient.
 
@@ -43,26 +50,28 @@ class Schutz:
     ...     'Y': [1000, 2000, 1500, 3000, 2500]
     ... })
     >>> schutz_obj = Schutz(gdf, 'Y')
-    >>> print("Schutz Distance:", schutz_obj.distance)
+    >>> print("Schutz Distance:", round(float(schutz_obj.distance),2))
     Schutz Distance: 0.15
-    >>> print("Intersection Point (x=y):", schutz_obj.intersection_point)
+    >>> print("Intersection Point:", round(schutz_obj.intersection_point, 1))
+
     Intersection Point (x=y): 0.6
-    >>> print("Schutz Coefficient:", schutz_obj.coefficient)
-    Schutz Coefficient: 15
+    >>> print("Schutz Coefficient:", round(schutz_obj.coefficient, 1))
+    Schutz Coefficient: 7.5
     """
 
     def __init__(self, df, column_name):
         """
         Initialize the Schutz object, calculate the Schutz distance,
-        the intersection point with the line of perfect equality,
-        and the original Schutz coefficient.
+        the intersection point with the line of perfect equality, and
+        the original Schutz coefficient.
 
         Parameters
         ----------
-        df : pd.DataFrame
+        df: pd.DataFrame
             The input DataFrame containing the data.
-        column_name : str
-            The name of the column for which the Schutz coefficient is to be calculated.
+        column_name: str
+            The name of the column for which the Schutz coefficient is
+            to be calculated.
         """
         self.df = df
         self.column_name = column_name
@@ -73,7 +82,8 @@ class Schutz:
 
     def _prepare_dataframe(self):
         """
-        Prepare the DataFrame by sorting and calculating necessary columns.
+        Prepare the DataFrame by sorting and calculating necessary
+        columns.
 
         Returns
         -------
@@ -97,8 +107,8 @@ class Schutz:
 
     def calculate_schutz_distance(self):
         """
-        Calculate the Schutz distance, which is the maximum distance between
-        the line of perfect equality and the Lorenz curve.
+        Calculate the Schutz distance, which is the maximum distance
+        between the line of perfect equality and the Lorenz curve.
 
         Returns
         -------
@@ -109,12 +119,14 @@ class Schutz:
 
     def calculate_intersection_point(self):
         """
-        Calculate the intersection point of the line of perfect equality and the Lorenz curve.
+        Calculate the intersection point of the line of perfect equality
+        and the Lorenz curve.
 
         Returns
         -------
         float
-            The x and y coordinate of the intersection point where the Schutz distance occurs.
+            The x and y coordinate of the intersection point where the
+            Schutz distance occurs.
         """
         max_distance_row = self.df_processed[
             self.df_processed["distance"] == self.distance
@@ -136,15 +148,16 @@ class Schutz:
         ].coefficient.sum()
         return coefficient
 
-
     def plot(self, xlabel="Cumulative Share of the Population",
-        ylabel="Cumulative Share of Income", grid=True):
+             ylabel="Cumulative Share of Income", grid=True):
         """
-        Plot the Lorenz curve, the line of perfect equality, and the Schutz line.
+        Plot the Lorenz curve, the line of perfect equality, and the
+        Schutz line.
 
-        The plot shows the Lorenz curve, a 45-degree line representing perfect equality,
-        and the Schutz line dropping vertically from the intersection point on the line of
-        perfect equality to the Lorenz curve.
+        The plot shows the Lorenz curve, a 45-degree line representing
+        perfect equality, and the Schutz line dropping vertically from
+        the intersection point on the line of perfect equality to the
+        Lorenz curve.
         """
         plt.figure(figsize=(10, 6))
 
@@ -158,7 +171,10 @@ class Schutz:
 
         # Plot 45-degree line of perfect equality
         plt.plot(
-            [0, 1], [0, 1], label="Line of Perfect Equality", color="black", linestyle="--"
+            [0, 1], [0, 1],
+            label="Line of Perfect Equality",
+            color="black",
+            linestyle="--"
         )
 
         # Plot Schutz line
@@ -173,7 +189,9 @@ class Schutz:
         # Add labels and title
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
-        plt.title("Lorenz Curve with Line of Perfect Equality and Schutz Line")
+        plt.title(
+            "Lorenz Curve with Line of Perfect Equality and Schutz Line"
+        )
         plt.legend()
         plt.grid(grid)
         plt.show()
