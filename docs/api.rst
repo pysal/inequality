@@ -27,3 +27,12 @@ Gini Inequality Measures
     inequality.gini.Gini
     inequality.gini.Gini_Spatial
 
+Pengram
+-------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.pen.pen
+    inequality.pen.pengram
+

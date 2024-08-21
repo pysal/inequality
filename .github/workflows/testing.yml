@@ -31,7 +31,9 @@
            - ci/312-DEV.yaml
          include:
            - environment-file: ci/312.yaml
-             os: macos-latest
+             os: macos-13 # Intel
+           - environment-file: ci/312.yaml
+             os: macos-14 # Apple Silicon
            - environment-file: ci/312.yaml
              os: windows-latest
        fail-fast: false
@@ -66,7 +68,7 @@
            --doctest-modules
 
        - name: codecov
-         uses: codecov/codecov-action@v3
+         uses: codecov/codecov-action@v4
          with:
            token: ${{ secrets.CODECOV_TOKEN }}
            file: ./coverage.xml
