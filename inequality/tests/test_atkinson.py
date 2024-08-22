@@ -1,34 +1,33 @@
 import numpy as np
 import pytest
+from inequality.atkinson import Atkinson, atkinson
 
-from inequality.atkinson import Atkinson, _atkinson
 
-
-def test_atkinson_function():
+def testatkinson_function():
     # Test case for epsilon = 0.5
     incomes = np.array([10, 20, 30, 40, 50])
-    result = _atkinson(incomes, 0.5)
+    result = atkinson(incomes, 0.5)
     expected = 0.06315
     assert np.isclose(
         result, expected, atol=1e-5
     ), f"Expected {expected}, but got {result}"
 
     # Test case for epsilon = 1
-    result = _atkinson(incomes, 1)
+    result = atkinson(incomes, 1)
     expected = 0.1316096
     assert np.isclose(
         result, expected, atol=1e-5
     ), f"Expected {expected}, but got {result}"
 
     # Test case for epsilon = 0
-    result = _atkinson(incomes, 0)
+    result = atkinson(incomes, 0)
     expected = 0
     assert np.isclose(
         result, expected, atol=1e-5
     ), f"Expected {expected}, but got {result}"
 
 
-def test_atkinson_class():
+def testatkinson_class():
     # Test case for epsilon = 0.5
     incomes = np.array([10, 20, 30, 40, 50])
     atkinson = Atkinson(incomes, 0.5)
