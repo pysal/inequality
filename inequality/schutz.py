@@ -15,7 +15,6 @@ class Schutz:
     See :cite:`schutz1951MeasurementIncome`.
 
 
-
     Parameters
     ----------
     df : pd.DataFrame
