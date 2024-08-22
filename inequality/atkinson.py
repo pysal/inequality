@@ -39,9 +39,9 @@ def atkinson(y, epsilon):
     -------
     >>> import numpy as np
     >>> incomes = np.array([10, 20, 30, 40, 50])
-    >>> float(round(_atkinson(incomes, 0.5), 5))
+    >>> float(round(atkinson(incomes, 0.5), 5))
     0.06315
-    >>> float(round(_atkinson(incomes, 1),5))
+    >>> float(round(atkinson(incomes, 1),5))
     0.13161
 
     """
