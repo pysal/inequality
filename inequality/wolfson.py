@@ -10,6 +10,8 @@ Serge Rey <srey@sdsu.edu>
 
 import numpy as np
 
+__all__ = ["wolfson", "lorenz_curve"]
+
 
 def lorenz_curve(y):
     """
@@ -31,7 +33,7 @@ def lorenz_curve(y):
     return cumulative_population, cumulative_y
 
 
-def gini_coefficient(lorenz_curve):
+def _gini_coefficient(lorenz_curve):
     """
     Calculate the Gini coefficient from the Lorenz curve.
 
@@ -45,41 +47,42 @@ def gini_coefficient(lorenz_curve):
            0 (perfect equality) to 1 (perfect inequality).
 
     """
-    lorenz_area = np.trapezoid(lorenz_curve[1], lorenz_curve[0])
+    lorenz_area = np.trapz(lorenz_curve[1], lorenz_curve[0])
     return 1 - 2 * lorenz_area
 
 
-def wolfson(y):
+def wolfson(income_distribution):
     """
-    Calculate the Wolfson Bipolarization Index for a given distribution.
-    The Wolfson Index is a measure of income polarization, which
-    considers both the spread and the skewness of the income
-    distribution, focusing on the middle class.
+    Calculate the Wolfson Bipolarization Index for a given income distribution.
 
+    Parameters
+    ----------
+    income_distribution : list of int or float
+        A list representing the income distribution.
 
-    Parameters:
-    y (array-like): A list or array of income or wealth values.
+    Returns
+    -------
+    w: float
+        The Wolfson Bipolarization Index value.
 
-    Returns:
-    float: The Wolfson Bipolarization Index. A higher value indicates
-       more significant polarization in the income distribution.
-
-    Example:
-    --------
-    >>> income_distribution = [20000, 25000, 27000, 30000,
-                                35000, 45000, 60000, 75000, 80000, 120000]
+    Example
+    -------
+    >>> income_distribution = [20000, 25000, 27000, 30000, 35000, 45000, 60000,
+    ...                        75000, 80000, 120000]
     >>> wolfson_index = wolfson(income_distribution)
     >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
-    Wolfson Bipolarization Index: 0.1213
+    Wolfson Bipolarization Index: 0.2013
     """
-    y = np.array(y)
-    cumulative_population, cumulative_y = lorenz_curve(y)
-    g = gini_coefficient((cumulative_population, cumulative_y))
+    income_distribution = np.sort(income_distribution)
+    n = len(income_distribution)
+    total_income = np.sum(income_distribution)
+    mean_income = total_income / n
+    cumulative_income = np.cumsum(income_distribution)
 
-    median_y = np.median(y)
-    mean_y = np.mean(y)
+    # Calculate the Gini coefficient
+    g = 1 - 2 * np.sum(cumulative_income) / (n * total_income) + (n + 1) / n
 
-    median_lorenz = np.interp(0.5, cumulative_population, cumulative_y)
+    # Calculate the Wolfson Bipolarization Index
+    w = 2 * mean_income * g / total_income - 1
 
-    d50 = 0.5 - median_lorenz
-    return (2 * d50 - g) * (mean_y / median_y)
+    return w

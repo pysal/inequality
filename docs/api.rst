@@ -7,16 +7,6 @@ API reference
 
 .. _inequality_api:
 
-Theil Inequality Measures
--------------------------
-
-.. autosummary::
-   :toctree: generated/
-
-    inequality.theil.Theil 
-    inequality.theil.TheilD
-    inequality.theil.TheilDSim
-
 
 Gini Inequality Measures
 ------------------------
@@ -27,6 +17,23 @@ Gini Inequality Measures
     inequality.gini.Gini
     inequality.gini.Gini_Spatial
 
+Theil Inequality Measures
+-------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.theil.Theil 
+    inequality.theil.TheilD
+    inequality.theil.TheilDSim
+
+Wolfson Bipolarization
+----------------------
+.. autosummary::
+   :toctree: generated/
+
+    inequality.wolfson.wolfson
+    
 Pengram
 -------
 

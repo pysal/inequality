@@ -1,5 +1,6 @@
 import numpy as np
-from inequality.wolfson import lorenz_curve, gini_coefficient, wolfson
+
+from inequality.wolfson import _gini_coefficient, lorenz_curve, wolfson
 
 
 def test_lorenz_curve():
@@ -17,11 +18,11 @@ def test_lorenz_curve():
     assert len(population) == 6
 
 
-def test_gini_coefficient():
+def test__gini_coefficient():
     # Lorenz curve values (population, cumulative income)
     population = np.array([0, 0.25, 0.5, 0.75, 1])
     cumulative_income = np.array([0, 0.1, 0.3, 0.6, 1])
-    g = gini_coefficient((population, cumulative_income))
+    g = _gini_coefficient((population, cumulative_income))
     expected_gini = 0.25
     assert np.isclose(g, expected_gini, atol=0.01)
 
