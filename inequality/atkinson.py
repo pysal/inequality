@@ -1,9 +1,9 @@
 import numpy as np
 
-__all__ = ["Atkinson"]
+__all__ = ["Atkinson", "atkinson"]
 
 
-def _atkinson(y, epsilon):
+def atkinson(y, epsilon):
     """Compute the Atkinson index for a given distribution of income or wealth.
 
     The Atkinson index is a measure of economic inequality that takes
@@ -62,7 +62,7 @@ class Atkinson:
 
     The Atkinson index is a measure of economic inequality that takes
     into account the social aversion to inequality. The equally
-    distributed equivalent(EDE) represents the level of income that,
+    distributed equivalent (EDE) represents the level of income that,
     if equally distributed, would give the same level of social
     welfare as the actual distribution.
 
@@ -108,5 +108,5 @@ class Atkinson:
     def __init__(self, y, epsilon):
         self.y = np.asarray(y)
         self.epsilon = epsilon
-        self.A = _atkinson(y, epsilon)
+        self.A = atkinson(y, epsilon)
         self.EDE = y.mean() * (1 - self.A)
