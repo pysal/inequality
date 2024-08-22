@@ -1,6 +1,4 @@
-"""Theil Inequality metrics
-
-"""
+"""Theil Inequality metrics"""
 
 __author__ = "Sergio J. Rey <srey@asu.edu> "
 

@@ -56,16 +56,11 @@ An Example: Spatial Inequality in Mexico: 1940-2000
 Development
 ===========
 
-inequality development is hosted on github_.
+The package is currently maintained by `@sjsrey`_
 
-.. _github : https://github.com/pysal/inequality
 
-Discussions of development occurs on the
-`developer list <http://groups.google.com/group/pysal-dev>`_
-as well as gitter_.
 
-.. _gitter : https://gitter.im/pysal/pysal?
-
+https://github.com/pysal/inequality
 
 Getting Involved
 ======================
@@ -124,3 +119,10 @@ WARRANTIES.
    References <references>
    
 .. _PySAL: https://github.com/pysal/pysal
+.. _PySAL (Python Spatial Analysis Library): http://pysal.org
+.. _GeoPandas: http://geopandas.org
+.. _PySAL: http://pysal.org
+.. _@sjsrey: http://github.org/sjsrey
+.. _issue: https://github.com/pysal/inequality/issues/new/choose
+.. _discussion: https://github.com/pysal/inequality/discussions
+.. _Discord: https://discord.com/channels/1192517762103398401/1192517763986632766

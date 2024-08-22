@@ -7,6 +7,8 @@ dependencies:
   - libpysal
   - numpy
   - scipy
+  - seaborn
+  - mapclassify
   # testing
   - pytest
   - pytest-cov
