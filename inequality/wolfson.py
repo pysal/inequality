@@ -10,6 +10,8 @@ Serge Rey <srey@sdsu.edu>
 
 import numpy as np
 
+from .gini import Gini
+
 __all__ = ["wolfson", "lorenz_curve"]
 
 
@@ -33,24 +35,6 @@ def lorenz_curve(y):
     return cumulative_population, cumulative_y
 
 
-def _gini_coefficient(lorenz_curve):
-    """
-    Calculate the Gini coefficient from the Lorenz curve.
-
-    Parameters:
-    lorenz_curve (tuple): A tuple containing two numpy arrays representing the
-                          cumulative share of the population and the cumulative
-                          share of the income/wealth.
-
-    Returns:
-    float: The Gini coefficient, a measure of inequality ranging from
-           0 (perfect equality) to 1 (perfect inequality).
-
-    """
-    lorenz_area = np.trapz(lorenz_curve[1], lorenz_curve[0])
-    return 1 - 2 * lorenz_area
-
-
 def wolfson(income_distribution):
     """
     Calculate the Wolfson Bipolarization Index for a given income distribution.
@@ -72,17 +56,23 @@ def wolfson(income_distribution):
     >>> wolfson_index = wolfson(income_distribution)
     >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
     Wolfson Bipolarization Index: 0.2013
+    >>> income_distribution = [6, 6, 8, 8, 10, 10, 12, 12]
+    >>> wolfson_index = wolfson(income_distribution)
+    >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
+    Wolfson Bipolarization Index: 0.0833
+    >>> income_distribution = [2, 4, 6, 8, 10, 12, 14, 16]
+    >>> wolfson_index = wolfson(income_distribution)
+    >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
+    Wolfson Bipolarization Index: 0.1528
+
     """
-    income_distribution = np.sort(income_distribution)
-    n = len(income_distribution)
-    total_income = np.sum(income_distribution)
-    mean_income = total_income / n
-    cumulative_income = np.cumsum(income_distribution)
-
-    # Calculate the Gini coefficient
-    g = 1 - 2 * np.sum(cumulative_income) / (n * total_income) + (n + 1) / n
-
-    # Calculate the Wolfson Bipolarization Index
-    w = 2 * mean_income * g / total_income - 1
+    y = np.array(income_distribution)
+    y_med = np.median(y)
+    ordinate, lc = lorenz_curve(y)
+    l50 = np.interp(.5, ordinate, lc)
+    d50 = .5 - l50
+    rat = y.mean() / y_med
+    g = Gini(y).g
+    w = (2 * d50 - g) * rat
 
     return w
