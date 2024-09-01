@@ -7,7 +7,7 @@ from inequality.pen import _check_deps, pen, pengram
 from shapely.geometry import Polygon
 
 # Set the backend to 'Agg' to prevent GUI windows from opening
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 
 
 # Test Data Setup
@@ -27,8 +27,7 @@ def sample_df():
 @pytest.fixture
 def sample_gdf():
     """Sample GeoDataFrame for testing the pengram function."""
-    data = {"region": ["A", "B", "C", "D"],
-            "income": [50000, 60000, 70000, 80000]}
+    data = {"region": ["A", "B", "C", "D"], "income": [50000, 60000, 70000, 80000]}
     polygons = [
         Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
         Polygon([(1, 0), (2, 0), (2, 1), (1, 1)]),
@@ -102,8 +101,7 @@ def test_pengram_basic(sample_gdf):
 
 def test_pengram_custom_inset_size(sample_gdf):
     """Test pengram function with custom inset size."""
-    ax, inset_ax = pengram(sample_gdf, col="income",
-                           name="region", inset_size="50%")
+    ax, inset_ax = pengram(sample_gdf, col="income", name="region", inset_size="50%")
     assert ax is not None
     assert inset_ax is not None
     assert isinstance(ax, plt.Axes)
@@ -124,5 +122,4 @@ def test_invalid_weight_column(sample_df):
 def test_invalid_query_column(sample_gdf):
     """Test pengram function with an invalid query column."""
     with pytest.raises(KeyError, match="invalid_column"):
-        pengram(sample_gdf, col="income",
-                name="invalid_column", query=["A", "C"])
+        pengram(sample_gdf, col="income", name="invalid_column", query=["A", "C"])
