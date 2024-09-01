@@ -7,6 +7,33 @@ API reference
 
 .. _inequality_api:
 
+
+Atkinson Inequality Measures
+----------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.atkinson.Atkinson
+	     
+Gini Inequality Measures
+------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.gini.Gini
+    inequality.gini.Gini_Spatial
+
+Schutz Inequality Measures
+--------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.schutz.Schutz
+
+
 Theil Inequality Measures
 -------------------------
 
@@ -17,15 +44,6 @@ Theil Inequality Measures
     inequality.theil.TheilD
     inequality.theil.TheilDSim
 
-
-Gini Inequality Measures
-------------------------
-
-.. autosummary::
-   :toctree: generated/
-
-    inequality.gini.Gini
-    inequality.gini.Gini_Spatial
 
 Pengram
 -------
