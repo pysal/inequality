@@ -17,11 +17,11 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 
-import sphinx_bootstrap_theme
-
+from datetime import datetime
 
 # import your package to obtain the version info to display on the docs website
 import inequality
+import sphinx_bootstrap_theme
 
 # -- General configuration ------------------------------------------------
 
@@ -31,7 +31,7 @@ import inequality
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [  #'sphinx_gallery.gen_gallery',
+extensions = [  # 'sphinx_gallery.gen_gallery',
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.viewcode",
@@ -60,7 +60,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "inequality"  # string of your project name, for example, 'giddy'
-copyright = "2018, pysal developers"
+copyright = f"2018 - {datetime.now().year}, pysal developers (BSD License)"
 author = "pysal developers"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -95,7 +95,8 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 # html_theme = 'alabaster'
-html_theme = "bootstrap"
+# html_theme = "bootstrap"
+html_theme = "pydata_sphinx_theme"
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 html_title = "%s v%s Manual" % (project, version)
 
@@ -117,12 +118,12 @@ html_theme_options = {
     # Render the next and previous page links in navbar. (Default: true)
     "navbar_sidebarrel": False,
     # Render the current pages TOC in the navbar. (Default: true)
-    #'navbar_pagenav': True,
-    #'navbar_pagenav': False,
+    # 'navbar_pagenav': True,
+    # 'navbar_pagenav': False,
     # No sidebar
     "nosidebar": True,
     # Tab name for the current pages TOC. (Default: "Page")
-    #'navbar_pagenav_name': "Page",
+    # 'navbar_pagenav_name': "Page",
     # Global TOC depth for "site" navbar tab. (Default: 1)
     # Switching to -1 shows all levels.
     "globaltoc_depth": 2,
@@ -136,7 +137,7 @@ html_theme_options = {
     "globaltoc_includehidden": "true",
     # HTML navbar class (Default: "navbar") to attach to <div> element.
     # For black navbar, do "navbar navbar-inverse"
-    #'navbar_class': "navbar navbar-inverse",
+    # 'navbar_class': "navbar navbar-inverse",
     # Fix navigation bar to top of page?
     # Values: "true" (default) or "false"
     "navbar_fixed_top": "true",
@@ -154,7 +155,7 @@ html_theme_options = {
     # Navigation bar menu
     "navbar_links": [
         ("Installation", "installation"),
-        ("Tutorials", "tutorials"),
+        ("User Guide", "user-guide/intro"),
         ("API", "api"),
         ("References", "references"),
     ],
