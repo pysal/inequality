@@ -9,3 +9,4 @@ Tutorials
     :caption: Gini
 
     notebooks/gini.ipynb
+    notebooks/pengram.ipynb
