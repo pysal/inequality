@@ -14,8 +14,6 @@ class Schutz:
     Schutz coefficient.
     See :cite:`schutz1951MeasurementIncome`.
 
-
-
     Parameters
     ----------
     df : pd.DataFrame
