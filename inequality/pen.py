@@ -16,7 +16,10 @@ Serge Rey <srey@sdsu.edu>
 
 import math
 
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 
 def _check_deps(caller="pen"):
@@ -26,8 +29,7 @@ def _check_deps(caller="pen"):
     Returns
     -------
     tuple
-        A tuple containing the imported modules (Seaborn, mapclassify,
-        Matplotlib pyplot, Matplotlib patches).
+        A tuple containing the imported modules (Seaborn, mapclassify, pandas).
     """
     try:
         import seaborn as sns
@@ -44,21 +46,13 @@ def _check_deps(caller="pen"):
         raise ImportError(msg) from e
 
     try:
-        import matplotlib.patches as patches
-        import matplotlib.pyplot as plt
-        from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-    except ImportError as e:
-        msg = f"{caller} requires matplotlib. "
-        msg = f"{msg} Install it using `conda install -c conda-forge matplotlib`"
-        raise ImportError(msg) from e
-    try:
         import pandas as pd
     except ImportError as e:
         msg = f"{caller} requires pandas. "
         msg = f"{msg} Install it using `conda install -c conda-forge pandas`"
         raise ImportError(msg) from e
 
-    return sns, mc, plt, patches, inset_axes, pd
+    return sns, mc, pd
 
 
 def pen(
@@ -111,7 +105,7 @@ def pen(
 
     """
 
-    sns, mc, plt, patches, inset_axes, pd = _check_deps()
+    sns, mc, pd = _check_deps()
 
     if ax is None:
         fig, ax = plt.subplots(1, 1, figsize=figsize)
@@ -260,7 +254,7 @@ def pengram(
     matplotlib.axes.Axes
         Matplotlib Axes objects for the combined choropleth and Pen's parade.
     """
-    sns, mc, plt, patches, inset_axes, pd = _check_deps()
+    sns, mc, pd = _check_deps()
 
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)

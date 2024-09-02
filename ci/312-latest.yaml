@@ -5,15 +5,16 @@ dependencies:
   - python=3.12
   # required
   - libpysal
+  - matplotlib
   - numpy
   - scipy
   # testing
+  - codecov
+  - mapclassify
   - pytest
   - pytest-cov
   - pytest-xdist
-  - codecov
   - seaborn
-  - mapclassify
   # docs
   - nbsphinx
   - numpydoc

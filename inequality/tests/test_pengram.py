@@ -43,12 +43,9 @@ def sample_gdf():
 
 def test_check_deps():
     """Test that _check_deps function imports all necessary dependencies."""
-    sns, mc, plt, patches, inset_axes, pd = _check_deps()
+    sns, mc, pd = _check_deps()
     assert sns is not None
     assert mc is not None
-    assert plt is not None
-    assert patches is not None
-    assert inset_axes is not None
     assert pd is not None
 
 
