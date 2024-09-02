@@ -137,7 +137,7 @@ def pen(
         df_sorted = df_repeated.sort_values(by=col).reset_index(drop=True)
 
         unique_obs = df[name].unique()
-        colors = plt.cm.get_cmap("tab20", len(unique_obs))
+        colors = plt.get_cmap("tab20", len(unique_obs))
         color_map = {state: colors(i) for i, state in enumerate(unique_obs)}
         bar_colors = df_sorted[name].map(color_map)
 

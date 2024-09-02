@@ -12,6 +12,14 @@ def example_dataframe():
     return pd.DataFrame(data)
 
 
+@pytest.fixture
+def noninteractive_warning():
+    return pytest.warns(
+        UserWarning,
+        match="FigureCanvasAgg is non-interactive, and thus cannot be shown",
+    )
+
+
 def test_schutz_distance(example_dataframe):
     schutz_obj = Schutz(example_dataframe, "Y")
     expected_distance = 0.15
@@ -32,15 +40,16 @@ def test_schutz_coefficient(example_dataframe):
     assert pytest.approx(schutz_obj.coefficient, 0.1) == expected_coefficient
 
 
-def test_schutz_plot_runs_without_errors(example_dataframe):
+def test_schutz_plot_runs_without_errors(example_dataframe, noninteractive_warning):
     schutz_obj = Schutz(example_dataframe, "Y")
     try:
-        schutz_obj.plot()
+        with noninteractive_warning:
+            schutz_obj.plot()
     except Exception as e:
         pytest.fail(f"Plotting failed: {e}")
 
 
-def test_schutz_plot_output(example_dataframe, tmpdir):
+def test_schutz_plot_output(example_dataframe, tmpdir, noninteractive_warning):
     """Test if the plot output matches the expected result by saving
     the plot and comparing it."""
     schutz_obj = Schutz(example_dataframe, "Y")
@@ -48,7 +57,8 @@ def test_schutz_plot_output(example_dataframe, tmpdir):
     # Save the plot to a temporary directory
     plot_file = os.path.join(tmpdir, "schutz_plot.png")
     plt.figure()
-    schutz_obj.plot()
+    with noninteractive_warning:
+        schutz_obj.plot()
     plt.savefig(plot_file)
     plt.close()
 
