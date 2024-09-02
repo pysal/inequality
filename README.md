@@ -27,6 +27,7 @@ $ conda install -c conda-forge inequality
 #### Requirements
 
 - libpysal
+- matplotlib
 - numpy
 - scipy
 
