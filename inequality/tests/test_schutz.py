@@ -1,9 +1,12 @@
 import os
+import platform
 
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
 from inequality.schutz import Schutz
+
+NOT_LINUX = platform.system() != "Linux"
 
 
 @pytest.fixture
@@ -12,12 +15,15 @@ def example_dataframe():
     return pd.DataFrame(data)
 
 
-@pytest.fixture
-def noninteractive_warning():
-    return pytest.warns(
-        UserWarning,
-        match="FigureCanvasAgg is non-interactive, and thus cannot be shown",
-    )
+def plot_warning_helper(schutz_obj):
+    if NOT_LINUX:
+        with pytest.warns(
+            UserWarning,
+            match="FigureCanvasAgg is non-interactive, and thus cannot be shown",
+        ):
+            schutz_obj.plot()
+    else:
+        schutz_obj.plot()
 
 
 def test_schutz_distance(example_dataframe):
@@ -40,16 +46,15 @@ def test_schutz_coefficient(example_dataframe):
     assert pytest.approx(schutz_obj.coefficient, 0.1) == expected_coefficient
 
 
-def test_schutz_plot_runs_without_errors(example_dataframe, noninteractive_warning):
+def test_schutz_plot_runs_without_errors(example_dataframe):
     schutz_obj = Schutz(example_dataframe, "Y")
     try:
-        with noninteractive_warning:
-            schutz_obj.plot()
+        plot_warning_helper(schutz_obj)
     except Exception as e:
         pytest.fail(f"Plotting failed: {e}")
 
 
-def test_schutz_plot_output(example_dataframe, tmpdir, noninteractive_warning):
+def test_schutz_plot_output(example_dataframe, tmpdir):
     """Test if the plot output matches the expected result by saving
     the plot and comparing it."""
     schutz_obj = Schutz(example_dataframe, "Y")
@@ -57,8 +62,7 @@ def test_schutz_plot_output(example_dataframe, tmpdir, noninteractive_warning):
     # Save the plot to a temporary directory
     plot_file = os.path.join(tmpdir, "schutz_plot.png")
     plt.figure()
-    with noninteractive_warning:
-        schutz_obj.plot()
+    plot_warning_helper(schutz_obj)
     plt.savefig(plot_file)
     plt.close()
 
