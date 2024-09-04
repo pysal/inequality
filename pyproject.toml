@@ -56,6 +56,7 @@ tests = [
 ]
 pen = [
     "matplotlib",
+    "seaborn",
     "pandas",
 ]
 [tool.setuptools.packages.find]
