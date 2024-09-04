@@ -39,6 +39,24 @@ def wolfson(income_distribution):
     """
     Calculate the Wolfson Bipolarization Index for a given income distribution.
 
+
+    The Wolfson index is constructed from the polarization curve,
+    which is a rotation and rescaling of the Lorenz curve by the
+    median income:
+
+    .. math::
+
+       W = (2D_{50} - G)\\frac{\\mu}{m}
+
+    Where :math:`D_{50} =0.5 - L(0.5)`, :math:`L(0.5)` is the
+    value of the Lorenz curve at the median, :math:`G` is the Gini
+    index, :math:`\mu` is the mean, and :math:`m` is the median.
+
+    
+    See :cite:t:`wolfson1994WhenInequalities,hoffmann2024MeasuringMismeasuring`.
+
+    
+
     Parameters
     ----------
     income_distribution : list of int or float

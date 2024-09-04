@@ -7,6 +7,14 @@ API reference
 
 .. _inequality_api:
 
+Atkinson Inequality Measures
+----------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.atkinson.Atkinson
+
 
 Gini Inequality Measures
 ------------------------
@@ -27,13 +35,14 @@ Theil Inequality Measures
     inequality.theil.TheilD
     inequality.theil.TheilDSim
 
-Wolfson Bipolarization
-----------------------
+Wolfson Bipolarization Measure
+------------------------------
 .. autosummary::
    :toctree: generated/
 
     inequality.wolfson.wolfson
     
+	     
 Pengram
 -------
 
