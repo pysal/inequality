@@ -97,7 +97,7 @@ todo_include_todos = False
 # html_theme = 'alabaster'
 # html_theme = "bootstrap"
 html_theme = "pydata_sphinx_theme"
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 html_title = "%s v%s Manual" % (project, version)
 
 # (Optional) Logo of your package. Should be small enough to fit the navbar (ideally 24x24).
@@ -106,7 +106,8 @@ html_title = "%s v%s Manual" % (project, version)
 
 # (Optional) PySAL favicon
 html_favicon = "_static/images/pysal_favicon.ico"
-
+html_logo = '_static/images/pysal_logo.png'
+icon_links_label = 'inequality'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
