@@ -25,6 +25,14 @@ Gini Inequality Measures
     inequality.gini.Gini
     inequality.gini.Gini_Spatial
 
+Schutz Inequality Measures
+--------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    inequality.schutz.Schutz
+ 
 Theil Inequality Measures
 -------------------------
 

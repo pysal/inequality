@@ -66,7 +66,7 @@ class Atkinson:
     if equally distributed, would give the same level of social
     welfare as the actual distribution.
 
-    See: cite: `Atkinson_1970_Measurement`.
+    See: :cite:`Atkinson_1970_Measurement`.
 
     Parameters
     ----------
