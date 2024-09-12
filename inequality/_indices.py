@@ -1,12 +1,10 @@
 """
-Diversity indices as suggested in Nijkamp & Poot (2013) [1] and Nijkamp & Poot
-(2015) [2]
+Diversity indices as suggested in Nijkamp & Poot (2015) [1]
 
 References
 ----------
 
-[1]_ Nijkamp & Poot
-[2]_ Nijkamp, P. and Poot, J. "Cultural Diversity: A Matter of Measurement".
+[1]_ Nijkamp, P. and Poot, J. "Cultural Diversity: A Matter of Measurement".
      IZA Discussion Paper Series No. 8782
      :cite:`nijkamp2015cultural`
      https://www.econstor.eu/bitstream/10419/107568/1/dp8782.pdf
