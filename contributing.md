@@ -66,7 +66,7 @@ proj
 ## 5. Verify installation and run tests
 ```
 python -c "import libpysal; print('libpysal version:', libpysal.__version__)"
-pytest
+pytest inequality
 ```
 
 
