@@ -40,6 +40,29 @@ conda activate inequality
 pip install .[dev,docs,tests]
 ```
 
+Note, if you are on zsh use:
+
+```
+pip install '.[dev,docs,tests]'
+```
+If this fails on MacOS you have to have `proj` installed:
+```
+brew install proj
+```
+
+Set this variable in your shell configuration (e.g., ~/.zshrc or ~/.bashrc):
+```
+export PROJ_DIR="/opt/homebrew/opt/proj"
+```
+Then, reload your shell configuration:
+```
+source ~/.zshrc
+```
+and check that `proj` is correctly installed:
+```
+proj
+```
+
 ## 5. Verify installation and run tests
 ```
 python -c "import libpysal; print('libpysal version:', libpysal.__version__)"
