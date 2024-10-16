@@ -7,64 +7,84 @@ and Wolfson Bipolarization Index for a given distribution of income or wealth.
 Author:
 Serge Rey <srey@sdsu.edu>
 """
-
 import numpy as np
 
 from .gini import Gini
+from .utils import consistent_input
 
 __all__ = ["wolfson", "lorenz_curve"]
 
-
-def lorenz_curve(y):
+@consistent_input
+def lorenz_curve(data, column=None):
     """
     Calculate the Lorenz curve for a given distribution.
 
-    Parameters:
-    y (array-like): A list or array of income or wealth values.
+    This function takes an income or wealth distribution as input. The input 
+    can be a sequence, a NumPy array, or a Pandas DataFrame. If a DataFrame 
+    is provided, the `column` parameter must be used to specify which column 
+    contains the income or wealth values.
 
-    Returns:
-    tuple: Two numpy arrays representing the cumulative share of the population
-           and the cumulative share of the income/wealth.
+    Parameters
+    ----------
+    data : array-like, numpy array, or pandas.DataFrame
+        A sequence, NumPy array, or DataFrame representing the income or 
+        wealth distribution.
+    column : str, optional
+        The column name to be used when `data` is a pandas DataFrame. Required 
+        if `data` is a DataFrame.
+
+    Returns
+    -------
+    tuple
+        Two numpy arrays: the first represents the cumulative share of the 
+        population, and the second represents the cumulative share of 
+        the income/wealth.
+
+    Example
+    -------
+    >>> income = [20000, 25000, 27000, 30000, 35000, 45000, 60000, 75000, 80000, 120000]
+    >>> population, income_share = lorenz_curve(income)
+    >>> print(population, income_share)
     """
-    sorted_y = np.sort(y)
+    sorted_y = np.sort(data)
     cumulative_y = np.cumsum(sorted_y)
-    # Add zero for the starting point
     cumulative_y = np.insert(cumulative_y, 0, 0)
     cumulative_y = cumulative_y / cumulative_y[-1]
-    cumulative_population = np.linspace(0, 1, len(y) + 1)
+    cumulative_population = np.linspace(0, 1, len(data) + 1)
     return cumulative_population, cumulative_y
 
-
-def wolfson(income_distribution):
+@consistent_input
+def wolfson(data, column=None):
     """
     Calculate the Wolfson Bipolarization Index for a given income distribution.
 
+    This function takes an income distribution and calculates the Wolfson 
+    Bipolarization Index. The input can be a sequence, a NumPy array, or a 
+    Pandas DataFrame. If a DataFrame is provided, the `column` parameter must 
+    be used to specify which column contains the income values.
 
-    The Wolfson index is constructed from the polarization curve,
-    which is a rotation and rescaling of the Lorenz curve by the
-    median income:
+    The Wolfson index is constructed from the polarization curve, which is 
+    a rotation and rescaling of the Lorenz curve by the median income:
 
     .. math::
 
        W = (2D_{50} - G)\\frac{\\mu}{m}
 
-    Where :math:`D_{50} =0.5 - L(0.5)`, :math:`L(0.5)` is the
-    value of the Lorenz curve at the median, :math:`G` is the Gini
-    index, :math:`\mu` is the mean, and :math:`m` is the median.
-
-    
-    See :cite:t:`wolfson1994WhenInequalities,hoffmann2024MeasuringMismeasuring`.
-
-    
+    Where :math:`D_{50} =0.5 - L(0.5)`, :math:`L(0.5)` is the value of the 
+    Lorenz curve at the median, :math:`G` is the Gini index, :math:`\mu` 
+    is the mean, and :math:`m` is the median.
 
     Parameters
     ----------
-    income_distribution : list of int or float
-        A list representing the income distribution.
+    data : array-like, numpy array, or pandas.DataFrame
+        A sequence, NumPy array, or DataFrame representing the income distribution.
+    column : str, optional
+        The column name to be used when `data` is a pandas DataFrame. Required 
+        if `data` is a DataFrame.
 
     Returns
     -------
-    w: float
+    float
         The Wolfson Bipolarization Index value.
 
     Example
@@ -74,17 +94,13 @@ def wolfson(income_distribution):
     >>> wolfson_index = wolfson(income_distribution)
     >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
     Wolfson Bipolarization Index: 0.2013
-    >>> income_distribution = [6, 6, 8, 8, 10, 10, 12, 12]
-    >>> wolfson_index = wolfson(income_distribution)
+
+    >>> df = pd.DataFrame({'income': [6, 6, 8, 8, 10, 10, 12, 12]})
+    >>> wolfson_index = wolfson(df, column='income')
     >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
     Wolfson Bipolarization Index: 0.0833
-    >>> income_distribution = [2, 4, 6, 8, 10, 12, 14, 16]
-    >>> wolfson_index = wolfson(income_distribution)
-    >>> print(f"Wolfson Bipolarization Index: {wolfson_index:.4f}")
-    Wolfson Bipolarization Index: 0.1528
-
     """
-    y = np.array(income_distribution)
+    y = np.array(data)
     y_med = np.median(y)
     ordinate, lc = lorenz_curve(y)
     l50 = np.interp(.5, ordinate, lc)
