@@ -53,6 +53,8 @@ docs = [
 tests = [
     "codecov",
     "mapclassify",
+    "jupyterlab",
+    "folium",
     "pytest",
     "seaborn",
     "pytest-cov",

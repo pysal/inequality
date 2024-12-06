@@ -14,13 +14,14 @@ from .utils import consistent_input
 
 __all__ = ["wolfson", "lorenz_curve"]
 
+
 @consistent_input
 def lorenz_curve(data, column=None):
     """
     Calculate the Lorenz curve for a given distribution.
 
-    This function takes an income or wealth distribution as input. The input 
-    can be a sequence, a NumPy array, or a Pandas DataFrame. If a DataFrame 
+    This function takes an income or wealth distribution as input. The input
+    can be a sequence, a NumPy array, or a Pandas DataFrame. If a DataFrame
     is provided, the `column` parameter must be used to specify which column 
     contains the income or wealth values.
 
@@ -74,6 +75,8 @@ def wolfson(data, column=None):
     Lorenz curve at the median, :math:`G` is the Gini index, :math:`\mu` 
     is the mean, and :math:`m` is the median.
 
+    See: :cite:`wolfson1994WhenInequalities`.
+
     Parameters
     ----------
     data : array-like, numpy array, or pandas.DataFrame
@@ -86,6 +89,7 @@ def wolfson(data, column=None):
     -------
     float
         The Wolfson Bipolarization Index value.
+
 
     Example
     -------
