@@ -1,3 +1,4 @@
+
 import numpy as np
 
 __all__ = ["Atkinson", "atkinson"]
@@ -41,24 +42,29 @@ def atkinson(y, epsilon):
     >>> incomes = np.array([10, 20, 30, 40, 50])
     >>> float(round(atkinson(incomes, 0.5), 5))
     0.06315
-    >>> float(round(atkinson(incomes, 1),5))
+    >>> float(round(atkinson(incomes, 1), 5))
     0.13161
 
     """
     y = np.asarray(y)
+    if np.any(y <= 0):
+        raise ValueError("All values in 'y' must be positive.")
+    if epsilon < 0:
+        raise ValueError("'epsilon' must be non-negative.")
+
+    mean_y = y.mean()
     if epsilon == 1:
         geom_mean = np.exp(np.mean(np.log(y)))
-        return 1 - geom_mean / y.mean()
+        return 1 - geom_mean / mean_y
     else:
         ye = y ** (1 - epsilon)
-        ye_bar = ye.mean()
-        ye_bar = ye_bar ** (1 / (1 - epsilon))
-        return 1 - ye_bar / y.mean()
+        ye_bar = ye.mean() ** (1 / (1 - epsilon))
+        return 1 - ye_bar / mean_y
 
 
 class Atkinson:
     """A class to calculate and store the Atkinson index and the equally
-    distributed equivalent(EDE).
+    distributed equivalent (EDE).
 
     The Atkinson index is a measure of economic inequality that takes
     into account the social aversion to inequality. The equally
@@ -86,27 +92,33 @@ class Atkinson:
     A: float
         The calculated Atkinson index.
     EDE: float
-        The equally distributed equivalent(EDE) of the income or
+        The equally distributed equivalent (EDE) of the income or
         wealth distribution.
 
     Example
     -------
-    >> > incomes = np.array([10, 20, 30, 40, 50])
-    >> > atkinson = Atkinson(incomes, 0.5)
-    >> > float(round(atkinson.A, 5))
+    >>> incomes = np.array([10, 20, 30, 40, 50])
+    >>> atkinson = Atkinson(incomes, 0.5)
+    >>> float(round(atkinson.A, 5))
     0.06315
-    >> > float(round(atkinson.EDE, 5))
+    >>> float(round(atkinson.EDE, 5))
     28.1054
-    >> > atkinson = Atkinson(incomes, 1)
-    >> > float(round(atkinson.A, 5))
+    >>> atkinson = Atkinson(incomes, 1)
+    >>> float(round(atkinson.A, 5))
     0.13161
-    >> > float(round(atkinson.EDE, 5))
+    >>> float(round(atkinson.EDE, 5))
     26.05171
 
     """
 
     def __init__(self, y, epsilon):
-        self.y = np.asarray(y)
+        y = np.asarray(y)
+        if np.any(y <= 0):
+            raise ValueError("All values in 'y' must be positive.")
+        if epsilon < 0:
+            raise ValueError("'epsilon' must be non-negative.")
+
+        self.y = y
         self.epsilon = epsilon
-        self.A = atkinson(y, epsilon)
-        self.EDE = y.mean() * (1 - self.A)
+        self.A = atkinson(self.y, self.epsilon)
+        self.EDE = self.y.mean() * (1 - self.A)
