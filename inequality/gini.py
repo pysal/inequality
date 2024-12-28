@@ -108,6 +108,12 @@ class Gini_Spatial:  # noqa N801
     p_z_sim : float
         (If ``permuations > 0``) pseudo :math:`p`-value based on
         standard normal approximation of permutation based values.
+    polarization: float
+        Spatial polarization index with an expected value of 1.
+    polarization_p_sim: float
+        (If ``permutations >0``) pseudo :mapth:`p`-value for polarization index.
+    polarization_sim: float
+        (If ``permutations >0``) polarization values under the null from permutations.
 
     Examples
     --------
