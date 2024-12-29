@@ -159,9 +159,7 @@ class TheilD:
         ng.shape = (ng.size,)  # ensure ng is 1-d
         # Between group inequality
         sg = sg + (sg == 0)  # handle case when a partition has 0 for sum
-        bg = np.multiply(sg,
-                         np.log(np.dot(np.diag(len(y) * 1.0 / ng),
-                                       sg))).sum(axis=0)
+        bg = np.multiply(sg, np.log(np.dot(np.diag(len(y) * 1.0 / ng), sg))).sum(axis=0)
 
         self.T = t
         self.bg = bg
