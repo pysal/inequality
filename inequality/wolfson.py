@@ -74,7 +74,7 @@ def wolfson(data, column=None):
        W = (2D_{50} - G)\\frac{\\mu}{m}
 
     Where :math:`D_{50} =0.5 - L(0.5)`, :math:`L(0.5)` is the value of the 
-    Lorenz curve at the median, :math:`G` is the Gini index, :math:`\mu` 
+    Lorenz curve at the median, :math:`G` is the Gini index, :math:`\\mu` 
     is the mean, and :math:`m` is the median.
 
     See: :cite:`wolfson1994WhenInequalities`.

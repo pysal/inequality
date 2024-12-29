@@ -1,6 +1,8 @@
+from functools import wraps
+
 import numpy as np
 import pandas as pd
-from functools import wraps
+
 
 def consistent_input(func):
     @wraps(func)
@@ -17,7 +19,7 @@ def consistent_input(func):
             raise TypeError("Input should be a sequence, numpy array, or pandas DataFrame.")
 
         return func(data, *args, **kwargs)
-    
+
     return wrapper
 
 # Example function using the decorator

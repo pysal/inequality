@@ -4,9 +4,10 @@ Theil Inequality metrics
 
 __author__ = "Sergio J. Rey <srey@asu.edu>"
 
+import warnings
+
 import numpy as np
 import pandas as pd
-import warnings
 
 __all__ = ["Theil", "TheilD", "TheilDSim"]
 

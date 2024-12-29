@@ -4,6 +4,7 @@
 
 import pytest
 
+
 def warning_depr(x):
     return pytest.warns(
         FutureWarning, match=f"{x} is deprecated and will be removed on 2025-01-01."
