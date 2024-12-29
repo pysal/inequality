@@ -106,8 +106,8 @@ html_title = "%s v%s Manual" % (project, version)
 
 # (Optional) PySAL favicon
 html_favicon = "_static/images/pysal_favicon.ico"
-html_logo = '_static/images/pysal_logo.png'
-icon_links_label = 'inequality'
+html_logo = "_static/images/pysal_logo.png"
+icon_links_label = "inequality"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

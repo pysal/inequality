@@ -156,10 +156,10 @@ class Gini_Spatial:  # noqa N801
         self.g = g
         n = len(x)
         den = x.mean() * 2 * n**2
-        d = g * den            # sum of absolute devations SAD
+        d = g * den  # sum of absolute devations SAD
         wg = self._calc(x, w)  # sum of absolute deviations for neighbor pairs
-        wcg = d - wg           # sum of absolution deviations for distant pairs
-        n_pairs = n * (n-1) / 2
+        wcg = d - wg  # sum of absolution deviations for distant pairs
+        n_pairs = n * (n - 1) / 2
         n_n_pairs = w.s0 / 2
         n_d_pairs = n_pairs - n_n_pairs
         polarization = (wcg / wg) * (n_n_pairs / n_d_pairs)
@@ -179,7 +179,7 @@ class Gini_Spatial:  # noqa N801
             for perm in range(permutations):
                 numpy.random.shuffle(ids)
                 wcgp[perm] = d - self._calc(x[ids], w)
-                polar = (wcgp[perm] / (d - wcgp[perm]))
+                polar = wcgp[perm] / (d - wcgp[perm])
                 polarization_sim[perm] = polar * _scale
             above = wcgp >= self.wcg
             larger = above.sum()

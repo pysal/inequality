@@ -7,6 +7,7 @@ and Wolfson Bipolarization Index for a given distribution of income or wealth.
 Author:
 Serge Rey <srey@sdsu.edu>
 """
+
 import numpy as np
 
 from .gini import Gini
@@ -16,38 +17,34 @@ __all__ = ["wolfson", "lorenz_curve"]
 
 
 @consistent_input
-def lorenz_curve(data, column=None):
+def lorenz_curve(data):
     """
     Calculate the Lorenz curve for a given distribution.
 
     This function takes an income or wealth distribution as input. The input
     can be a sequence, a NumPy array, or a Pandas DataFrame. If a DataFrame
-    is provided, the `column` parameter must be used to specify which column 
+    is provided, the `column` parameter must be used to specify which column
     contains the income or wealth values.
 
     Parameters
     ----------
-    data : array-like, numpy array, or pandas.DataFrame
-        A sequence, NumPy array, or DataFrame representing the income or 
+    data : array-like or array
+        A sequence or NumPy array representing the income or
         wealth distribution.
-    column : str, optional
-        The column name to be used when `data` is a pandas DataFrame. Required 
-        if `data` is a DataFrame.
 
     Returns
     -------
     tuple
-        Two numpy arrays: the first represents the cumulative share of the 
-        population, and the second represents the cumulative share of 
+        Two numpy arrays: the first represents the cumulative share of the
+        population, and the second represents the cumulative share of
         the income/wealth.
 
     Example
     -------
     >>> income = [20000, 25000, 27000, 30000, 35000, 45000, 60000, 75000, 80000, 120000]
     >>> population, income_share = lorenz_curve(income)
-    >>> print(population, income_share)
-    [0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ] [0.         0.03868472 0.08704062 0.13926499 0.19729207 0.26499033
-     0.35203095 0.46808511 0.6131528  0.76789168 1.        ]
+    >>> print(population[:2], income_share[:2])
+    [0.  0.1] [0.         0.03868472]
     """
     sorted_y = np.sort(data)
     cumulative_y = np.cumsum(sorted_y)
@@ -56,36 +53,35 @@ def lorenz_curve(data, column=None):
     cumulative_population = np.linspace(0, 1, len(data) + 1)
     return cumulative_population, cumulative_y
 
+
 @consistent_input
-def wolfson(data, column=None):
+def wolfson(data):
     """
     Calculate the Wolfson Bipolarization Index for a given income distribution.
 
-    This function takes an income distribution and calculates the Wolfson 
-    Bipolarization Index. The input can be a sequence, a NumPy array, or a 
-    Pandas DataFrame. If a DataFrame is provided, the `column` parameter must 
+    This function takes an income distribution and calculates the Wolfson
+    Bipolarization Index. The input can be a sequence, a NumPy array, or a
+    Pandas DataFrame. If a DataFrame is provided, the `column` parameter must
     be used to specify which column contains the income values.
 
-    The Wolfson index is constructed from the polarization curve, which is 
+    The Wolfson index is constructed from the polarization curve, which is
     a rotation and rescaling of the Lorenz curve by the median income:
 
     .. math::
 
        W = (2D_{50} - G)\\frac{\\mu}{m}
 
-    Where :math:`D_{50} =0.5 - L(0.5)`, :math:`L(0.5)` is the value of the 
-    Lorenz curve at the median, :math:`G` is the Gini index, :math:`\\mu` 
+    Where :math:`D_{50} =0.5 - L(0.5)`, :math:`L(0.5)` is the value of the
+    Lorenz curve at the median, :math:`G` is the Gini index, :math:`\\mu`
     is the mean, and :math:`m` is the median.
 
     See: :cite:`wolfson1994WhenInequalities`.
 
     Parameters
     ----------
-    data : array-like, numpy array, or pandas.DataFrame
-        A sequence, NumPy array, or DataFrame representing the income distribution.
-    column : str, optional
-        The column name to be used when `data` is a pandas DataFrame. Required 
-        if `data` is a DataFrame.
+    data : array-like or array
+        A sequence or NumPy array representing the income or
+        wealth distribution.
 
     Returns
     -------
@@ -110,8 +106,8 @@ def wolfson(data, column=None):
     y = np.array(data)
     y_med = np.median(y)
     ordinate, lc = lorenz_curve(y)
-    l50 = np.interp(.5, ordinate, lc)
-    d50 = .5 - l50
+    l50 = np.interp(0.5, ordinate, lc)
+    d50 = 0.5 - l50
     rat = y.mean() / y_med
     g = Gini(y).g
     w = (2 * d50 - g) * rat

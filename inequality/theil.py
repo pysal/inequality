@@ -54,7 +54,7 @@ class Theil:
                 "The nxT input format is deprecated. In future versions, "
                 "please provide nx1 sequences or a DataFrame with a single column.",
                 DeprecationWarning,
-                stacklevel=2
+                stacklevel=2,
             )
             # Old API behavior
             n = y.shape[0]
@@ -64,7 +64,7 @@ class Theil:
                 if column is None:
                     raise ValueError("For DataFrame input, `column` must be specified.")
                 y = y[column].values
-            elif isinstance(y, (list, np.ndarray)):
+            elif isinstance(y, list | np.ndarray):
                 y = np.asarray(y)
             else:
                 raise TypeError("Input must be an array, list, or DataFrame.")
@@ -118,33 +118,33 @@ class TheilD:
                 "The nxT input format is deprecated. In future versions, "
                 "please provide nx1 sequences or a DataFrame with a single column.",
                 DeprecationWarning,
-                stacklevel=2
+                stacklevel=2,
             )
-            n = y.shape[0]
         else:
             # New API: Handle sequence or DataFrame
             if isinstance(y, pd.DataFrame):
                 if column is None:
                     raise ValueError("For DataFrame input, `column` must be specified.")
                 y = y[column].values
-            elif isinstance(y, (list, np.ndarray)):
+            elif isinstance(y, list | np.ndarray):
                 y = np.asarray(y)
             else:
                 raise TypeError("Input must be an array, list, or DataFrame.")
-            n = len(y)
 
         # Handle partition similarly
         if isinstance(partition, pd.DataFrame):
             if partition_col is None:
-                raise ValueError("For DataFrame input, `partition_col` must be specified.")
+                raise ValueError(
+                    "For DataFrame input, `partition_col` must be specified."
+                )
             partition = partition[partition_col].values
-        elif isinstance(partition, (list, np.ndarray)):
+        elif isinstance(partition, list | np.ndarray):
             partition = np.asarray(partition)
         else:
             raise TypeError("Partition must be an array, list, or DataFrame.")
 
         groups = np.unique(partition)
-        T = Theil(y).T
+        t = Theil(y).T
         ytot = y.sum(axis=0)
 
         # Group totals
@@ -159,11 +159,13 @@ class TheilD:
         ng.shape = (ng.size,)  # ensure ng is 1-d
         # Between group inequality
         sg = sg + (sg == 0)  # handle case when a partition has 0 for sum
-        bg = np.multiply(sg, np.log(np.dot(np.diag(len(y) * 1.0 / ng), sg))).sum(axis=0)
+        bg = np.multiply(sg,
+                         np.log(np.dot(np.diag(len(y) * 1.0 / ng),
+                                       sg))).sum(axis=0)
 
-        self.T = T
+        self.T = t
         self.bg = bg
-        self.wg = T - bg
+        self.wg = t - bg
 
 
 class TheilDSim:
