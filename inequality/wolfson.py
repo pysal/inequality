@@ -46,6 +46,8 @@ def lorenz_curve(data, column=None):
     >>> income = [20000, 25000, 27000, 30000, 35000, 45000, 60000, 75000, 80000, 120000]
     >>> population, income_share = lorenz_curve(income)
     >>> print(population, income_share)
+    [0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ] [0.         0.03868472 0.08704062 0.13926499 0.19729207 0.26499033
+     0.35203095 0.46808511 0.6131528  0.76789168 1.        ]
     """
     sorted_y = np.sort(data)
     cumulative_y = np.cumsum(sorted_y)
@@ -93,6 +95,7 @@ def wolfson(data, column=None):
 
     Example
     -------
+    >>> import pandas as pd
     >>> income_distribution = [20000, 25000, 27000, 30000, 35000, 45000, 60000,
     ...                        75000, 80000, 120000]
     >>> wolfson_index = wolfson(income_distribution)
