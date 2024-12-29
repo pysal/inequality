@@ -60,10 +60,7 @@ def wolfson(data):
     Calculate the Wolfson Bipolarization Index for a given income distribution.
 
     This function takes an income distribution and calculates the Wolfson
-    Bipolarization Index. The input can be a sequence, a NumPy array, or a
-    Pandas DataFrame. If a DataFrame is provided, the `column` parameter must
-    be used to specify which column contains the income values.
-
+    Bipolarization Index. The input can be a sequence or a NumPy array.
     The Wolfson index is constructed from the polarization curve, which is
     a rotation and rescaling of the Lorenz curve by the median income:
 
