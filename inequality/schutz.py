@@ -150,6 +150,7 @@ class Schutz:
         xlabel="Cumulative Share of the Population",
         ylabel="Cumulative Share of Income",
         grid=True,
+        title=None,
     ):
         """
         Plot the Lorenz curve, the line of perfect equality, and the
@@ -191,7 +192,9 @@ class Schutz:
         # Add labels and title
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
-        plt.title("Lorenz Curve with Line of Perfect Equality and Schutz Line")
+        if title is None:
+            title = self.column_name
+        plt.title(title)
         plt.legend()
         plt.grid(grid)
         plt.show()
