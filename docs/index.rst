@@ -108,14 +108,19 @@ software, terms & conditions for usage, and a DISCLAIMER OF ALL
 WARRANTIES.
 
 
-.. toctree::
-   :hidden:
-   :maxdepth: 4
-   :caption: Contents:
+inequality
+==========
 
+Documentation contents
+----------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   Home <self>
    Installation <installation>
-   Tutorials <tutorials>
-   API <api>
+   API reference <api>
+   user-guide/intro
    References <references>
    
 .. _PySAL: https://github.com/pysal/pysal

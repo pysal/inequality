@@ -48,15 +48,21 @@ docs = [
     "sphinxcontrib-bibtex",
     "sphinx-gallery",
     "sphinx_bootstrap_theme",
+    "pydata-sphinx-theme"
 ]
 tests = [
     "codecov",
+    "mapclassify",
+    "jupyterlab",
+    "folium",
     "pytest",
+    "seaborn",
     "pytest-cov",
     "pytest-xdist",
 ]
 pen = [
     "matplotlib",
+    "seaborn",
     "pandas",
 ]
 [tool.setuptools.packages.find]
@@ -86,3 +92,4 @@ exclude_lines = [
 ]
 ignore_errors = true
 omit = ["inequality/tests/*", "docs/conf.py"]
+ 

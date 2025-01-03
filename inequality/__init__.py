@@ -7,7 +7,7 @@
 import contextlib
 from importlib.metadata import PackageNotFoundError, version
 
-from . import atkinson, gini, schutz, theil
+from . import atkinson, gini, schutz, theil, wolfson
 from ._indices import (
     abundance,
     ellison_glaeser_egg,

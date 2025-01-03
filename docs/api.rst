@@ -7,23 +7,23 @@ API reference
 
 .. _inequality_api:
 
-
 Atkinson Inequality Measures
 ----------------------------
 
 .. autosummary::
    :toctree: generated/
 
-    inequality.atkinson.Atkinson
-	     
+    atkinson.Atkinson
+
+
 Gini Inequality Measures
 ------------------------
 
 .. autosummary::
    :toctree: generated/
 
-    inequality.gini.Gini
-    inequality.gini.Gini_Spatial
+    gini.Gini
+    gini.Gini_Spatial
 
 Schutz Inequality Measures
 --------------------------
@@ -31,26 +31,32 @@ Schutz Inequality Measures
 .. autosummary::
    :toctree: generated/
 
-    inequality.schutz.Schutz
-
-
+    schutz.Schutz
+ 
 Theil Inequality Measures
 -------------------------
 
 .. autosummary::
    :toctree: generated/
 
-    inequality.theil.Theil 
-    inequality.theil.TheilD
-    inequality.theil.TheilDSim
+    theil.Theil 
+    theil.TheilD
+    theil.TheilDSim
 
+Wolfson Bipolarization Measure
+------------------------------
+.. autosummary::
+   :toctree: generated/
 
+    wolfson.wolfson
+    
+	     
 Pengram
 -------
 
 .. autosummary::
    :toctree: generated/
 
-    inequality.pen.pen
-    inequality.pen.pengram
+    pen.pen
+    pen.pengram
 

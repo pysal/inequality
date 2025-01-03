@@ -108,6 +108,12 @@ class Gini_Spatial:  # noqa N801
     p_z_sim : float
         (If ``permuations > 0``) pseudo :math:`p`-value based on
         standard normal approximation of permutation based values.
+    polarization: float
+        Spatial polarization index with an expected value of 1.
+    polarization_p_sim: float
+        (If ``permutations >0``) pseudo :mapth:`p`-value for polarization index.
+    polarization_sim: float
+        (If ``permutations >0``) polarization values under the null from permutations.
 
     Examples
     --------
@@ -150,9 +156,14 @@ class Gini_Spatial:  # noqa N801
         self.g = g
         n = len(x)
         den = x.mean() * 2 * n**2
-        d = g * den
-        wg = self._calc(x, w)
-        wcg = d - wg
+        d = g * den  # sum of absolute devations SAD
+        wg = self._calc(x, w)  # sum of absolute deviations for neighbor pairs
+        wcg = d - wg  # sum of absolution deviations for distant pairs
+        n_pairs = n * (n - 1) / 2
+        n_n_pairs = w.s0 / 2
+        n_d_pairs = n_pairs - n_n_pairs
+        polarization = (wcg / wg) * (n_n_pairs / n_d_pairs)
+        self.polarization = polarization
         self.g = g
         self.wcg = wcg
         self.wg = wg
@@ -161,11 +172,15 @@ class Gini_Spatial:  # noqa N801
         self.wcg_share = wcg / den
 
         if permutations:
+            _scale = n_n_pairs / n_d_pairs
             ids = numpy.arange(n)
             wcgp = numpy.zeros((permutations,))
+            polarization_sim = numpy.zeros((permutations,))
             for perm in range(permutations):
                 numpy.random.shuffle(ids)
                 wcgp[perm] = d - self._calc(x[ids], w)
+                polar = wcgp[perm] / (d - wcgp[perm])
+                polarization_sim[perm] = polar * _scale
             above = wcgp >= self.wcg
             larger = above.sum()
             if (permutations - larger) < larger:
@@ -176,6 +191,10 @@ class Gini_Spatial:  # noqa N801
             self.s_wcg = wcgp.std()
             self.z_wcg = (self.wcg - self.e_wcg) / self.s_wcg
             self.p_z_sim = 1.0 - norm.cdf(self.z_wcg)
+            self.polarization_sim = polarization_sim
+            # polarization is a directional concept, upper tail only
+            larger = (polarization_sim >= polarization).sum()
+            self.polarization_p_sim = (larger + 1) / (permutations + 1)
 
     def _calc(self, x, w):
         sad_sum = 0.0
