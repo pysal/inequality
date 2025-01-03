@@ -85,7 +85,6 @@ def wolfson(data):
     float
         The Wolfson Bipolarization Index value.
 
-
     Example
     -------
     >>> import pandas as pd
