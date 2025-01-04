@@ -1,6 +1,6 @@
 """Theil Inequality metrics"""
 
-__author__ = "Sergio J. Rey <srey@asu.edu> "
+__author__ = "Sergio J. Rey <srey@sdsu.edu>"
 
 import numpy
 
