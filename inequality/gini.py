@@ -32,6 +32,7 @@ def _gini(x):
     http://www.statsdirect.com/help/default.htm#nonparametric_methods/gini.htm.
 
     """
+
     n = len(x)
     try:
         x_sum = x.sum()
@@ -39,6 +40,7 @@ def _gini(x):
         x = numpy.asarray(x)
         x_sum = x.sum()
     n_x_sum = n * x_sum
+    x = x.ravel()  # ensure shape is (n,)
     r_x = (2.0 * numpy.arange(1, len(x) + 1) * x[numpy.argsort(x)]).sum()
     return (r_x - n_x_sum - x_sum) / n_x_sum
 

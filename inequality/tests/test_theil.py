@@ -47,6 +47,7 @@ class TestTheilD:
                 ]
             ),
         )
+
         y = numpy.array([0, 0, 0, 10, 10, 10])
         regions = numpy.array([0, 0, 0, 1, 1, 1])
         theil_d = TheilD(y, regions)
