@@ -1,9 +1,5 @@
 """Theil Inequality metrics"""
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5ae825e (author)
 __author__ = "Sergio J. Rey <srey@sdsu.edu>"
 
 import numpy
