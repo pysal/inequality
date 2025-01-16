@@ -80,22 +80,31 @@ To search for or report bugs, please see inequality's issues_.
 Citing inequality
 ==================
 
-If you use PySAL-inequality in a scientific publication, we would appreciate citations to the following paper:
+If you use PySAL-inequality in a scientific publication, we would appreciate citations to:
 
-  `PySAL: A Python Library of Spatial Analytical Methods <http://journal.srsa.org/ojs/index.php/RRS/article/view/134/85>`_, *Rey, S.J. and L. Anselin*, Review of Regional Studies 37, 5-27 2007.
 
-  Bibtex entry::
+Sergio Rey, James Gaboardi, Wei Kang, Philip Stephens, Renan Xavier Cortes, Dani Arribas-Bel, Levi John Wolf, & Martin Fleischmann. (2023). pysal/inequality: v1.0.1 (v1.0.1). Zenodo. https://doi.org/10.5281/zenodo.10050549
 
-      @Article{pysal2007,
-        author={Rey, Sergio J. and Anselin, Luc},
-        title={{PySAL: A Python Library of Spatial Analytical Methods}},
-        journal={The Review of Regional Studies},
-        year=2007,
-        volume={37},
-        number={1},
-        pages={5-27},
-        keywords={Open Source; Software; Spatial}
-      }
+Bibtex entry::
+  
+     @software{inequality-devs2023,
+       author       = {Sergio Rey and
+                       James Gaboardi and
+                       Wei Kang and
+                       Philip Stephens and
+                       Renan Xavier Cortes and
+                       Dani Arribas-Bel and
+                       Levi John Wolf and
+                       Martin Fleischmann},
+       title        = {pysal/inequality: v1.0.1},
+       month        = oct,
+       year         = 2023,
+       publisher    = {Zenodo},
+       version      = {v1.0.1},
+       doi          = {10.5281/zenodo.10050549},
+       url          = {https://doi.org/10.5281/zenodo.10050549},
+     }
+
 
 
 
