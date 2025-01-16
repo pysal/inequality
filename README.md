@@ -43,7 +43,8 @@ If you have any suggestion, feature request, or bug report, please open a new [i
 Support
 -------
 
-If you are having issues, please talk to us in the [gitter room](https://gitter.im/pysal/inequality).
+If you are having issues, please talk to us in [PySAL's Discord channel](https://discord.gg/BxFTEPFFZn), [create an issue](https://github.com/pysal/inequality/issues), or [start a discussion](https://github.com/pysal/inequality/discussion).
+
 
 License
 -------

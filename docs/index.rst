@@ -18,15 +18,15 @@ An Example: Spatial Inequality in Mexico: 1940-2000
         <div class="col-sm-1 col-xs-hidden">
         </div>
         <div class="col-md-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
-                <img src="_static/images/1940.png" class="img-responsive center-block">
+            <a href="https://nbviewer.jupyter.org/github.com/pysal/inequality/blob/main/docs/user-guide/measure/theil.ipynb" class="thumbnail">
+                <img src="_static/images/theil.png" class="img-responsive center-block">
                 <div class="caption text-center">
-                <h6>State PC GDP 1940</h6>
+                <h6>Spatial Inequality Decomposition (Theil)</h6>
                 </div>
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/docs/user-guide/measure/theil.ipynb" class="thumbnail">
                 <img src="_static/images/regions.png" class="img-responsive center-block">
                 <div class="caption text-center">
                 <h6>Regions</h6>
@@ -34,11 +34,11 @@ An Example: Spatial Inequality in Mexico: 1940-2000
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
-                <img src="_static/images/share.png"
+            <a href="https://nbviewer.jupyter.org/github.com/pysal/inequality/blob/main/docs/user-guide/viz/pengram.ipynb" class="thumbnail">
+                <img src="_static/images/pen.png"
                 class="img-responsive center-block">
                 <div class="caption text-center">
-                <h6>Gini (L) vs. Spatial Inequality Share (R)
+                <h6>Pengram
                 </h6>
                 </div>
             </a>
@@ -80,22 +80,31 @@ To search for or report bugs, please see inequality's issues_.
 Citing inequality
 ==================
 
-If you use PySAL-inequality in a scientific publication, we would appreciate citations to the following paper:
+If you use PySAL-inequality in a scientific publication, we would appreciate citations to:
 
-  `PySAL: A Python Library of Spatial Analytical Methods <http://journal.srsa.org/ojs/index.php/RRS/article/view/134/85>`_, *Rey, S.J. and L. Anselin*, Review of Regional Studies 37, 5-27 2007.
 
-  Bibtex entry::
+Sergio Rey, James Gaboardi, Wei Kang, Philip Stephens, Renan Xavier Cortes, Dani Arribas-Bel, Levi John Wolf, & Martin Fleischmann. (2023). pysal/inequality: v1.0.1 (v1.0.1). Zenodo. https://doi.org/10.5281/zenodo.10050549
 
-      @Article{pysal2007,
-        author={Rey, Sergio J. and Anselin, Luc},
-        title={{PySAL: A Python Library of Spatial Analytical Methods}},
-        journal={The Review of Regional Studies},
-        year=2007,
-        volume={37},
-        number={1},
-        pages={5-27},
-        keywords={Open Source; Software; Spatial}
-      }
+Bibtex entry::
+  
+     @software{inequality-devs2023,
+       author       = {Sergio Rey and
+                       James Gaboardi and
+                       Wei Kang and
+                       Philip Stephens and
+                       Renan Xavier Cortes and
+                       Dani Arribas-Bel and
+                       Levi John Wolf and
+                       Martin Fleischmann},
+       title        = {pysal/inequality: v1.0.1},
+       month        = oct,
+       year         = 2023,
+       publisher    = {Zenodo},
+       version      = {v1.0.1},
+       doi          = {10.5281/zenodo.10050549},
+       url          = {https://doi.org/10.5281/zenodo.10050549},
+     }
+
 
 
 

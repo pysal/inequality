@@ -47,6 +47,12 @@ class TestTheilD:
                 ]
             ),
         )
+        y = numpy.array([0, 0, 0, 10, 10, 10])
+        regions = numpy.array([0, 0, 0, 1, 1, 1])
+        theil_d = TheilD(y, regions)
+        numpy.testing.assert_almost_equal(theil_d.T, 0.6931471805599453)
+        numpy.testing.assert_almost_equal(theil_d.bg, 0.6931471805599453)
+        numpy.testing.assert_almost_equal(theil_d.wg, 0)
 
 
 class TestTheilDSim:
