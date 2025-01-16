@@ -21,4 +21,4 @@ dependencies:
   - sphinx
   - sphinx-gallery
   - sphinxcontrib-bibtex
-  - sphinx_bootstrap_theme
+  - pydata-sphinx-theme
