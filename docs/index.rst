@@ -18,15 +18,15 @@ An Example: Spatial Inequality in Mexico: 1940-2000
         <div class="col-sm-1 col-xs-hidden">
         </div>
         <div class="col-md-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
-                <img src="_static/images/1940.png" class="img-responsive center-block">
+            <a href="https://nbviewer.jupyter.org/github.com/pysal/inequality/blob/main/docs/user-guide/measure/theil.ipynb" class="thumbnail">
+                <img src="_static/images/theil.png" class="img-responsive center-block">
                 <div class="caption text-center">
-                <h6>State PC GDP 1940</h6>
+                <h6>Spatial Inequality Decomposition (Theil)</h6>
                 </div>
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/docs/user-guide/measure/theil.ipynb" class="thumbnail">
                 <img src="_static/images/regions.png" class="img-responsive center-block">
                 <div class="caption text-center">
                 <h6>Regions</h6>
@@ -34,11 +34,11 @@ An Example: Spatial Inequality in Mexico: 1940-2000
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/inequality/blob/main/notebooks/gini.ipynb" class="thumbnail">
-                <img src="_static/images/share.png"
+            <a href="https://nbviewer.jupyter.org/github.com/pysal/inequality/blob/main/docs/user-guide/viz/pengram.ipynb" class="thumbnail">
+                <img src="_static/images/pen.png"
                 class="img-responsive center-block">
                 <div class="caption text-center">
-                <h6>Gini (L) vs. Spatial Inequality Share (R)
+                <h6>Pengram
                 </h6>
                 </div>
             </a>
