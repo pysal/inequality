@@ -21,7 +21,7 @@ from datetime import datetime
 
 # import your package to obtain the version info to display on the docs website
 import inequality
-import pydata-sphinx-theme
+
 
 # -- General configuration ------------------------------------------------
 
