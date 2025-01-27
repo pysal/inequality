@@ -7,18 +7,15 @@ import pytest
 
 def warning_depr(x):
     return pytest.warns(
-        FutureWarning,
-        match=f"{x} is deprecated and will be removed on 2025-01-01."
+        FutureWarning, match=f"{x} is deprecated and will be removed on 2025-01-01."
     )
 
 
 def warning_invalid(x):
-    return pytest.warns(RuntimeWarning,
-                        match=f"invalid value encountered in {x}")
+    return pytest.warns(RuntimeWarning, match=f"invalid value encountered in {x}")
 
 
-warning_div_zero = pytest.warns(RuntimeWarning,
-                                match="divide by zero encountered")
+warning_div_zero = pytest.warns(RuntimeWarning, match="divide by zero encountered")
 
 
 def pytest_configure():
