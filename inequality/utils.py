@@ -34,11 +34,11 @@ def compute_mean(data):
 
 
 # Usage
-df = pd.DataFrame({"a": [1, 2, 3, 4], "b": [5, 6, 7, 8]})
-print(compute_mean(df, column="a"))  # Output: 2.5
+# df = pd.DataFrame({"a": [1, 2, 3, 4], "b": [5, 6, 7, 8]})
+# print(compute_mean(df, column="a"))  # Output: 2.5
 
-arr = np.array([1, 2, 3, 4])
-print(compute_mean(arr))  # Output: 2.5
+# arr = np.array([1, 2, 3, 4])
+# print(compute_mean(arr))  # Output: 2.5
 
-lst = [1, 2, 3, 4]
-print(compute_mean(lst))  # Output: 2.5
+# lst = [1, 2, 3, 4]
+# print(compute_mean(lst))  # Output: 2.5
