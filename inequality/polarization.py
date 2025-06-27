@@ -50,8 +50,9 @@ def S(df, g, column, k=2, bins=None, permutations=999,
     Returns
     -------
     s : float
-        The observed spatial polarization index, bounded in [0, 1]. Higher values indicate 
-        stronger spatial separation of the attribute groups.
+        The observed spatial polarization index, bounded in [0, 1].
+        Higher values indicate stronger spatial separation of the
+        attribute groups.
 
     p_value : float
         Monte Carlo p-value indicating how extreme the observed index is
@@ -63,8 +64,8 @@ def S(df, g, column, k=2, bins=None, permutations=999,
 
     Notes
     -----
-    - The polarization index is based on connected components in a subgraph formed
-      from edges linking observations in the same category.
+    - The polarization index is based on connected components in a subgraph
+      formed from edges linking observations in the same category.
     - The observed index reflects the relative reduction in fragmentation
       compared to a randomized assignment.
     - Useful for detecting spatial clustering, ghettoization, or regional
@@ -94,7 +95,7 @@ def S(df, g, column, k=2, bins=None, permutations=999,
         if not isinstance(k, int) or k < 1 or k > n:
             raise ValueError("'k' must be a positive integer less than n.")
         clique = pd.qcut(df[column], q=k, labels=False, duplicates='drop')
-        Ca = len(np.unique(clique))
+        Ca = k
         labels = range(Ca)
 
     Gg = g.to_networkx()
@@ -110,7 +111,7 @@ def S(df, g, column, k=2, bins=None, permutations=999,
 
         Gi = nx.Graph()
         Gi.add_nodes_from(Gg.nodes)
-        Gi.add_edges_from({edge for edge, weight in edges.items()})
+        Gi.add_edges_from({edge for edge, _ in edges.items()})
         Ci = nx.number_connected_components(Gi)
         return 1 - (Ci - k) / (n - k)
 
@@ -118,9 +119,10 @@ def S(df, g, column, k=2, bins=None, permutations=999,
 
     sim = np.zeros(permutations)
     rng = np.random.default_rng(seed)
+
+    v = np.array(clique)
     for i in trange(permutations):
-        shuffled = pd.Series(rng.permutation(clique.values),
-                             index=clique.index)
+        shuffled = pd.Series(rng.permutation(v))
         sim[i] = _calc(shuffled, n, k)
     print(f'{sim.mean()=}')
     print(f'{sim.std()=}')
