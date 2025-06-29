@@ -108,24 +108,61 @@ def S(df, g, column, k=2, bins=None, permutations=999,
         left = clique_labels.loc[focal].values
         right = clique_labels.loc[neighbor].values
         edges = g.adjacency[left == right]
+        i = edges.index.get_level_values(0)
+        j = edges.index.get_level_values(1)
+        edges = zip(i, j)
+        visited = np.zeros(n, int)
+        labels = np.zeros_like(visited)
+        c = 0  # number of components in intersection graph
+        for edge in edges:
+            i, j = edge
+            if visited[i] == visited[j]:
+                if visited[i] == 0:
+                    # new component
+                    c += 1
+                    labels[i] = c
+                    labels[j] = c
+                    visited[i] = 1
+                    visited[j] = 1
+                else:
+                    if labels[i] != labels[j]:
+                        # bridge edge, merge components
+                        if labels[i] > labels[j]:
+                            labels[labels==labels[i]] = labels[j]
+                        else:
+                            labels[labels==labels[j]] = labels[i]
+                            c -= 1
+            elif visited[i] == 0:
+                # new node, grow component
+                labels[i] = labels[j]
+                visited[i] = 1
+            else:
+                # new node, grow component
+                labels[j] = labels[i]
+                visited[j] = 1
 
-        Gi = nx.Graph()
-        Gi.add_nodes_from(Gg.nodes)
-        Gi.add_edges_from({edge for edge, _ in edges.items()})
-        Ci = nx.number_connected_components(Gi)
-        return 1 - (Ci - k) / (n - k)
+        return 1 - (c - k) / (n - k)
 
     s = _calc(clique, n, k)
 
     sim = np.zeros(permutations)
     rng = np.random.default_rng(seed)
 
+    def permute_and_calc(v, index, n, k, seed_i):
+        rng_i = np.random.default_rng(seed_i)
+        shuffled = pd.Series(rng_i.permutation(v), index=index)
+        return _calc(shuffled, n, k)
+
     v = np.array(clique)
-    for i in trange(permutations):
-        shuffled = pd.Series(rng.permutation(v))
-        sim[i] = _calc(shuffled, n, k)
-    print(f'{sim.mean()=}')
-    print(f'{sim.std()=}')
+    seeds = rng.integers(low=0, high=1e9, size=permutations)
+    sim = Parallel(n_jobs=n_jobs)(
+        delayed(permute_and_calc)(v, range(n), n, k, seeds[current_seed])
+        for current_seed in trange(permutations)
+        )
+    sim = np.array(sim)
+    if verbose:
+        print(f'{sim.mean()=}')
+        print(f'{sim.std()=}')
     p_value = ((sim >= s).sum()+1) / (permutations+1)
     if keep_sim:
         return s, p_value, sim
