@@ -2,10 +2,11 @@ import pandas as pd
 import networkx as nx
 import numpy as np
 from tqdm import trange
+from joblib import Parallel, delayed
 
 
 def S(df, g, column, k=2, bins=None, permutations=999,
-      seed=None, keep_sim=False):
+      seed=None, keep_sim=False, n_jobs=1, verbose=True):
     """Compute a spatial polarization index for a variable.
 
     This function measures the degree of spatial polarization by
@@ -47,6 +48,14 @@ def S(df, g, column, k=2, bins=None, permutations=999,
     keep_sim : bool, default False
         Whether to return the full array of simulated polarization scores.
 
+    n_jobs : int, default 1
+        The number of jobs to run in parallel. `1` means no parallelization.
+        `-1` means using all available CPU cores.
+
+    verbose : bool, default True
+        If True, print the mean and standard deviation of the simulated
+        polarization scores. Also controls the `tqdm` progress bar.
+
     Returns
     -------
     s : float
@@ -68,8 +77,6 @@ def S(df, g, column, k=2, bins=None, permutations=999,
       formed from edges linking observations in the same category.
     - The observed index reflects the relative reduction in fragmentation
       compared to a randomized assignment.
-    - Useful for detecting spatial clustering, ghettoization, or regional
-      segregation based on socioeconomic or demographic variables.
 
     Example
     -------
@@ -104,7 +111,7 @@ def S(df, g, column, k=2, bins=None, permutations=999,
     focal = g.adjacency.index.get_level_values(0)
     neighbor = g.adjacency.index.get_level_values(1)
 
-    def _calc(clique_labels, n, k):
+    def _calc(clique_labels, n, k, ilabels=False):
         left = clique_labels.loc[focal].values
         right = clique_labels.loc[neighbor].values
         edges = g.adjacency[left == right]
@@ -128,10 +135,10 @@ def S(df, g, column, k=2, bins=None, permutations=999,
                     if labels[i] != labels[j]:
                         # bridge edge, merge components
                         if labels[i] > labels[j]:
-                            labels[labels==labels[i]] = labels[j]
+                            labels[labels == labels[i]] = labels[j]
                         else:
-                            labels[labels==labels[j]] = labels[i]
-                            c -= 1
+                            labels[labels == labels[j]] = labels[i]
+                        c -= 1
             elif visited[i] == 0:
                 # new node, grow component
                 labels[i] = labels[j]
@@ -140,10 +147,15 @@ def S(df, g, column, k=2, bins=None, permutations=999,
                 # new node, grow component
                 labels[j] = labels[i]
                 visited[j] = 1
+        statistic_ = 1 - (c - k) / (n - k)
+        if ilabels is True:
+            return statistic_, labels
+        else:
+            return statistic_
 
-        return 1 - (c - k) / (n - k)
+    observed = _calc(clique, n, k, ilabels=True)
+    s = observed[0]
 
-    s = _calc(clique, n, k)
 
     sim = np.zeros(permutations)
     rng = np.random.default_rng(seed)
@@ -164,7 +176,10 @@ def S(df, g, column, k=2, bins=None, permutations=999,
         print(f'{sim.mean()=}')
         print(f'{sim.std()=}')
     p_value = ((sim >= s).sum()+1) / (permutations+1)
+    labels_df = pd.DataFrame(data=observed[1]-1, columns=['i_labels'])
+    labels_df['a_labels'] = clique
+    labels_df['g_labels'] = g.component_labels
     if keep_sim:
-        return s, p_value, sim
+        return s, p_value, labels_df, sim
     else:
-        return s, p_value
+        return s, p_value, labels_df
