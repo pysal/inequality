@@ -1,5 +1,39 @@
+"""
+spatial_polarization.py
+
+This module provides tools for assessing spatial polarization in
+geographic data using graph-based connectivity structures. The core
+function, `S`, implements a spatial polarization index that quantifies
+the degree to which categorical groupings of a variable align with the
+connectivity structure of a spatial graph.
+
+The index captures the extent to which similar attribute values form
+spatially contiguous regions. It does so by computing the number of
+connected components in a subgraph where edges connect observations
+within the same group, and compares this to a randomized baseline
+generated via Monte Carlo permutation.
+
+Dependencies:
+    - pandas
+    - numpy
+    - tqdm
+    - joblib
+
+Typical use cases include:
+    - Measuring spatial fragmentation or clustering of categorical
+      attributes (e.g., income groups, political affiliation).
+    - Comparing spatial structure across different variables or time
+      periods.
+    - Generating empirical p-values to assess the significance of
+      observed spatial polarization patterns.
+
+TODO
+- [ ] tests
+- [x] profiling
+- [ ] notebook
+"""
+
 import pandas as pd
-import networkx as nx
 import numpy as np
 from tqdm import trange
 from joblib import Parallel, delayed
@@ -105,8 +139,7 @@ def S(df, g, column, k=2, bins=None, permutations=999,
         Ca = k
         labels = range(Ca)
 
-    Gg = g.to_networkx()
-    Cg = nx.number_connected_components(Gg)
+    Cg = g.n_components
     k = max(Cg, Ca)
     focal = g.adjacency.index.get_level_values(0)
     neighbor = g.adjacency.index.get_level_values(1)
