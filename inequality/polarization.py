@@ -153,9 +153,7 @@ def S(df, g, column, k=2, bins=None, permutations=999,
         else:
             return statistic_
 
-    observed = _calc(clique, n, k, ilabels=True)
-    s = observed[0]
-
+    s, ilabels = _calc(clique, n, k, ilabels=True)
 
     sim = np.zeros(permutations)
     rng = np.random.default_rng(seed)
@@ -176,7 +174,7 @@ def S(df, g, column, k=2, bins=None, permutations=999,
         print(f'{sim.mean()=}')
         print(f'{sim.std()=}')
     p_value = ((sim >= s).sum()+1) / (permutations+1)
-    labels_df = pd.DataFrame(data=observed[1]-1, columns=['i_labels'])
+    labels_df = pd.DataFrame(data=ilabels-1, columns=['i_labels'])
     labels_df['a_labels'] = clique
     labels_df['g_labels'] = g.component_labels
     if keep_sim:
