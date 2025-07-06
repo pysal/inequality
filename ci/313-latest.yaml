@@ -1,0 +1,24 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  # required
+  - libpysal
+  - matplotlib
+  - numpy
+  - scipy
+  # testing
+  - codecov
+  - mapclassify
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - seaborn
+  # docs
+  - nbsphinx
+  - numpydoc
+  - sphinx
+  - sphinx-gallery
+  - sphinxcontrib-bibtex
+  - pydata-sphinx-theme
