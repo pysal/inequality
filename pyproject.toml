@@ -24,12 +24,13 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: GIS",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
-    "libpysal>=4.5",
-    "matplotlib>=3.6",
-    "numpy>=1.23",
-    "scipy>=1.8",
+    "libpysal>=4.12",
+    "matplotlib>=3.8",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.12",
 ]
 
 [project.urls]
@@ -52,18 +53,17 @@ docs = [
 ]
 tests = [
     "codecov",
-    "mapclassify",
-    "jupyterlab",
     "folium",
+    "geopandas",
+    "jupyterlab",
+    "mapclassify",
     "pytest",
-    "seaborn",
     "pytest-cov",
     "pytest-xdist",
+    "seaborn",
 ]
 pen = [
-    "matplotlib",
     "seaborn",
-    "pandas",
 ]
 [tool.setuptools.packages.find]
 include = ["inequality", "inequality.*"]
