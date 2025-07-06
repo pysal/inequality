@@ -38,7 +38,6 @@ jobs:
           - environment-file: ci/313-latest.yaml
             os: windows-latest
       fail-fast: false
-
     defaults:
       run:
         shell: bash -l {0}
