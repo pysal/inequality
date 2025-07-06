@@ -14,11 +14,11 @@ class TestGini:
 
         self.w = libpysal.weights.block_weights(regimes, silence_warnings=True)
 
-    def test_Gini(self):
+    def test_gini(self):
         g = Gini(self.y)
         numpy.testing.assert_almost_equal(g.g, 0.35372371173452849)
 
-    def test_Gini_Spatial(self):
+    def test_spatial(self):
         numpy.random.seed(12345)
         g = Gini_Spatial(self.y, self.w)
         numpy.testing.assert_almost_equal(g.g, 0.35372371173452849)
