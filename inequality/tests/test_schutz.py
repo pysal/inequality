@@ -4,6 +4,7 @@ import platform
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
+
 from inequality.schutz import Schutz
 
 NOT_LINUX = platform.system() != "Linux"
