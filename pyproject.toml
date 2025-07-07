@@ -82,7 +82,6 @@ select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
 ]
 "*.ipynb" = [
      "E402",  # Module level import not at top of cell
-     "B018",  # Found useless expression. Either assign it to a variable or remove it.
 ]
 
 [tool.coverage.run]
