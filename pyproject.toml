@@ -71,14 +71,18 @@ include = ["inequality", "inequality.*"]
 
 [tool.ruff]
 line-length = 88
+extend-include = ["*.ipynb"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
-exclude = ["inequality/tests/*", "docs/*"]
 
 [tool.ruff.lint.per-file-ignores]
 "*__init__.py" = [
     "F401",  # imported but unused
+]
+"*.ipynb" = [
+     "E402",  # Module level import not at top of cell
+     "B018",  # Found useless expression. Either assign it to a variable or remove it.
 ]
 
 [tool.coverage.run]
