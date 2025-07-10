@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pen’s Parade and Pengrams &#8212; inequality v1.1.2 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=38b0ce36" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6f037312"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/viz/pengram';</script>
+    <link rel="icon" href="../../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.1.2" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">inequality v1.1.2 Manual</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Pen’s Parade and Pengrams</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/inequality/blob/main/user-guide/viz/pengram.ipynb">user-guide/viz/pengram.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/inequality/main?filepath=user-guide/viz/pengram.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Pen's-Parade-and-Pengrams">
+<h1>Pen’s Parade and Pengrams<a class="headerlink" href="#Pen's-Parade-and-Pengrams" title="Link to this heading">#</a></h1>
+<p>This notebook explores the concepts of Pen’s Parade and Pengrams, which are graphical methods used to depict income inequality, both at the individual level and in spatial analysis. The Pen’s Parade, named after economist Jan Pen, illustrates the distribution of income by visualizing individuals as different heights proportional to their income. This notebook adapts the Pen’s Parade for spatial data, treating regions as units and showing the spatial distribution of income levels across different
+areas. Through this approach, we can visualize income inequality both geographically and statistically, allowing for a clearer understanding of wealth concentration across regions. Additionally, the notebook demonstrates how to create weighted Pengrams, which adjust the visual representation based on factors such as population size.</p>
+<p>Although we illustrate these methods using income, it is important to highlight that the Pen’s Parade and Pengram can be applied not only to income but to other variables like wealth, education levels, or even health metrics.</p>
+<section id="Data">
+<h2>Data<a class="headerlink" href="#Data" title="Link to this heading">#</a></h2>
+<p>To illustrate the concepts of Pen’s Parade and Pengrams, this notebook utilizes data on per capita Gross Domestic Product (GDP) for Mexico’s 32 states, covering the decades from 1940 to 2000. Per capita GDP is calculated by dividing the total GDP of a region by its population, providing a measure of the average economic output per person. This metric serves as a useful indicator of the standard of living and economic development across different states. By analyzing this data, we can effectively
+visualize and assess income inequality and economic disparities both over time and across various regions within Mexico.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Last updated: 2025-07-07T09:19:55.572755-04:00
+
+Python implementation: CPython
+Python version       : 3.13.5
+IPython version      : 9.4.0
+
+Compiler    : Clang 18.1.8
+OS          : Darwin
+Release     : 24.5.0
+Machine     : arm64
+Processor   : arm
+CPU cores   : 8
+Architecture: 64bit
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas
+
+from inequality.pen import pen, pengram
+
+%watermark -w
+%watermark -iv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Watermark: 2.5.0
+
+geopandas : 1.1.1
+inequality: 1.1.2.dev10+g423ae0e.d20250706
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = geopandas.read_file(&quot;weighted.shp&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf.head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>POLY_ID</th>
+      <th>AREA</th>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>PERIMETER</th>
+      <th>ACRES</th>
+      <th>HECTARES</th>
+      <th>PCGDP1940</th>
+      <th>PCGDP1950</th>
+      <th>PCGDP1960</th>
+      <th>...</th>
+      <th>TEST</th>
+      <th>Name_1</th>
+      <th>Population</th>
+      <th>NAMEp</th>
+      <th>populati_1</th>
+      <th>Y2000</th>
+      <th>y2000_1</th>
+      <th>p</th>
+      <th>State</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+      <td>5.467030e+09</td>
+      <td>MX01</td>
+      <td>Aguascalientes</td>
+      <td>313895.530</td>
+      <td>1.350927e+06</td>
+      <td>546702.985</td>
+      <td>10384.0</td>
+      <td>6234.0</td>
+      <td>8714.0</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>Aguascalientes</td>
+      <td>944285</td>
+      <td>Aguascalientes</td>
+      <td>944285</td>
+      <td>2.623413e+10</td>
+      <td>27782.0</td>
+      <td>0.009647</td>
+      <td>Aguascalientes</td>
+      <td>POLYGON ((-101.8462 22.01176, -101.9653 21.883...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7.252751e+10</td>
+      <td>MX02</td>
+      <td>Baja California Norte</td>
+      <td>2040312.385</td>
+      <td>1.792187e+07</td>
+      <td>7252751.376</td>
+      <td>22361.0</td>
+      <td>20977.0</td>
+      <td>17865.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>Querétaro de Arteaga</td>
+      <td>1404306</td>
+      <td>Baja California Norte</td>
+      <td>1404306</td>
+      <td>4.192556e+10</td>
+      <td>29855.0</td>
+      <td>0.014347</td>
+      <td>Baja California Norte</td>
+      <td>MULTIPOLYGON (((-113.13972 29.01778, -113.2405...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>7.225988e+10</td>
+      <td>MX03</td>
+      <td>Baja California Sur</td>
+      <td>2912880.772</td>
+      <td>1.785573e+07</td>
+      <td>7225987.769</td>
+      <td>9573.0</td>
+      <td>16013.0</td>
+      <td>16707.0</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>Baja California Sur</td>
+      <td>424041</td>
+      <td>Baja California Sur</td>
+      <td>424041</td>
+      <td>1.106874e+10</td>
+      <td>26103.0</td>
+      <td>0.004332</td>
+      <td>Baja California Sur</td>
+      <td>MULTIPOLYGON (((-111.20612 25.80278, -111.2302...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>15</td>
+      <td>5.016584e+10</td>
+      <td>MX04</td>
+      <td>Campeche</td>
+      <td>1575361.146</td>
+      <td>1.239620e+07</td>
+      <td>5016583.723</td>
+      <td>3758.0</td>
+      <td>4929.0</td>
+      <td>5925.0</td>
+      <td>...</td>
+      <td>15.0</td>
+      <td>Campeche</td>
+      <td>690689</td>
+      <td>Campeche</td>
+      <td>690689</td>
+      <td>2.497739e+10</td>
+      <td>36163.0</td>
+      <td>0.007056</td>
+      <td>Campeche</td>
+      <td>MULTIPOLYGON (((-91.83446 18.63805, -91.84195 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>22</td>
+      <td>7.339157e+10</td>
+      <td>MX05</td>
+      <td>Chiapas</td>
+      <td>1477195.199</td>
+      <td>1.813538e+07</td>
+      <td>7339157.376</td>
+      <td>2934.0</td>
+      <td>4138.0</td>
+      <td>5280.0</td>
+      <td>...</td>
+      <td>22.0</td>
+      <td>Chiapas</td>
+      <td>3920892</td>
+      <td>Chiapas</td>
+      <td>3920892</td>
+      <td>3.404903e+10</td>
+      <td>8684.0</td>
+      <td>0.040057</td>
+      <td>Chiapas</td>
+      <td>POLYGON ((-91.4375 17.24111, -91.35278 17.1763...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 43 columns</p>
+</div></div>
+</div>
+</section>
+<section id="Pen's-Parade">
+<h2>Pen’s Parade<a class="headerlink" href="#Pen's-Parade" title="Link to this heading">#</a></h2>
+<p>The parade proceeds from the poorest individuals to the wealthiest, where those with the lowest incomes appear as very short figures, while the wealthiest individuals tower above the rest. This visualization allows us to see the stark disparities in income distribution, often revealing that a large portion of the population has much lower incomes, with only a small percentage earning exceptionally high amounts. As the parade progresses, there is usually a gradual increase in height, but the
+final segment often shows a dramatic spike, symbolizing the extreme concentration of wealth in the hands of a few.</p>
+<p>This method is particularly powerful because it combines a vivid, intuitive picture with a clear, ordered progression of income distribution. The Pen’s Parade makes inequality tangible by visually showing not only the presence of inequality but also its scale and extremity. It emphasizes the vast differences between individuals at the lower and upper ends of the income spectrum, making it clear how much of the total wealth is held by the top earners. This graphical representation is useful in
+discussions about income inequality as it demonstrates the inequality’s real-world impact, illustrating the imbalance in a way that is more immediate and relatable than abstract statistical measures alone, such as the Gini coefficient.</p>
+<p>For spatial analysis, the regions take the place of individuals, as the focus is on the spatial distribution of incomes, rather than the distribution of individual incomes.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>col = &quot;PCGDP2000&quot;
+weight = &quot;p&quot;
+name = &quot;NAME&quot;
+figsize = (16, 9)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>p = pen(gdf, col, name)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_7_0.png" src="../../_images/user-guide_viz_pengram_7_0.png" />
+</div>
+</div>
+<p>As can be seen in this Pen’s Parade for 2000, the sharp rise at the end signifies concentration of income among the highest income states, suggesting high income inequality.</p>
+<section id="Pen-Parade-Options">
+<h3>Pen Parade Options<a class="headerlink" href="#Pen-Parade-Options" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>p = pen(gdf, col, name, xticks=False)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_9_0.png" src="../../_images/user-guide_viz_pengram_9_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>p = pen(gdf, col, name, ascending=False)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_10_0.png" src="../../_images/user-guide_viz_pengram_10_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Weighted-Pen's-Parade">
+<h2>Weighted Pen’s Parade<a class="headerlink" href="#Weighted-Pen's-Parade" title="Link to this heading">#</a></h2>
+<p>Weighting the Pengram by population size provides a more nuanced understanding of inequality. Without weighting, each state’s income distribution may obscure the fact that some regions have larger populations, which can distort how we perceive inequality on a per-person basis.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wp = pen(gdf, col, name, weight=weight, figsize=figsize)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_12_0.png" src="../../_images/user-guide_viz_pengram_12_0.png" />
+</div>
+</div>
+<p>The weighted Pen’s Parade introduces complexity but has some inherent limitations. A key drawback is that it assumes no inequality exists among individuals within each state, as everyone is assigned the same income level. Consequently, this leads to the assumption that in comparing two states with different per capita incomes, the poorest individuals in the wealthier state would still be wealthier than the richest individuals in the poorer state. This assumption conflicts with real-world data
+(<a class="reference external" href="https://github.com/sjsrey/spatial_inequality?tab=readme-ov-file">Rey, 2024</a>).</p>
+</section>
+<section id="Pengram">
+<h2>Pengram<a class="headerlink" href="#Pengram" title="Link to this heading">#</a></h2>
+<p>While the Pen’s Parade effectively shows where individual states fall within the overall income distribution, it overlooks the geographic dimension of income inequality. The <strong>Pengram</strong> addresses this by extending the Pen’s Parade to incorporate a spatial component, combining the income distribution with a choropleth map. This dual approach allows us to visualize not only the statistical distribution of incomes but also how these incomes are geographically distributed across different regions.
+By blending both perspectives, the Pengram provides a more comprehensive view of inequality, linking spatial and statistical elements in a single visualization.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pengram(gdf, col, name, figsize=figsize);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_14_0.png" src="../../_images/user-guide_viz_pengram_14_0.png" />
+</div>
+</div>
+<p>By using a Pengram, we can identify regions that may be economically lagging and those where income is concentrated. we can observe that wealthier regions are primarily concentrated in the northern and central states, while southern states have significantly lower income levels, which suggests regional economic disparity.</p>
+<p>This dual analysis of statistical and spatial distribution allows policymakers and researchers to target interventions more effectively.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pengram(gdf, col, name, figsize=figsize, leg_pos=&quot;lower left&quot;);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_16_0.png" src="../../_images/user-guide_viz_pengram_16_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pengram(gdf, col, name, figsize=figsize, leg_pos=&quot;lower left&quot;, scheme=&quot;FisherJenks&quot;);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_17_0.png" src="../../_images/user-guide_viz_pengram_17_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pengram(
+    gdf, col, name, figsize=figsize, leg_pos=&quot;lower left&quot;, scheme=&quot;FisherJenks&quot;, k=3
+);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_18_0.png" src="../../_images/user-guide_viz_pengram_18_0.png" />
+</div>
+</div>
+<section id="Queries">
+<h3>Queries<a class="headerlink" href="#Queries" title="Link to this heading">#</a></h3>
+<p>The Pengram enables users to search for and highlight specific subsets of areas, both on the map and within the Pengram itself. This feature allows users to focus on specific regions of interest, making it easier to analyze economic disparities in targeted areas. For instance, searching for states like Chiapas and Campeche, which appear far apart in the Pen’s Parade due to their significant income differences, but are actually contiguous on the map, highlights abrupt spatial disparities. This
+helps illustrate how neighboring regions can experience vastly different levels of income, underscoring the complexity of geographic inequality.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pengram(
+    gdf,
+    col,
+    name,
+    figsize=figsize,
+    leg_pos=&quot;lower left&quot;,
+    scheme=&quot;FisherJenks&quot;,
+    k=3,
+    query=[&quot;Chiapas&quot;, &quot;Campeche&quot;],
+);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_20_0.png" src="../../_images/user-guide_viz_pengram_20_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Subplotting">
+<h2>Subplotting<a class="headerlink" href="#Subplotting" title="Link to this heading">#</a></h2>
+<p>Both the Pen’s Parade and Pengram are implemented using Matplotlib objects. By combining various visualizations—such as KDE plots, choropleth maps, and the Pen’s Parade—we can examine multiple aspects of inequality in a single view. For example, this approach allows us to compare the distribution of per capita GDP across states while simultaneously observing how it corresponds to their geographic locations. Additionally, these plots can be embedded in a single figure, making them easy to include
+in reports or papers.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+import seaborn
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axes = plt.subplots(2, 2, figsize=(10, 8), gridspec_kw={&quot;height_ratios&quot;: [1, 1]})
+ax0, ax1, ax2, ax3 = axes[0, 0], axes[0, 1], axes[1, 0], axes[1, 1]
+
+seaborn.kdeplot(data=gdf, x=&quot;PCGDP2000&quot;, ax=ax0)
+gdf.plot(&quot;PCGDP2000&quot;, ax=ax1)
+pen(gdf, col, name, ax=ax2)
+pengram(gdf, col, name, xticks=False, legend=False, ax=ax3);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_viz_pengram_23_0.png" src="../../_images/user-guide_viz_pengram_23_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Pen's-Parade">Pen’s Parade</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Pen-Parade-Options">Pen Parade Options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Weighted-Pen's-Parade">Weighted Pen’s Parade</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Pengram">Pengram</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Queries">Queries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Subplotting">Subplotting</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/user-guide/viz/pengram.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, pysal developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>inequality.theil &#8212; inequality v1.1.2 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=38b0ce36" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6f037312"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/inequality/theil';</script>
+    <link rel="icon" href="../../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.1.2" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">inequality v1.1.2 Manual</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user-guide/intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">inequality.theil</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for inequality.theil</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Theil Inequality metrics&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Sergio J. Rey &lt;srey@sdsu.edu&gt;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Theil&quot;</span><span class="p">,</span> <span class="s2">&quot;TheilD&quot;</span><span class="p">,</span> <span class="s2">&quot;TheilDSim&quot;</span><span class="p">]</span>
+
+<span class="n">SMALL</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tiny</span>
+
+
+<div class="viewcode-block" id="Theil">
+<a class="viewcode-back" href="../../generated/inequality.theil.Theil.html#inequality.theil.Theil">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Theil</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classic Theil measure of inequality.</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        T = \\sum_{i=1}^n</span>
+<span class="sd">            \\left( \\frac{y_i}{\\sum_{i=1}^n y_i} \\ln</span>
+<span class="sd">                \\left[ N \\frac{y_i}{\\sum_{i=1}^n y_i}\\right]</span>
+<span class="sd">            \\right</span>
+<span class="sd">        )</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    y : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,t)` or :math:`(n,)`</span>
+<span class="sd">        with :math:`n` taken as the observations across which inequality is</span>
+<span class="sd">        calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is</span>
+<span class="sd">        determined. If ``y`` is :math:`(n,t)` then an array of inequality values are</span>
+<span class="sd">        determined, one value for each column in ``y``.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    T : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(t,)` or :math:`(1,)`</span>
+<span class="sd">        containing Theil&#39;s *T* for each column of ``y``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This computation involves natural logs. To prevent ``ln[0]`` from occurring, a</span>
+<span class="sd">    small value is added to each element of ``y`` before beginning the computation.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; import libpysal</span>
+<span class="sd">    &gt;&gt;&gt; import numpy</span>
+<span class="sd">    &gt;&gt;&gt; from inequality.theil import Theil</span>
+
+<span class="sd">    &gt;&gt;&gt; f = libpysal.io.open(libpysal.examples.get_path(&#39;mexico.csv&#39;))</span>
+<span class="sd">    &gt;&gt;&gt; vnames = [f&#39;pcgdp{dec}&#39; for dec in range(1940, 2010, 10)]</span>
+<span class="sd">    &gt;&gt;&gt; y = numpy.array([f.by_col[v] for v in vnames]).T</span>
+<span class="sd">    &gt;&gt;&gt; theil_y = Theil(y)</span>
+
+<span class="sd">    &gt;&gt;&gt; theil_y.T</span>
+<span class="sd">    array([0.20894344, 0.15222451, 0.10472941, 0.10194725, 0.09560113,</span>
+<span class="sd">           0.10511256, 0.10660832])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Theil.__init__">
+<a class="viewcode-back" href="../../generated/inequality.theil.Theil.html#inequality.theil.Theil.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">SMALL</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># can&#39;t have 0 values</span>
+        <span class="n">yt</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">y</span> <span class="o">/</span> <span class="p">(</span><span class="n">yt</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">lns</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">slns</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">lns</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">slns</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">t</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TheilD">
+<a class="viewcode-back" href="../../generated/inequality.theil.TheilD.html#inequality.theil.TheilD">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TheilD</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decomposition of Theil&#39;s *T* based on partitioning of</span>
+<span class="sd">    observations into exhaustive and mutually exclusive groups.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    y : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,t)` or :math:`(n,)`</span>
+<span class="sd">        with :math:`n` taken as the observations across which inequality is</span>
+<span class="sd">        calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is</span>
+<span class="sd">        determined. If ``y`` is :math:`(n,t)` then an array of inequality values are</span>
+<span class="sd">        determined, one value for each column in ``y``.</span>
+<span class="sd">    partition : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,)` of elements indicating which partition</span>
+<span class="sd">        each observation belongs to. These are assumed to be exhaustive.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    T : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(t,)` or :math:`(1,)`</span>
+<span class="sd">        containing the global inequality *T*.</span>
+<span class="sd">    bg : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,t)` or :math:`(n,)`</span>
+<span class="sd">        representing between group inequality.</span>
+<span class="sd">    wg : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,t)` or :math:`(n,)`</span>
+<span class="sd">        representing within group inequality.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; import libpysal</span>
+<span class="sd">    &gt;&gt;&gt; import numpy</span>
+<span class="sd">    &gt;&gt;&gt; from inequality.theil import TheilD</span>
+
+<span class="sd">    &gt;&gt;&gt; f = libpysal.io.open(libpysal.examples.get_path(&#39;mexico.csv&#39;))</span>
+<span class="sd">    &gt;&gt;&gt; vnames = [f&#39;pcgdp{dec}&#39; for dec in range(1940, 2010, 10)]</span>
+<span class="sd">    &gt;&gt;&gt; y = numpy.array([f.by_col[v] for v in vnames]).T</span>
+<span class="sd">    &gt;&gt;&gt; regimes = numpy.array(f.by_col(&#39;hanson98&#39;))</span>
+<span class="sd">    &gt;&gt;&gt; theil_d = TheilD(y, regimes)</span>
+
+<span class="sd">    &gt;&gt;&gt; theil_d.bg</span>
+<span class="sd">    array([0.0345889 , 0.02816853, 0.05260921, 0.05931219, 0.03205257,</span>
+<span class="sd">           0.02963731, 0.03635872])</span>
+
+<span class="sd">    &gt;&gt;&gt; theil_d.wg</span>
+<span class="sd">    array([0.17435454, 0.12405598, 0.0521202 , 0.04263506, 0.06354856,</span>
+<span class="sd">           0.07547525, 0.0702496 ])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TheilD.__init__">
+<a class="viewcode-back" href="../../generated/inequality.theil.TheilD.html#inequality.theil.TheilD.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">partition</span><span class="p">):</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">Theil</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># noqa N806</span>
+        <span class="n">ytot</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># group totals</span>
+        <span class="n">gtot</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y</span><span class="p">[</span><span class="n">partition</span> <span class="o">==</span> <span class="n">gid</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">gid</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">ytot</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># y is 1-d</span>
+            <span class="n">sg</span> <span class="o">=</span> <span class="n">gtot</span> <span class="o">/</span> <span class="p">(</span><span class="n">ytot</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">sg</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">sg</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sg</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">gtot</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">ytot</span><span class="p">))</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">partition</span> <span class="o">==</span> <span class="n">gid</span><span class="p">)</span> <span class="k">for</span> <span class="n">gid</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">])</span>
+        <span class="n">ng</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">ng</span><span class="o">.</span><span class="n">size</span><span class="p">,)</span>  <span class="c1"># ensure ng is 1-d</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># between group inequality</span>
+        <span class="n">sg</span> <span class="o">=</span> <span class="n">sg</span> <span class="o">+</span> <span class="n">SMALL</span> <span class="o">*</span> <span class="p">(</span><span class="n">sg</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># can&#39;t have 0 values</span>
+
+        <span class="n">bg</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">sg</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">ng</span><span class="p">),</span> <span class="n">sg</span><span class="p">)))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">T</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg</span> <span class="o">=</span> <span class="n">bg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wg</span> <span class="o">=</span> <span class="n">T</span> <span class="o">-</span> <span class="n">bg</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TheilDSim">
+<a class="viewcode-back" href="../../generated/inequality.theil.TheilDSim.html#inequality.theil.TheilDSim">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TheilDSim</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Random permutation based inference on Theil&#39;s inequality decomposition.</span>
+<span class="sd">    Provides for computationally based inference regarding the inequality</span>
+<span class="sd">    decomposition using random spatial permutations.</span>
+<span class="sd">    See :cite:`rey_interregional_2010`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    y : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,t)` or :math:`(n,)`</span>
+<span class="sd">        with :math:`n` taken as the observations across which inequality is</span>
+<span class="sd">        calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is</span>
+<span class="sd">        determined. If ``y`` is :math:`(n,t)` then an array of inequality values are</span>
+<span class="sd">        determined, one value for each column in ``y``.</span>
+<span class="sd">    partition : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,)` of elements indicating which partition</span>
+<span class="sd">        each observation belongs to. These are assumed to be exhaustive.</span>
+<span class="sd">    permutations : int</span>
+<span class="sd">        The number of random spatial permutations for computationally</span>
+<span class="sd">        based inference on the decomposition.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    observed : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(n,t)` or :math:`(n,)`</span>
+<span class="sd">        representing a ``TheilD`` instance for the observed data.</span>
+<span class="sd">    bg : numpy.array</span>
+<span class="sd">        An array in the shape ``(permutations+1, t)``</span>
+<span class="sd">        representing between group inequality.</span>
+<span class="sd">    bg_pvalue : numpy.array</span>
+<span class="sd">        An array in the shape :math:`(t,1)` representing the :math:`p`-value</span>
+<span class="sd">        for the between group measure. Measures the percentage of the realized</span>
+<span class="sd">        values that were greater than or equal to the observed ``bg`` value.</span>
+<span class="sd">        Includes the observed value.</span>
+<span class="sd">    wg : numpy.array</span>
+<span class="sd">        An array in the shape ``(permutations+1)``</span>
+<span class="sd">        representing within group inequality. Depending on the</span>
+<span class="sd">        shape of ``y``, the array may be 1- or 2-dimensional.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; import libpysal</span>
+<span class="sd">    &gt;&gt;&gt; import numpy</span>
+<span class="sd">    &gt;&gt;&gt; from inequality.theil import TheilDSim</span>
+
+<span class="sd">    &gt;&gt;&gt; f = libpysal.io.open(libpysal.examples.get_path(&#39;mexico.csv&#39;))</span>
+<span class="sd">    &gt;&gt;&gt; vnames = [f&#39;pcgdp{dec}&#39; for dec in range(1940, 2010, 10)]</span>
+<span class="sd">    &gt;&gt;&gt; y = numpy.array([f.by_col[v] for v in vnames]).T</span>
+<span class="sd">    &gt;&gt;&gt; regimes = numpy.array(f.by_col(&#39;hanson98&#39;))</span>
+<span class="sd">    &gt;&gt;&gt; numpy.random.seed(10)</span>
+<span class="sd">    &gt;&gt;&gt; theil_ds = TheilDSim(y, regimes, 999)</span>
+
+<span class="sd">    &gt;&gt;&gt; theil_ds.bg_pvalue</span>
+<span class="sd">    array([0.4  , 0.344, 0.001, 0.001, 0.034, 0.072, 0.032])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TheilDSim.__init__">
+<a class="viewcode-back" href="../../generated/inequality.theil.TheilDSim.html#inequality.theil.TheilDSim.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">partition</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">99</span><span class="p">):</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="n">TheilD</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span>
+        <span class="n">bg_ct</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">bg</span> <span class="o">==</span> <span class="n">observed</span><span class="o">.</span><span class="n">bg</span>  <span class="c1"># already have one extreme value</span>
+        <span class="n">bg_ct</span> <span class="o">=</span> <span class="n">bg_ct</span> <span class="o">*</span> <span class="mf">1.0</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">observed</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">permutations</span><span class="p">):</span>
+            <span class="n">yp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">TheilD</span><span class="p">(</span><span class="n">yp</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span>
+            <span class="n">bg_ct</span> <span class="o">+=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">t</span><span class="o">.</span><span class="n">bg</span> <span class="o">&gt;=</span> <span class="n">observed</span><span class="o">.</span><span class="n">bg</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">T</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_pvalue</span> <span class="o">=</span> <span class="n">bg_ct</span> <span class="o">/</span> <span class="p">(</span><span class="n">permutations</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">bg</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wg</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">wg</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">])</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, pysal developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

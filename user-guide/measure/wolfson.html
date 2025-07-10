@@ -1,0 +1,841 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Demonstrating the Wolfson Bipolarization Coefficient: &#8212; inequality v1.1.2 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=38b0ce36" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6f037312"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/measure/wolfson';</script>
+    <link rel="icon" href="../../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.1.2" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">inequality v1.1.2 Manual</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Demonstrating the Wolfson Bipolarization Coefficient:</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/inequality/blob/main/user-guide/measure/wolfson.ipynb">user-guide/measure/wolfson.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/inequality/main?filepath=user-guide/measure/wolfson.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Demonstrating-the-Wolfson-Bipolarization-Coefficient:">
+<h1>Demonstrating the Wolfson Bipolarization Coefficient:<a class="headerlink" href="#Demonstrating-the-Wolfson-Bipolarization-Coefficient:" title="Link to this heading">#</a></h1>
+<p>The Wolfson Polarization Index, introduced by Wolfson (1994), is a measure used to quantify the degree of bipolarization within a distribution, particularly income distributions. Unlike traditional inequality measures, such as the Gini coefficient, which capture the overall level of inequality within a distribution, the Wolfson index specifically focuses on the extent to which a distribution exhibits characteristics of bipolarization. This means it is sensitive to the presence of two distinct
+groups or “poles” in the distribution, which can signal social or economic divisions.</p>
+<p>Bipolarization occurs when the population tends to cluster around two income poles, resulting in a “hollowing out” of the middle class. This phenomenon has been observed in many advanced economies where growing income inequality is not just due to the rich getting richer and the poor getting poorer, but also due to the diminishing size of the middle-income group.</p>
+<p>The Wolfson index is defined mathematically in terms of the Lorenz curve, but it differs from traditional Lorenz-based indices (like the Gini coefficient) by its focus on the distance between the poles of a distribution. The index increases as the distribution becomes more polarized, which happens when the middle of the distribution thins out while the lower and upper ends of the distribution expand.</p>
+<p>Wolfson’s work (1994) has been foundational in the field of inequality measurement, offering new insights into the nature of economic divisions beyond what is captured by measures like variance or Gini. By applying the Wolfson index to different income distributions, analysts can better understand the dynamics of income segmentation and social stratification within a population.</p>
+<p>Wolfson, M. C. (1994). When Inequalities Diverge. The American Economic Review, 84(2), 353-358.</p>
+<hr class="docutils" />
+<section id="1.-Imports-&amp;-Input-Data">
+<h2>1. Imports &amp; Input Data<a class="headerlink" href="#1.-Imports-&-Input-Data" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Last updated: 2025-07-07T09:05:07.203062-04:00
+
+Python implementation: CPython
+Python version       : 3.13.5
+IPython version      : 9.4.0
+
+Compiler    : Clang 18.1.8
+OS          : Darwin
+Release     : 24.5.0
+Machine     : arm64
+Processor   : arm
+CPU cores   : 8
+Architecture: 64bit
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas
+import libpysal
+import matplotlib.pyplot as plt
+import numpy
+import pandas
+import seaborn
+
+from inequality.wolfson import wolfson
+
+%watermark -w
+%watermark -iv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Watermark: 2.5.0
+
+inequality: 1.1.2.dev10+g423ae0e.d20250706
+libpysal  : 4.12.1
+matplotlib: 3.10.3
+numpy     : 2.3.1
+geopandas : 1.1.1
+pandas    : 2.3.0
+seaborn   : 0.13.2
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Set random seed for reproducibility
+numpy.random.seed(42)
+
+# Distribution 1: Low polarization (normal distribution)
+income_low_polarization = numpy.random.normal(loc=50000, scale=15000, size=10000)
+
+# Distribution 2: High polarization (bimodal distribution)
+income_high_polarization = numpy.concatenate(
+    [
+        numpy.random.normal(loc=30000, scale=5000, size=5000),
+        numpy.random.normal(loc=70000, scale=5000, size=5000),
+    ]
+)
+
+# Plotting the distributions
+plt.figure(figsize=(12, 6))
+
+# Plot for low polarization
+plt.subplot(1, 2, 1)
+plt.hist(income_low_polarization, bins=50, color=&quot;blue&quot;, alpha=0.7)
+plt.title(&quot;Low Polarization Income Distribution&quot;)
+plt.xlabel(&quot;Income&quot;)
+plt.ylabel(&quot;Frequency&quot;)
+
+# Plot for high polarization
+plt.subplot(1, 2, 2)
+plt.hist(income_high_polarization, bins=50, color=&quot;red&quot;, alpha=0.7)
+plt.title(&quot;High Polarization Income Distribution&quot;)
+plt.xlabel(&quot;Income&quot;)
+plt.ylabel(&quot;Frequency&quot;)
+
+# Show plots
+plt.tight_layout()
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_wolfson_3_0.png" src="../../_images/user-guide_measure_wolfson_3_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wolfson(income_high_polarization)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.17571224182763845)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wolfson(income_low_polarization)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.07016937981819858)
+</pre></div></div>
+</div>
+<section id="Analyzing-Bipolarization-in-Mexico's-Regional-GDP">
+<h3>Analyzing Bipolarization in Mexico’s Regional GDP<a class="headerlink" href="#Analyzing-Bipolarization-in-Mexico's-Regional-GDP" title="Link to this heading">#</a></h3>
+<p>To illustrate the Wolfson Bipolarization Coefficient in a spatial economic context, we apply it to regional per capita GDP (PCGDP) data for Mexico. The dataset contains economic data for different Mexican states, spanning the decades of 1940-2000.</p>
+<p>Economic polarization is an important issue in Mexico, where regional disparities have persisted due to differences in industrialization, trade policies, and historical investment patterns. The Wolfson index allows us to measure whether income differences across regions have become more extreme over time—indicating a divergence between wealthier and poorer states.</p>
+<p>In the following analysis, we compute the Wolfson index for PCGDP in 1960 and 2000, visualizing income distributions and mapping economic disparities. Note that all values are in constant 2000USD.</p>
+</section>
+</section>
+<section id="Income-Distribution-in-1960-vs.-2000">
+<h2>Income Distribution in 1960 vs. 2000<a class="headerlink" href="#Income-Distribution-in-1960-vs.-2000" title="Link to this heading">#</a></h2>
+<p>First, we visualize the distribution of per capita GDP across Mexican states:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>libpysal.examples.explain(&quot;mexico&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mexico
+======
+
+Decennial per capita incomes of Mexican states 1940-2000
+--------------------------------------------------------
+
+* mexico.csv: attribute data. (n=32, k=13)
+* mexico.gal: spatial weights in GAL format.
+* mexicojoin.shp: Polygon shapefile. (n=32)
+
+Data used in Rey, S.J. and M.L. Sastre Gutierrez. (2010) &#34;Interregional inequality dynamics in Mexico.&#34; Spatial Economic Analysis, 5: 277-298.
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pth = libpysal.examples.get_path(&quot;mexicojoin.shp&quot;)
+gdf = geopandas.read_file(pth)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axes = plt.subplots(1, 2, figsize=(14, 7))
+
+# Choropleth map for 1960
+gdf.plot(column=&quot;PCGDP1960&quot;, cmap=&quot;Blues&quot;, legend=True, ax=axes[0], edgecolor=&quot;black&quot;)
+axes[0].set_title(&quot;Per Capita GDP in 1960&quot;)
+axes[0].axis(&quot;off&quot;)
+
+# Choropleth map for 2000
+gdf.plot(column=&quot;PCGDP2000&quot;, cmap=&quot;Reds&quot;, legend=True, ax=axes[1], edgecolor=&quot;black&quot;)
+axes[1].set_title(&quot;Per Capita GDP in 2000&quot;)
+axes[1].axis(&quot;off&quot;)
+
+plt.tight_layout()
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_wolfson_9_0.png" src="../../_images/user-guide_measure_wolfson_9_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = gdf.dropna(subset=[&quot;PCGDP1960&quot;, &quot;PCGDP2000&quot;])
+
+plt.figure(figsize=(12, 6))
+
+# Histogram &amp; KDE for 1960
+plt.subplot(1, 2, 1)
+seaborn.histplot(gdf[&quot;PCGDP1960&quot;], bins=15, color=&quot;blue&quot;, alpha=0.6, kde=True)
+plt.axvline(
+    gdf[&quot;PCGDP1960&quot;].median(), color=&quot;black&quot;, linestyle=&quot;dashed&quot;, label=&quot;Median&quot;
+)
+plt.title(&quot;Income Distribution in 1960&quot;)
+plt.xlabel(&quot;Per Capita GDP&quot;)
+plt.ylabel(&quot;Frequency&quot;)
+plt.legend()
+
+# Histogram &amp; KDE for 2000
+plt.subplot(1, 2, 2)
+seaborn.histplot(gdf[&quot;PCGDP2000&quot;], bins=15, color=&quot;red&quot;, alpha=0.6, kde=True)
+plt.axvline(
+    gdf[&quot;PCGDP2000&quot;].median(), color=&quot;black&quot;, linestyle=&quot;dashed&quot;, label=&quot;Median&quot;
+)
+plt.title(&quot;Income Distribution in 2000&quot;)
+plt.xlabel(&quot;Per Capita GDP&quot;)
+plt.ylabel(&quot;Frequency&quot;)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_wolfson_10_0.png" src="../../_images/user-guide_measure_wolfson_10_0.png" />
+</div>
+</div>
+<p>We can emphasize the changes in the distribution by using the same range for the two densities:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12, 6))
+
+min_value = min(gdf[&quot;PCGDP1960&quot;].min(), gdf[&quot;PCGDP2000&quot;].min())
+max_value = max(gdf[&quot;PCGDP1960&quot;].max(), gdf[&quot;PCGDP2000&quot;].max())
+
+# Histogram &amp; KDE for 1960
+plt.subplot(1, 2, 1)
+seaborn.histplot(gdf[&quot;PCGDP1960&quot;], bins=15, color=&quot;blue&quot;, alpha=0.6, kde=True)
+plt.axvline(
+    gdf[&quot;PCGDP1960&quot;].median(), color=&quot;black&quot;, linestyle=&quot;dashed&quot;, label=&quot;Median&quot;
+)
+plt.title(&quot;Income Distribution in 1960&quot;)
+plt.xlabel(&quot;Per Capita GDP&quot;)
+plt.xlim(min_value, max_value)
+plt.ylabel(&quot;Frequency&quot;)
+plt.legend()
+
+# Histogram &amp; KDE for 2000
+plt.subplot(1, 2, 2)
+seaborn.histplot(gdf[&quot;PCGDP2000&quot;], bins=15, color=&quot;red&quot;, alpha=0.6, kde=True)
+plt.axvline(
+    gdf[&quot;PCGDP2000&quot;].median(), color=&quot;black&quot;, linestyle=&quot;dashed&quot;, label=&quot;Median&quot;
+)
+plt.title(&quot;Income Distribution in 2000&quot;)
+plt.xlabel(&quot;Per Capita GDP&quot;)
+plt.xlim(min_value, max_value)
+
+plt.ylabel(&quot;Frequency&quot;)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_wolfson_12_0.png" src="../../_images/user-guide_measure_wolfson_12_0.png" />
+</div>
+</div>
+<p>From these plots, we observe that:</p>
+<ul class="simple">
+<li><p>In 1960, the distribution appears more concentrated, suggesting that regional economies were more similar.</p></li>
+<li><p>By 2000, the spread has widened, with more states falling into high-income and low-income categories, possibly reflecting greater economic divergence</p></li>
+</ul>
+<p>We quantify this polarization using the Wolfson index:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>w_1960 = wolfson(gdf[&quot;PCGDP1960&quot;])
+w_2000 = wolfson(gdf[&quot;PCGDP2000&quot;])
+
+print(f&quot;Wolfson Index (1960): {w_1960:.4f}&quot;)
+print(f&quot;Wolfson Index (2000): {w_2000:.4f}&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Wolfson Index (1960): 0.1107
+Wolfson Index (2000): 0.1362
+</pre></div></div>
+</div>
+<p>A higher Wolfson index in 2000 compared to 1960 confirms that income polarization has increased. This suggests that economic growth has not been uniform—some regions have advanced while others have stagnated, exacerbating regional inequalities.</p>
+<p>To track the evolution of economic bipolarization over time, we compute the Wolfson index for each decade from 1940 to 2010.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>years = range(1940, 2010, 10)
+w_values = [wolfson(gdf[f&quot;PCGDP{year}&quot;]) for year in years]
+
+ts = pandas.DataFrame({&quot;Year&quot;: years, &quot;Wolfson Index&quot;: w_values}).set_index(&quot;Year&quot;)
+
+plt.figure(figsize=(10, 5))
+plt.plot(ts.index, ts[&quot;Wolfson Index&quot;], marker=&quot;o&quot;, linestyle=&quot;-&quot;)
+plt.title(&quot;Evolution of State Income Bipolarization in Mexico (1940-2000)&quot;)
+plt.xlabel(&quot;Year&quot;)
+plt.ylabel(&quot;Wolfson Bipolarization Index&quot;)
+plt.grid(True)
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_wolfson_16_0.png" src="../../_images/user-guide_measure_wolfson_16_0.png" />
+</div>
+</div>
+<p>Thus, while bipolarization in 2000 exceeded that in 1960, the level of polarization was lower relative to the values at the beginning of the period.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#1.-Imports-&amp;-Input-Data">1. Imports &amp; Input Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Analyzing-Bipolarization-in-Mexico's-Regional-GDP">Analyzing Bipolarization in Mexico’s Regional GDP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Income-Distribution-in-1960-vs.-2000">Income Distribution in 1960 vs. 2000</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/user-guide/measure/wolfson.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, pysal developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

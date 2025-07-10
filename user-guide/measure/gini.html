@@ -1,0 +1,1534 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gini-Based Measures of Spatial Inequality and Polarization &#8212; inequality v1.1.2 Manual</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=38b0ce36" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=6f037312"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/measure/gini';</script>
+    <link rel="icon" href="../../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.1.2" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">inequality v1.1.2 Manual</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Home
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../intro.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../references.html">
+    References
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"></div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Gini-Based Measures of Spatial Inequality and Polarization</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/inequality/blob/main/user-guide/measure/gini.ipynb">user-guide/measure/gini.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/inequality/main?filepath=user-guide/measure/gini.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Gini-Based-Measures-of-Spatial-Inequality-and-Polarization">
+<h1>Gini-Based Measures of Spatial Inequality and Polarization<a class="headerlink" href="#Gini-Based-Measures-of-Spatial-Inequality-and-Polarization" title="Link to this heading">#</a></h1>
+<p>This notebook explores the measurement of spatial inequality and polarization using the Gini coefficient, with a particular focus on Mexican state-level income data between 1940 and 2000. <code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> extends the classic Gini coefficient, which quantifies income inequality, to account for spatial relationships among neighboring regions. By leveraging spatial weights matrices, we distinguish between inequality contributions from neighboring areas versus distant areas, enabling a deeper
+understanding of spatial economic disparities.</p>
+<p>The analysis begins with an overview of the data, which includes decennial per capita incomes of Mexican states, followed by the calculation of the classic Gini coefficient to establish baseline inequality levels. We then extend the analysis to the spatial Gini coefficient, incorporating spatial relationships to reveal localized inequality patterns. The notebook culminates in the Gini-based spatial polarization index, which highlights the extent to which the inequality has a spatial structure.</p>
+<section id="Imports-&amp;-Input-Data">
+<h2>Imports &amp; Input Data<a class="headerlink" href="#Imports-&-Input-Data" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%load_ext watermark
+%watermark
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Last updated: 2025-07-07T09:04:34.457180-04:00
+
+Python implementation: CPython
+Python version       : 3.13.5
+IPython version      : 9.4.0
+
+Compiler    : Clang 18.1.8
+OS          : Darwin
+Release     : 24.5.0
+Machine     : arm64
+Processor   : arm
+CPU cores   : 8
+Architecture: 64bit
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas
+import libpysal
+import mapclassify
+import numpy
+import pandas
+import seaborn
+
+import inequality
+
+%watermark -w
+%watermark -iv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Watermark: 2.5.0
+
+seaborn    : 0.13.2
+geopandas  : 1.1.1
+inequality : 1.1.2.dev10+g423ae0e.d20250706
+pandas     : 2.3.0
+libpysal   : 4.12.1
+numpy      : 2.3.1
+mapclassify: 2.9.0
+
+</pre></div></div>
+</div>
+<p>To illustrate <code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> we utilize a built-in data set on per-capita gross domestic product for the 32 Mexican states measured each decade from 1940 through 2000:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>libpysal.examples.explain(&quot;mexico&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+mexico
+======
+
+Decennial per capita incomes of Mexican states 1940-2000
+--------------------------------------------------------
+
+* mexico.csv: attribute data. (n=32, k=13)
+* mexico.gal: spatial weights in GAL format.
+* mexicojoin.shp: Polygon shapefile. (n=32)
+
+Data used in Rey, S.J. and M.L. Sastre Gutierrez. (2010) &#34;Interregional inequality dynamics in Mexico.&#34; Spatial Economic Analysis, 5: 277-298.
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pth = libpysal.examples.get_path(&quot;mexicojoin.shp&quot;)
+gdf = geopandas.read_file(pth)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf.head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>POLY_ID</th>
+      <th>AREA</th>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>PERIMETER</th>
+      <th>ACRES</th>
+      <th>HECTARES</th>
+      <th>PCGDP1940</th>
+      <th>PCGDP1950</th>
+      <th>PCGDP1960</th>
+      <th>...</th>
+      <th>GR9000</th>
+      <th>LPCGDP40</th>
+      <th>LPCGDP50</th>
+      <th>LPCGDP60</th>
+      <th>LPCGDP70</th>
+      <th>LPCGDP80</th>
+      <th>LPCGDP90</th>
+      <th>LPCGDP00</th>
+      <th>TEST</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7.252751e+10</td>
+      <td>MX02</td>
+      <td>Baja California Norte</td>
+      <td>2040312.385</td>
+      <td>1.792187e+07</td>
+      <td>7252751.376</td>
+      <td>22361.0</td>
+      <td>20977.0</td>
+      <td>17865.0</td>
+      <td>...</td>
+      <td>0.05</td>
+      <td>4.35</td>
+      <td>4.32</td>
+      <td>4.25</td>
+      <td>4.40</td>
+      <td>4.47</td>
+      <td>4.43</td>
+      <td>4.48</td>
+      <td>1.0</td>
+      <td>MULTIPOLYGON (((-113.13972 29.01778, -113.2405...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7.225988e+10</td>
+      <td>MX03</td>
+      <td>Baja California Sur</td>
+      <td>2912880.772</td>
+      <td>1.785573e+07</td>
+      <td>7225987.769</td>
+      <td>9573.0</td>
+      <td>16013.0</td>
+      <td>16707.0</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>3.98</td>
+      <td>4.20</td>
+      <td>4.22</td>
+      <td>4.39</td>
+      <td>4.46</td>
+      <td>4.41</td>
+      <td>4.42</td>
+      <td>2.0</td>
+      <td>MULTIPOLYGON (((-111.20612 25.80278, -111.2302...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2.731957e+10</td>
+      <td>MX18</td>
+      <td>Nayarit</td>
+      <td>1034770.341</td>
+      <td>6.750785e+06</td>
+      <td>2731956.859</td>
+      <td>4836.0</td>
+      <td>7515.0</td>
+      <td>7621.0</td>
+      <td>...</td>
+      <td>-0.05</td>
+      <td>3.68</td>
+      <td>3.88</td>
+      <td>3.88</td>
+      <td>4.04</td>
+      <td>4.13</td>
+      <td>4.11</td>
+      <td>4.06</td>
+      <td>3.0</td>
+      <td>MULTIPOLYGON (((-106.62108 21.56531, -106.6475...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>7.961008e+10</td>
+      <td>MX14</td>
+      <td>Jalisco</td>
+      <td>2324727.436</td>
+      <td>1.967200e+07</td>
+      <td>7961008.285</td>
+      <td>5309.0</td>
+      <td>8232.0</td>
+      <td>9953.0</td>
+      <td>...</td>
+      <td>0.03</td>
+      <td>3.73</td>
+      <td>3.92</td>
+      <td>4.00</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.30</td>
+      <td>4.33</td>
+      <td>4.0</td>
+      <td>POLYGON ((-101.5249 21.85664, -101.5883 21.772...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.467030e+09</td>
+      <td>MX01</td>
+      <td>Aguascalientes</td>
+      <td>313895.530</td>
+      <td>1.350927e+06</td>
+      <td>546702.985</td>
+      <td>10384.0</td>
+      <td>6234.0</td>
+      <td>8714.0</td>
+      <td>...</td>
+      <td>0.13</td>
+      <td>4.02</td>
+      <td>3.79</td>
+      <td>3.94</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.32</td>
+      <td>4.44</td>
+      <td>5.0</td>
+      <td>POLYGON ((-101.8462 22.01176, -101.9653 21.883...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+from shapely.geometry import LineString
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pth = libpysal.examples.get_path(&quot;mexicojoin.shp&quot;)
+gdf = geopandas.read_file(pth)
+
+# we will use greedy from mapclassify
+# states to ensure contiguous states are of a different color
+sgdf = gdf.sort_values(by=&quot;NAME&quot;)
+sgdf.reset_index(inplace=True)
+sgdf[&quot;label&quot;] = range(1, 33)
+sgdf[&quot;greedy&quot;] = mapclassify.greedy(sgdf)
+
+font_size = 9
+outside = [9, 29]
+oc = [(-103, 17.5), (-95, 22.5)]
+oe = [(-102.55, 17.49), (-95.5, 22.1)]
+oinfo = zip(outside, oc, strict=True)
+
+sgdf[&quot;centroid&quot;] = sgdf.centroid
+ax = sgdf.plot(
+    figsize=(8, 12),
+    column=&quot;greedy&quot;,
+    categorical=True,
+    cmap=&quot;Set3&quot;,
+    # legend=True,
+    edgecolor=&quot;w&quot;,
+)
+
+table = []
+for idx, row in sgdf.iterrows():
+    centroid = row[&quot;centroid&quot;]
+    table.append(f&quot;{idx + 1:2d} {row[&#39;NAME&#39;]}&quot;)
+    if idx + 1 not in outside:
+        ax.text(
+            centroid.x,
+            centroid.y,
+            str(idx + 1),
+            ha=&quot;center&quot;,
+            va=&quot;center&quot;,
+            fontsize=font_size,
+            color=&quot;black&quot;,
+        )
+
+for i, out in enumerate(oinfo):
+    idx, coords = out
+    ax.text(
+        coords[0],
+        coords[1],
+        str(idx),
+        ha=&quot;center&quot;,
+        va=&quot;center&quot;,
+        fontsize=font_size,
+        color=&quot;black&quot;,
+    )
+    start_point = coords
+    end_point = sgdf.centroid[idx - 1]
+
+    start_point = oe[i]
+    line = LineString([start_point, end_point])
+
+    line_gdf = geopandas.GeoSeries([line])
+
+    line_gdf.plot(ax=ax, color=&quot;red&quot;, linewidth=2)
+
+for i, label in enumerate(table):
+    if i &lt; 16:
+        ax.text(
+            -120,
+            20 - i * 1,
+            label,
+            ha=&quot;left&quot;,
+            va=&quot;center&quot;,
+            fontsize=font_size,
+            color=&quot;black&quot;,
+        )
+    else:
+        ax.text(
+            -110,
+            20 - (i - 16) * 1,
+            label,
+            ha=&quot;left&quot;,
+            va=&quot;center&quot;,
+            fontsize=font_size,
+            color=&quot;black&quot;,
+        )
+ax.set_axis_off()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_8_0.png" src="../../_images/user-guide_measure_gini_8_0.png" />
+</div>
+</div>
+<p>We begin with two views of the Mexican state income distribution. On the left we have a choropleth map using a quintile classification to depict the <em>spatial distribution</em> of incomes. To the map’s right we have a kernel density estimate (KDE) of the <em>attribute distribution</em>.</p>
+<p>The map and KDE together indicate that economic development was unevenly distributed across Mexico in 1940, with a majority of states having relatively low per capita GDP and a small number of outliers with much higher values. <code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> implements a variety of indices to explore the inequality from distributional and spatial lenses.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Two subplots in one row
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+
+# Left column: Choropleth map
+ax_map = gdf.plot(
+    column=&quot;PCGDP1940&quot;,
+    k=5,
+    scheme=&quot;Quantiles&quot;,
+    legend=True,
+    legend_kwds={&quot;fmt&quot;: &quot;{:.0f}&quot;},
+    ax=axes[0],
+)
+ax_map.set_axis_off()
+ax_map.set_title(&quot;PC GDP 1940&quot;)
+
+# Right column: Kernel density plot
+seaborn.kdeplot(data=gdf[&quot;PCGDP1940&quot;], ax=axes[1], fill=True, bw_adjust=0.5)
+axes[1].set_title(&quot;Kernel Density: PC GDP 1940&quot;)
+axes[1].set_xlabel(&quot;Per Capita GDP&quot;)
+axes[1].set_ylabel(&quot;Density&quot;)
+
+# Adjust layout for better spacing
+plt.tight_layout()
+
+# Show the plots
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_10_0.png" src="../../_images/user-guide_measure_gini_10_0.png" />
+</div>
+</div>
+</section>
+<section id="Classic-Gini-Coefficient">
+<h2>Classic Gini Coefficient<a class="headerlink" href="#Classic-Gini-Coefficient" title="Link to this heading">#</a></h2>
+<p>The Gini coefficient can be expressed as the relative mean absolute difference in incomes between pairs of observations:</p>
+<div class="math notranslate nohighlight">
+\[G = \frac{\sum_i \sum_j \left| x_i - x_j \right |}{2\bar{x}n^2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the per capita income of area <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the mean of the area per capita incomes, and <span class="math notranslate nohighlight">\(n\)</span> is the number of areas.</p>
+<p>The numerator, <span class="math notranslate nohighlight">\(\sum_i \sum_j \left | x_i - x_j \right |\)</span> is a measure of inequality in the data set. The Gini normalizes this measure relative to the mean income and the number of pairwise comparisons. As a result of the normalization, the Gini coefficient is bounded between 0 (perfect equality) and 1 (maximum inequality).</p>
+<p>Focusing on 1940, the Gini coefficient for Mexican state per capita income is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gini_1940 = inequality.gini.Gini(gdf[&quot;PCGDP1940&quot;].to_numpy())
+gini_1940.g
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.3537237117345285)
+</pre></div></div>
+</div>
+<p>There are a number of possible interpretations of this figure. Using the equation above, the mean relative absolute deviation between all pairs of Mexican states represents 35 percent of the mean income that year.</p>
+<p>A second interpretation is a graphical one:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from inequality.schutz import Schutz
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>s = Schutz(gdf, &quot;PCGDP1940&quot;)
+s.plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_15_0.png" src="../../_images/user-guide_measure_gini_15_0.png" />
+</div>
+</div>
+<p>The Gini coefficient of 0.35 represents the percentage of the area below the line of perfect inequality that lies above the Lorenz Curve.</p>
+<p>Thus, as the Gini coefficient increases in value, inequality is increasing, as is the area of the lens formed by the diagonal and the Lorenz curve.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>inequality.gini.Gini(gdf[&quot;PCGDP2000&quot;].to_numpy()).g
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.2581130824882791)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>s = Schutz(gdf, &quot;PCGDP2000&quot;)
+s.plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_18_0.png" src="../../_images/user-guide_measure_gini_18_0.png" />
+</div>
+</div>
+<p>In comparing the distribution from 1940 to that in 2000, we see that overall inequality has declined. The lower value of the Gini for 2000 as well as the smaller area of the inequality lens in the second plot demonstrate the decline.</p>
+<p>We can plot the time series of Gini values by decade to see the long term trend of a decline between these two terminal decades, with the steepest drop in inequality occuring in the first two periods of the sample.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>decades = range(1940, 2010, 10)
+ginis = [inequality.gini.Gini(gdf[f&quot;PCGDP{decade}&quot;].to_numpy()).g for decade in decades]
+
+ginis_df = pandas.DataFrame(data=ginis, columns=[&quot;Gini&quot;], index=list(decades))
+ginis_df.plot();
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_20_0.png" src="../../_images/user-guide_measure_gini_20_0.png" />
+</div>
+</div>
+</section>
+<section id="Spatial-Invariance-of-the-Gini-Coefficient">
+<h2>Spatial Invariance of the Gini Coefficient<a class="headerlink" href="#Spatial-Invariance-of-the-Gini-Coefficient" title="Link to this heading">#</a></h2>
+<p>The Gini coefficient measures the inequality in the distribution as reflected in the average pairwise difference, normalized to the sample mean.</p>
+<p>Although often used to measure inequality in geographical distributions, the geographical configuration of the observations is not actually taken into consideration in the classic Gini. In other words, the Gini coefficient is a <em>spatially invariant</em> measure of inequality. This means that the Gini coefficient is not sensitive to the spatial distribution of the attribute values.</p>
+<p>To see this, we can randomly permute the values from the 1940 map and contrast the two spatial distributions. On the left is the choropleth map for the observed 1940 spatial distribution of state income values, and on the right we have the permuted values. Below the two figures are the kernel densities for the attribute distributions associated with each of the maps. The two densities are identical despite the two maps being markedly different.</p>
+<p>We also see that the Gini index takes on the same value for each of the spatial distributions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>numpy.random.seed(12345)
+gdf[&quot;PCGDP1940r&quot;] = numpy.random.permutation(gdf.PCGDP1940)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+gdf.plot(
+    column=&quot;PCGDP1940&quot;,
+    ax=axes[0, 0],
+    legend=True,
+    scheme=&quot;quantiles&quot;,
+    k=4,
+    cmap=&quot;viridis&quot;,
+    legend_kwds={&quot;fmt&quot;: &quot;{:.0f}&quot;},
+)
+axes[0, 0].set_title(&quot;PCGDP1940&quot;)
+axes[0, 0].axis(&quot;off&quot;)
+
+gdf.plot(
+    column=&quot;PCGDP1940r&quot;,
+    ax=axes[0, 1],
+    legend=True,
+    scheme=&quot;quantiles&quot;,
+    k=4,
+    cmap=&quot;viridis&quot;,
+    legend_kwds={&quot;fmt&quot;: &quot;{:.0f}&quot;},
+)
+axes[0, 1].set_title(&quot;PCGDP1940r&quot;)
+axes[0, 1].axis(&quot;off&quot;)
+
+seaborn.kdeplot(gdf[&quot;PCGDP1940&quot;], ax=axes[1, 0], fill=True, color=&quot;blue&quot;)
+axes[1, 0].set_title(&quot;Kernel Density of PCGDP1940&quot;)
+
+seaborn.kdeplot(gdf[&quot;PCGDP1940r&quot;], ax=axes[1, 1], fill=True, color=&quot;orange&quot;)
+axes[1, 1].set_title(&quot;Kernel Density of PCGDP1940r&quot;)
+
+plt.tight_layout()
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_23_0.png" src="../../_images/user-guide_measure_gini_23_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>(
+    inequality.gini.Gini(gdf[&quot;PCGDP1940&quot;].to_numpy()).g
+    == inequality.gini.Gini(gdf[&quot;PCGDP1940r&quot;].to_numpy()).g
+)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.True_
+</pre></div></div>
+</div>
+</section>
+<section id="Spatial-Gini-Coefficient">
+<h2>Spatial Gini Coefficient<a class="headerlink" href="#Spatial-Gini-Coefficient" title="Link to this heading">#</a></h2>
+<p>To introduce the spatial dimension into the analysis of income inequality, the spatial Gini makes use of a decomposition of the numerator of the Gini:</p>
+<div class="math notranslate nohighlight">
+\[\sum_i \sum_j \left | x_i - x_j \right | = \sum_i \sum_j  \gamma_{i,j} \left | x_i - x_j \right | +   \sum_i \sum_j(1-\gamma_{i,j}) \left | x_i - x_j \right |\]</div>
+<p>where <span class="math notranslate nohighlight">\(\gamma_{i,j}\)</span> is a binary indicator taking on a value of 1 if areas <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are considered spatial neighbors, and 0 otherwise. The first term in the decomposition is the contribution to overall inequality due to inequality between pairs of spatial neighbors, while the second term is the contribution due to inequality between pairs of “distant” observations. In what follows, we note that the numerator of the Gini is the sum of the absolute deviations (SAD).</p>
+<p>The relative contribution of these two inequality components to the SAD will be a function of two factors:</p>
+<ul class="simple">
+<li><p>the relative number of neighboring (distant) pairs</p></li>
+<li><p>the inequality within each set of pairs</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> originally had a single Gini-based measure of spatial inequality based on the work of Rey and Smith (2013). This compared the sum of the observed absolute deviations of the distant pairs against what would be expected were incomes randomly distributed in space. Inference on this index relies on random permutations of the observed values to simulate the null hypothesis of spatially random incomes.</p>
+<p>To implement the spatial Gini, a definition of neighboring pairs is required. For this, we can use a Queen contiguity rule where two states are considered neighbors if their borders touch:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wq = libpysal.weights.Queen.from_dataframe(gdf, use_index=False)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>numpy.random.seed(12345)
+gs = inequality.gini.Gini_Spatial(gdf[&quot;PCGDP1940&quot;], wq)
+</pre></div>
+</div>
+</div>
+<p>The sum of the absolute differences between non-neighbor pairs is stored in the <code class="docutils literal notranslate"><span class="pre">gc.wcg</span></code> attribute:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gs.wcg
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(4735906.0)
+</pre></div></div>
+</div>
+<p>Whether this value is large or not, is a question of inference. A pseudo p-value based on random permutations is stored in the <code class="docutils literal notranslate"><span class="pre">gs.p_sim</span></code> attribute:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gs.p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.01)
+</pre></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">gs.p_sim</span></code> value of 0.01 indicates that none of the 99 random permutations of incomes in space generated a sum of the pairwise differences for the distant pairs that was as large as what we observed in the actual pattern.</p>
+<p>Repeating this analysis for the same year, but with the random spatial distribution of the attribute values:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gsr = inequality.gini.Gini_Spatial(gdf[&quot;PCGDP1940r&quot;], wq)
+gsr.wcg
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(4457788.0)
+</pre></div></div>
+</div>
+<p>we see that the differences between the “distant” pairs has declined relative to what we saw for the observed distribution. Moreover, the spatial gini index for the random distribution is no longer statistically significant:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gsr.p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.29)
+</pre></div></div>
+</div>
+</section>
+<section id="Gini-Spatial-Polarization-Index">
+<h2>Gini Spatial Polarization Index<a class="headerlink" href="#Gini-Spatial-Polarization-Index" title="Link to this heading">#</a></h2>
+<p>Using the decomposition of the SAD into the two components, we can draw inspiration from the spatial polarization literature where Zhang and Kanbur (2001) have suggested that an index of polarization defined as a ratio of inequality between regions over inequality within regions. Adapting this to our Gini decomposition, one such Gini-Based Spatial Polarization Index could be:</p>
+<div class="math notranslate nohighlight">
+\[GP = \frac{ \sum_i \sum_j(1-\gamma_{i,j}) \left | x_i - x_j \right |} {\sum_i \sum_j  \gamma_{i,j} \left | x_i - x_j \right | }\]</div>
+<p>However, simply decomposing the SAD into that due to the neighboring pairs and that due to the distant pairs will place more weight on the distant pairs component. This is because they will generally outnumber the neighboring pairs.</p>
+<p>Thus, a polarization index formed as the ratio of the two components would be difficult to interpret and therefore potentially misleading. Instead, the polarization should take the relative size of the two pair sets into account:</p>
+<p><span class="math notranslate nohighlight">\(n_{\text{pairs}} = n(n-1)/2\)</span></p>
+<p><span class="math notranslate nohighlight">\(n_{\text{pairs}} = n_{\text{neighbor pairs}} + n_{\text{distant pairs}}\)</span></p>
+<p>Under the null, the average difference between two observations should be the same, whether the pair of observations are neighbors or not. That means that, under the null:</p>
+<p><span class="math notranslate nohighlight">\(E[GP] = \frac{n_{\text{distant pairs}}} {n_{\text{neighbor pairs}}}\)</span></p>
+<p>We can use this to normalize and define the Gini Spatial Polarization index as:</p>
+<div class="math notranslate nohighlight">
+\[GP/E[GP] = \left( \frac{ \sum_i \sum_j(1-\gamma_{i,j}) \left | x_i - x_j \right |} {\sum_i \sum_j  \gamma_{i,j} \left | x_i - x_j \right | } \right ) / \left ( \frac{n_{\text{distant pairs}}} {n_{\text{neighbor pairs}}} \right )\]</div>
+<p>We can view this index in two ways. First, the Gini Polarization is expressed relative to its expected value. In cases where this exceeds 1, the differences due to distant pairs is larger than that due to neighboring pairs under the expectation of no difference.</p>
+<p>The second view of the Gini Polarization index is as a ratio of the average pairwise difference for the distant pairs over the average pairwise difference for the neighboring pairs.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from scipy.stats import gaussian_kde
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data = gs.polarization_sim
+obs = gs.polarization
+
+kde = gaussian_kde(data)
+maxd = max(max(data), obs)
+x_range = numpy.linspace(min(data), maxd, 1000)
+kde_values = kde(x_range)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x_range, kde_values, label=&quot;Kernel Density Estimate&quot;)
+plt.axvline(x=obs, color=&quot;red&quot;, linestyle=&quot;--&quot;, label=f&quot;Value = {obs:.2f}&quot;)
+plt.title(&quot;Gini Spatial Polarization Index 1940&quot;)
+plt.xlabel(&quot;Values&quot;)
+plt.ylabel(&quot;Density&quot;)
+plt.legend()
+plt.grid(True)
+plt.show()
+
+gs.polarization_p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_38_0.png" src="../../_images/user-guide_measure_gini_38_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.01)
+</pre></div></div>
+</div>
+<p>The Gini Polarization index of 1.52 means that the average pairwise difference between observations that are distant is 52 percent larger than the average pairwise difference for neighboring observations. The kernel density of the spatial polarization indices from the 99 random permutations of the observed income values for 1940 suggests that the observed index value is significantly different from what would be expected under the null of a spatially random income distribution. In fact, none of
+the synthetic distributions generated spatial polarization values as large as the observed value.</p>
+<p>If we repeat this for the random permutation for 1940 that we used above, the spatial polarization index for the “observed” spatial distribution takes on the value of 0.92. And, based on the pseudo p-value, this index is not a significant departure from the null of spatially random incomes for 1940.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gsr.polarization
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.9232850295559094)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gsr.polarization_sim.mean()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(1.001666653801155)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gsr.polarization_sim.max()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(1.343479320163225)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Data array
+data = gsr.polarization_sim
+
+obs = gsr.polarization
+
+# Kernel Density Estimation
+kde = gaussian_kde(data)
+maxd = max(max(data), obs)
+x_range = numpy.linspace(min(data), maxd, 1000)
+kde_values = kde(x_range)
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(x_range, kde_values, label=&quot;Kernel Density Estimate&quot;)
+plt.axvline(x=obs, color=&quot;red&quot;, linestyle=&quot;--&quot;, label=f&quot;Value = {obs:.2f}&quot;)
+plt.title(&quot;Gini Spatial Polarization Index 1940 (Random)&quot;)
+
+plt.xlabel(&quot;Values&quot;)
+plt.ylabel(&quot;Density&quot;)
+plt.legend()
+plt.grid(True)
+plt.show()
+
+gsr.polarization_p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_43_0.png" src="../../_images/user-guide_measure_gini_43_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.72)
+</pre></div></div>
+</div>
+<section id="Alternative-neighbor-definitions">
+<h3>Alternative neighbor definitions<a class="headerlink" href="#Alternative-neighbor-definitions" title="Link to this heading">#</a></h3>
+<p>The spatial decomposition used in both the spatial Gini and the Gini spatial polarization index can accommodate different definitions of neighboring pairs. To illustrate this, we utilize a regional partition scheme used by Hanson (1996) to study the effects of the North American Free Trade Agreement. This assigns the states into five exhaustive and mutually exclusive regions portrayed below. Using this partition we can defined neighbor pairs based on regional membership. That is, two states
+belonging to the same region constitute a neighboring pair, while two states belonging to different regions are defined as a distant pair.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>regimes = gdf[&quot;HANSON98&quot;]
+
+wb = libpysal.weights.block_weights(regimes, silence_warnings=True)
+wb
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;libpysal.weights.weights.W at 0x1557346e0&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = gdf.plot(column=&quot;HANSON98&quot;, categorical=True)
+ax.set_title(&quot;Regions&quot;)
+ax.set_axis_off()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_46_0.png" src="../../_images/user-guide_measure_gini_46_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>numpy.random.seed(12345)
+gsh = inequality.gini.Gini_Spatial(gdf[&quot;PCGDP1940&quot;], wb)
+gsh.p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.01)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Data array
+data = gsh.polarization_sim
+
+obs = gsh.polarization
+
+# Kernel Density Estimation
+kde = gaussian_kde(data)
+maxd = max(max(data), obs)
+x_range = numpy.linspace(min(data), maxd, 1000)
+kde_values = kde(x_range)
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(x_range, kde_values, label=&quot;Kernel Density Estimate&quot;)
+plt.axvline(x=obs, color=&quot;red&quot;, linestyle=&quot;--&quot;, label=f&quot;Value = {obs}&quot;)
+plt.title(&quot;Gini Spatial Polarization 1940 (Hanson)&quot;)
+plt.xlabel(&quot;Values&quot;)
+plt.ylabel(&quot;Density&quot;)
+plt.legend()
+plt.grid(True)
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_48_0.png" src="../../_images/user-guide_measure_gini_48_0.png" />
+</div>
+</div>
+<p>The Gini Spatial Polarization index takes on a value of 1.29 for the Hanson partition, with an associated p-value of 0.01. Note that the shape of the index distribution under the null is markedly different from that based on the Queen contiguity structure. In both cases, the observed index values are significant, however it is clear that the spatial structure of the particular neighbor graph needs to be taken into account to ensure meaningful inference.</p>
+<p>Finally, we repeat the analysis using the Hanson partition, but this time for the random spatial distribution of incomes in 1940. As was the case for the Queen definition of neighbors, the polarization index is no longer significant for this synthetic distribution.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Random Incomes
+gshr = inequality.gini.Gini_Spatial(gdf[&quot;PCGDP1940r&quot;], wb)
+gshr.p_sim
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.35)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>data = gshr.polarization_sim
+
+obs = gshr.polarization
+
+# Kernel Density Estimation
+kde = gaussian_kde(data)
+maxd = max(max(data), obs)
+x_range = numpy.linspace(min(data), maxd, 1000)
+kde_values = kde(x_range)
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.plot(x_range, kde_values, label=&quot;Kernel Density&quot;)
+plt.axvline(x=obs, color=&quot;red&quot;, linestyle=&quot;--&quot;, label=f&quot;Value = {obs:.2f}&quot;)
+plt.title(&quot;Gini Spatial Polarization 1940 (Hanson Random)&quot;)
+
+plt.xlabel(&quot;Values&quot;)
+plt.ylabel(&quot;Density&quot;)
+plt.legend()
+plt.grid(True)
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/user-guide_measure_gini_51_0.png" src="../../_images/user-guide_measure_gini_51_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Hanson, Gordon H. U.S.-Mexico Integration and Regional Economies. Cambridge: National Bureau of Economic Research, 1996.</p></li>
+<li><p>Rey, Sergio J., and Richard J Smith. “A Spatial Decomposition of the Gini Coefficient.” Letters in Spatial and Resource Sciences 6 (2013): 55–70.</p></li>
+<li><p>Zhang, Xiaobo, and Ravi Kanbur. “What Difference Do Polarisation Measures Make?: An Application to China.” Journal of Development Studies 37 (2001): 85–98.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Imports-&amp;-Input-Data">Imports &amp; Input Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Classic-Gini-Coefficient">Classic Gini Coefficient</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Spatial-Invariance-of-the-Gini-Coefficient">Spatial Invariance of the Gini Coefficient</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Spatial-Gini-Coefficient">Spatial Gini Coefficient</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Gini-Spatial-Polarization-Index">Gini Spatial Polarization Index</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Alternative-neighbor-definitions">Alternative neighbor definitions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#References">References</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/user-guide/measure/gini.ipynb.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2018 - 2025, pysal developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
