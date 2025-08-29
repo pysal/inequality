@@ -29,8 +29,8 @@ Typical use cases include:
 
 TODO
 - [x] API
-- [ ] tests
-- [ ] update docstring (params and example)
+- [x] tests
+- [x] update docstring (params and example)
 - [x] profiling
 - [ ] notebook
 """
@@ -40,101 +40,121 @@ import numpy as np
 from tqdm import trange
 from joblib import Parallel, delayed
 
-
 class S:
-    """Spatial polarlization
-
     """
+    Spatial Polarization Index
 
+    This class computes a spatial polarization index that quantifies the
+    degree to which categorical groupings of a variable align with the
+    structure of a spatial graph. A higher value indicates stronger
+    spatial clustering of similar values.
+
+    The index is calculated by comparing the observed number of connected
+    components in the graph induced by group membership against a null
+    distribution generated through Monte Carlo permutation.
+
+    Attributes
+    ----------
+    column : str
+        The name of the variable analyzed for spatial polarization.
+
+    n : int
+        Number of observations.
+
+    statistic_ : float
+        The observed spatial polarization index.
+
+    p_value : float
+        Monte Carlo p-value based on the permutation distribution.
+        Present only if `permutations > 0`.
+
+    permutations : int
+        The number of permutations used in the significance test.
+
+    n_a_components : int
+        Number of attribute-based groups (bins).
+
+    n_g_components : int
+        Number of spatial components in the original graph.
+
+    n_i_components : int
+        Number of connected components in the intersection subgraph.
+
+    labels : pandas.DataFrame
+        A dataframe containing:
+            - i_labels: labels for intersection components
+            - a_labels: attribute bin labels
+            - g_labels: original spatial component labels
+
+    sim : numpy.ndarray, optional
+        Array of simulated index values from the permutation test.
+        Present only if `keep_sim` is True.
+
+    Example
+    -------
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> from libpysal.weights import lat2W
+    >>> from libpysal.graph import Graph
+    >>> from spatial_polarization import S
+
+    # Create a synthetic 40x40 spatial grid
+    >>> y = np.arange(1600)
+    >>> df = pd.DataFrame({'y': y}, index=y)
+    >>> w = lat2W(40, 40)
+    >>> g = Graph.from_W(w)
+
+    # Compute the spatial polarization index
+    >>> s = S(df, g, 'y', permutations=99, seed=123)
+    >>> print(s)
+
+    Notes
+    -----
+    The spatial polarization index measures the degree of spatial 
+    fragmentation by assessing how many connected subregions are 
+    formed by similar attribute values. This helps to identify whether 
+    like values are spatially clustered or dispersed.
+    """
     def __init__(self, df, g, column, k=2, bins=None, permutations=999,
                  seed=None, keep_sim=False, n_jobs=1, verbose=True):
-        """Compute a spatial polarization index for a variable.
-
-        This function measures the degree of spatial polarization by
-        comparing the alignment between categorical groupings of a
-        variable and the connectivity structure of a spatial graph.
-
-        A higher index value indicates stronger spatial polarization of the
-        values.
-
-        The observed index is compared against a null distribution
-        generated via Monte Carlo permutation, producing an empirical
-        p-value to assess statistical significance.
+        """
+        Initialize the Spatial Polarization Index computation.
 
         Parameters
         ----------
         df : pandas.DataFrame
-            The dataframe containing spatial observations. Its index must
-            align with the nodes in the PySAL spatial graph object `g`.
+        Dataframe containing spatial observations. Index must align with
+        nodes in the graph `g`.
 
         g : libpysal.graph.Graph
-            A PySAL spatial Graph object representing spatial
-            connectivity. Internally converted to a NetworkX graph to
-            evaluate component structure.
+        A PySAL graph representing spatial adjacency.
 
         column : str
-            The name of the column in `df` to analyze for spatial polarization.
+        Name of the column in `df` to evaluate for spatial polarization.
+
+        k : int, default 2
+        Number of quantile bins to divide the variable into, if `bins` is not specified.
 
         bins : list of float, optional
-            Cut points for binning the variable into discrete categories.
-            If `None` (default), the variable is split at the median into
-            two groups.
+        Explicit cutpoints to bin the variable. Overrides `k` if provided.
 
         permutations : int, default 999
-            Number of permutations used to generate the null distribution
-            for inference.
+        Number of random permutations to generate the null distribution.
 
         seed : int or None, optional
-            Random seed for reproducibility of the permutation test.
+        Seed for random number generator (reproducibility).
 
         keep_sim : bool, default False
-            Whether to return the full array of simulated polarization scores.
+        If True, store the full array of simulated statistics.
 
         n_jobs : int, default 1
-            The number of jobs to run in parallel. `1` means no
-            parallelization. `-1` means using all available CPU cores.
+        Number of parallel jobs for permutations. Use -1 for all CPUs.
 
         verbose : bool, default True
-            If True, print the mean and standard deviation of the simulated
-            polarization scores. Also controls the `tqdm` progress bar.
-
-        Returns
-        -------
-        s : float
-            The observed spatial polarization index, bounded in [0, 1].
-            Higher values indicate stronger spatial separation of the
-            attribute groups.
-
-        p_value : float
-            Monte Carlo p-value indicating how extreme the observed index is
-            under random label assignment.
-
-        sim : numpy.ndarray, optional
-            Array of simulated polarization indices from the permutation
-            distribution. Returned only if `keep_sim` is True.
-
-        Notes
-        -----
-        - The polarization index is based on connected components in a subgraph
-        formed from edges linking observations in the same category.
-        - The observed index reflects the relative reduction in fragmentation
-        compared to a randomized assignment.
-
-        Example
-        -------
-        >>> import libpysal
-        >>> import pandas as pd
-        >>> import numpy as np
-        >>> from libpysal.weights import lat2W
-        >>> from libpysal.graph import Graph
-
-        >>> y = np.arange(1600)
-        >>> df = pd.DataFrame({'y':y}, index=y)
-        >>> g = Graph.from_W(lat2W(40, 40))
-        >>> S(df, g, 'y', permutations=99, seed=1)
-        (1.0, 0.01)
-
+        If True, display a progress bar during permutation computation.
         """
+        progress_iter = trange if verbose else range
+
         n = df.shape[0]
         self.n = n
         if bins is not None:
@@ -145,87 +165,88 @@ class S:
             if not isinstance(k, int) or k < 1 or k > n:
                 raise ValueError("'k' must be a positive integer less than n.")
             clique = pd.qcut(df[column], q=k, labels=False, duplicates='drop')
+            clique = pd.Series(clique, index=df.index)
             Ca = k
             labels = range(Ca)
 
         Cg = g.n_components
         k = max(Cg, Ca)
-        focal = g.adjacency.index.get_level_values(0)
-        neighbor = g.adjacency.index.get_level_values(1)
+
+
+        node_index = pd.Index(df.index)
+        pos = pd.Series(np.arange(self.n), index=node_index)
+        focal_nodes = g.adjacency.index.get_level_values(0)
+        neighbor_nodes = g.adjacency.index.get_level_values(1)
+        fi = pos.loc[focal_nodes].values
+        nj = pos.loc[neighbor_nodes].values
 
         def _calc(clique_labels, n, k, ilabels=False):
-            left = clique_labels.loc[focal].values
-            right = clique_labels.loc[neighbor].values
-            edges = g.adjacency[left == right]
-            i = edges.index.get_level_values(0)
-            j = edges.index.get_level_values(1)
-            edges = zip(i, j)
-            visited = np.zeros(n, int)
-            labels = np.zeros_like(visited)
-            c = 0  # number of components in intersection graph
-            for edge in edges:
-                i, j = edge
-                if visited[i] == visited[j]:
-                    if visited[i] == 0:
-                        # new component
-                        c += 1
-                        labels[i] = c
-                        labels[j] = c
-                        visited[i] = 1
-                        visited[j] = 1
-                    else:
-                        if labels[i] != labels[j]:
-                            # bridge edge, merge components
-                            if labels[i] > labels[j]:
-                                labels[labels == labels[i]] = labels[j]
-                            else:
-                                labels[labels == labels[j]] = labels[i]
-                                c -= 1
-                elif visited[i] == 0:
-                    # new node, grow component
-                    labels[i] = labels[j]
-                    visited[i] = 1
-                else:
-                    # new node, grow component
-                    labels[j] = labels[i]
-                    visited[j] = 1
-                    statistic_ = 1 - (c - k) / (n - k)
-            if ilabels is True:
-                return statistic_, labels
-            else:
-                return statistic_
+            vals = clique_labels.values
+            same = (vals[fi] == vals[nj]) & (~pd.isna(vals[fi])) & (~pd.isna(vals[nj]))
+
+            # Union-Find over all nodes
+            parent = np.arange(n)
+            def find(x):
+                while parent[x] != x:
+                    parent[x] = parent[parent[x]]
+                    x = parent[x]
+                return x
+            def union(a, b):
+                ra, rb = find(a), find(b)
+                if ra != rb:
+                    parent[rb] = ra
+
+            for a, b, keep in zip(fi, nj, same):
+                if keep:
+                    union(a, b)
+
+            valid = ~pd.isna(vals)
+            roots = np.array([find(x) for x in range(n)])
+            comp_ids = roots[valid]
+            c = np.unique(comp_ids).size
+
+            denom = max(int(valid.sum()) - k, 1)
+            s = 1 - (c - k) / denom
+
+            if ilabels:
+                _, inv = np.unique(comp_ids, return_inverse=True)
+                out = np.full(n, -1, dtype=int)
+                out[valid] = inv
+                return s, out
+            return s
+
+
 
         s, ilabels = _calc(clique, n, k, ilabels=True)
 
-        sim = np.zeros(permutations)
+            
         rng = np.random.default_rng(seed)
 
-        def permute_and_calc(v, index, n, k, seed_i):
+        def permute_and_calc(series, n, k, seed_i):
             rng_i = np.random.default_rng(seed_i)
-            shuffled = pd.Series(rng_i.permutation(v), index=index)
+            shuffled = pd.Series(rng_i.permutation(series.values), index=series.index)
             return _calc(shuffled, n, k)
 
-        v = np.array(clique)
+
         seeds = rng.integers(low=0, high=1e9, size=permutations)
         sim = Parallel(n_jobs=n_jobs)(
-            delayed(permute_and_calc)(v, range(n), n, k, seeds[current_seed])
-            for current_seed in trange(permutations)
+            delayed(permute_and_calc)(clique, n, k, seeds[current_seed])
+            for current_seed in progress_iter(permutations)
         )
         sim = np.array(sim)
-        if verbose:
-            print(f'{sim.mean()=}')
-            print(f'{sim.std()=}')
         self.column = column
         if permutations > 0:
             self.p_value = ((sim >= s).sum()+1) / (permutations+1)
-        self.labels = pd.DataFrame(data=ilabels-1, columns=['i_labels'])
-        self.labels['a_labels'] = clique
-        self.labels['g_labels'] = g.component_labels
+
+        self.labels = pd.DataFrame({'i_labels': ilabels,
+                                    'a_labels': clique,
+                                    'g_labels': g.component_labels})
         self.statistic_ = s
         self.permutations = permutations
         self.n_a_components = Ca
         self.n_g_components = Cg
-        self.n_i_components = self.labels.groupby(by='i_labels').count().shape[0]
+        valid_i = self.labels['i_labels'] >= 0
+        self.n_i_components = int(self.labels.loc[valid_i, 'i_labels'].nunique())
         if keep_sim:
             self.sim = sim
 
