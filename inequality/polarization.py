@@ -183,6 +183,17 @@ class S:
             Ca = len(bins) - 1
             labels = range(Ca)
             clique = pd.cut(df[column], bins=bins, labels=labels)
+            # Guard against out-of-range data excluded by pandas.cut
+            if clique.isna().any():
+                min_val, max_val = df[column].min(), df[column].max()
+                bin_min, bin_max = bins[0], bins[-1]
+                if min_val < bin_min or max_val > bin_max:
+                    raise ValueError(
+                        f"Data outside bin range: data min={min_val:.3f}, max={max_val:.3f}, "
+                        f"but bins bound [{bin_min:.3f}, {bin_max:.3f}]. "
+                        "Adjust 'bins' to fully include the data range."
+                    )
+
         else:
             if not isinstance(k, int) or k < 1 or k > n:
                 raise ValueError("'k' must be a positive integer less than n.")
