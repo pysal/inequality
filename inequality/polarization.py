@@ -40,6 +40,7 @@ import numpy as np
 from tqdm import trange
 from joblib import Parallel, delayed
 
+
 class S:
     """
     Spatial Polarization Index
@@ -110,13 +111,25 @@ class S:
 
     Notes
     -----
-    The spatial polarization index measures the degree of spatial 
-    fragmentation by assessing how many connected subregions are 
-    formed by similar attribute values. This helps to identify whether 
+    The spatial polarization index measures the degree of spatial
+    fragmentation by assessing how many connected subregions are
+    formed by similar attribute values. This helps to identify whether
     like values are spatially clustered or dispersed.
     """
-    def __init__(self, df, g, column, k=2, bins=None, permutations=999,
-                 seed=None, keep_sim=False, n_jobs=1, verbose=True):
+
+    def __init__(
+        self,
+        df,
+        g,
+        column,
+        k=2,
+        bins=None,
+        permutations=999,
+        seed=None,
+        keep_sim=False,
+        n_jobs=1,
+        verbose=True,
+    ):
         """
         Initialize the Spatial Polarization Index computation.
 
@@ -136,7 +149,16 @@ class S:
         Number of quantile bins to divide the variable into, if `bins` is not specified.
 
         bins : list of float, optional
-        Explicit cutpoints to bin the variable. Overrides `k` if provided.
+        Explicit cutpoints to bin the variable, passed directly to
+        `pandas.cut`. Overrides `k` if provided.
+
+        The first and last values in `bins` define the lower and upper
+        bounds of the binning range. Any data values below the lowest
+        bin edge or above the highest bin edge will be excluded (i.e.,
+        assigned `NaN`). This can lead to errors in the computation of
+        the S index if observations are dropped because of out-of-range
+        values. To ensure all data are included, make sure the first
+        and last bin edges bound the full range of the data.
 
         permutations : int, default 999
         Number of random permutations to generate the null distribution.
@@ -164,14 +186,13 @@ class S:
         else:
             if not isinstance(k, int) or k < 1 or k > n:
                 raise ValueError("'k' must be a positive integer less than n.")
-            clique = pd.qcut(df[column], q=k, labels=False, duplicates='drop')
+            clique = pd.qcut(df[column], q=k, labels=False, duplicates="drop")
             clique = pd.Series(clique, index=df.index)
             Ca = k
             labels = range(Ca)
 
         Cg = g.n_components
         k = max(Cg, Ca)
-
 
         node_index = pd.Index(df.index)
         pos = pd.Series(np.arange(self.n), index=node_index)
@@ -186,11 +207,13 @@ class S:
 
             # Union-Find over all nodes
             parent = np.arange(n)
+
             def find(x):
                 while parent[x] != x:
                     parent[x] = parent[parent[x]]
                     x = parent[x]
                 return x
+
             def union(a, b):
                 ra, rb = find(a), find(b)
                 if ra != rb:
@@ -215,18 +238,14 @@ class S:
                 return s, out
             return s
 
-
-
         s, ilabels = _calc(clique, n, k, ilabels=True)
 
-            
         rng = np.random.default_rng(seed)
 
         def permute_and_calc(series, n, k, seed_i):
             rng_i = np.random.default_rng(seed_i)
             shuffled = pd.Series(rng_i.permutation(series.values), index=series.index)
             return _calc(shuffled, n, k)
-
 
         seeds = rng.integers(low=0, high=1e9, size=permutations)
         sim = Parallel(n_jobs=n_jobs)(
@@ -236,17 +255,17 @@ class S:
         sim = np.array(sim)
         self.column = column
         if permutations > 0:
-            self.p_value = ((sim >= s).sum()+1) / (permutations+1)
+            self.p_value = ((sim >= s).sum() + 1) / (permutations + 1)
 
-        self.labels = pd.DataFrame({'i_labels': ilabels,
-                                    'a_labels': clique,
-                                    'g_labels': g.component_labels})
+        self.labels = pd.DataFrame(
+            {"i_labels": ilabels, "a_labels": clique, "g_labels": g.component_labels}
+        )
         self.statistic_ = s
         self.permutations = permutations
         self.n_a_components = Ca
         self.n_g_components = Cg
-        valid_i = self.labels['i_labels'] >= 0
-        self.n_i_components = int(self.labels.loc[valid_i, 'i_labels'].nunique())
+        valid_i = self.labels["i_labels"] >= 0
+        self.n_i_components = int(self.labels.loc[valid_i, "i_labels"].nunique())
         if keep_sim:
             self.sim = sim
 
