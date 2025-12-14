@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         os: ['ubuntu-latest']
-        environment-file: [ci/313-latest.yaml]
+        environment-file: [ci/314-latest.yaml]
         experimental: [false]
     defaults:
       run:
@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags.
 
