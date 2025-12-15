@@ -29,13 +29,14 @@ jobs:
           - ci/311-latest.yaml
           - ci/312-latest.yaml
           - ci/313-latest.yaml
-          - ci/313-dev.yaml
+          - ci/314-latest.yaml
+          - ci/314-dev.yaml
         include:
-          - environment-file: ci/313-latest.yaml
+          - environment-file: ci/314-latest.yaml
             os: macos-15-intel # Intel
-          - environment-file: ci/313-latest.yaml
+          - environment-file: ci/314-latest.yaml
             os: macos-latest # Apple Silicon
-          - environment-file: ci/313-latest.yaml
+          - environment-file: ci/314-latest.yaml
             os: windows-latest
       fail-fast: false
     defaults:
@@ -44,7 +45,7 @@ jobs:
 
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags.
 
@@ -71,5 +72,4 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
           name: inequality-codecov
