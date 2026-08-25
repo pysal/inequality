@@ -96,7 +96,7 @@ class S:
     >>> import pandas as pd
     >>> from libpysal.weights import lat2W
     >>> from libpysal.graph import Graph
-    >>> from spatial_polarization import S
+    >>> from inequality.polarization import S
 
     # Create a synthetic 40x40 spatial grid
     >>> y = np.arange(1600)
@@ -105,8 +105,22 @@ class S:
     >>> g = Graph.from_W(w)
 
     # Compute the spatial polarization index
-    >>> s = S(df, g, 'y', permutations=99, seed=123)
+    >>> s = S(df, g, 'y', permutations=99, seed=123, verbose=False)
     >>> print(s)
+    S Spatial Polarization Summary
+    =======================================================
+    Variable:                                             y
+    n:                                                 1600
+    -------------------------------------------------------
+    S:                                               1.0000
+    p-value:                                         0.0100
+    permutations:                                        99
+    -------------------------------------------------------
+    Number of attribute components:                       2
+    Number of spatial components:                         1
+    Number of intersection components:                    2
+    =======================================================
+    <BLANKLINE>
 
     Notes
     -----
