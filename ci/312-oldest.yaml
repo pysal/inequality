@@ -12,8 +12,10 @@ dependencies:
   # testing
   - codecov
   - geopandas
+  - joblib
   - mapclassify
   - pytest
   - pytest-cov
   - pytest-xdist
   - seaborn
+  - tqdm
