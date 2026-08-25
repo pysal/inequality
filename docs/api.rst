@@ -15,7 +15,6 @@ Atkinson Inequality Measures
 
     atkinson.Atkinson
 
-
 Gini Inequality Measures
 ------------------------
 
@@ -32,14 +31,14 @@ Schutz Inequality Measures
    :toctree: generated/
 
     schutz.Schutz
- 
+
 Theil Inequality Measures
 -------------------------
 
 .. autosummary::
    :toctree: generated/
 
-    theil.Theil 
+    theil.Theil
     theil.TheilD
     theil.TheilDSim
 
@@ -67,4 +66,3 @@ Pengram
 
     pen.pen
     pen.pengram
-
