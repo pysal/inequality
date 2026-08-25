@@ -22,3 +22,8 @@ dependencies:
   - sphinx-gallery
   - sphinxcontrib-bibtex
   - pydata-sphinx-theme
+  - pandas
+  - tqdm
+  - joblib
+  - geopandas
+  - ipykernel

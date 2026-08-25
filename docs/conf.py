@@ -296,6 +296,9 @@ nbsphinx_epilog = r"""
     {{ env.doc2path(env.docname, base='doc') | escape_latex }}}} ends here.}}
 """
 
+# Only execute notebooks that don't already carry stored outputs.
+nbsphinx_execute = "auto"
+
 # List of arguments to be passed to the kernel that executes the notebooks:
 nbsphinx_execute_arguments = [
     "--InlineBackend.figure_formats={'svg', 'pdf'}",
