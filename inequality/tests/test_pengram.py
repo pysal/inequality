@@ -3,8 +3,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytest
-from inequality.pen import _check_deps, pen, pengram
 from shapely.geometry import Polygon
+
+from inequality.pen import _check_deps, pen, pengram
 
 # Set the backend to 'Agg' to prevent GUI windows from opening
 matplotlib.use("Agg")

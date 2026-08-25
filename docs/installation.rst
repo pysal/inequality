@@ -3,8 +3,8 @@
 Installation
 ============
 
-inequality supports Python `3.10`_, `3.11`_, and `3.12`_. Please make sure that you are
-operating in a Python >= 3.10 environment.
+inequality supports Python>=`3.12`_. Please make sure that you are
+operating in a supported environment.
 
 conda
 +++++
@@ -43,8 +43,6 @@ to your local clone and submitting a pull request to `pysal/inequality`_, you ca
 contribute to inequality development.
 
 
-.. _3.10: https://docs.python.org/3.10/
-.. _3.11: https://docs.python.org/3.11/
 .. _3.12: https://docs.python.org/3.12/
 .. _Python Package Index: https://pypi.org/project/inequality/
 .. _pysal/inequality: https://github.com/pysal/inequality

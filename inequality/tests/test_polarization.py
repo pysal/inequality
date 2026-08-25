@@ -6,7 +6,6 @@ import pytest
 # Import the implementation under test
 from inequality.polarization import S
 
-
 # ---------- Graph helpers (no PySAL required) ----------
 
 
@@ -57,14 +56,14 @@ def edges_grid_rook(nrows, ncols):
     def nid(r, c):
         return r * ncols + c
 
-    E = []
+    edges = []
     for r in range(nrows):
         for c in range(ncols):
             if r + 1 < nrows:
-                E.append((nid(r, c), nid(r + 1, c)))
+                edges.append((nid(r, c), nid(r + 1, c)))
             if c + 1 < ncols:
-                E.append((nid(r, c), nid(r, c + 1)))
-    return E
+                edges.append((nid(r, c), nid(r, c + 1)))
+    return edges
 
 
 def edges_block_quadrants(nrows, ncols):
@@ -77,7 +76,7 @@ def edges_block_quadrants(nrows, ncols):
     def nid(r, c):
         return r * ncols + c
 
-    E = []
+    edges = []
     rmid, cmid = nrows // 2, ncols // 2
     quads = [
         (0, rmid, 0, cmid),  # NW
@@ -90,8 +89,8 @@ def edges_block_quadrants(nrows, ncols):
         # make a clique among nodes
         for i in range(len(nodes)):
             for j in range(i + 1, len(nodes)):
-                E.append((nodes[i], nodes[j]))
-    return E
+                edges.append((nodes[i], nodes[j]))
+    return edges
 
 
 # ---------- Fixtures ----------

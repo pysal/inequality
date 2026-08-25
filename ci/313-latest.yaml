@@ -2,15 +2,14 @@ name: test
 channels:
   - conda-forge
 dependencies:
-  - python=3.10
+  - python=3.13
   # required
-  - libpysal=4.5
-  - matplotlib>=3.6
-  - numpy=1.23
-  - scipy=1.8
+  - libpysal
+  - matplotlib
+  - numpy
+  - scipy
   # testing
   - codecov
-  - geopandas
   - mapclassify
   - pytest
   - pytest-cov
