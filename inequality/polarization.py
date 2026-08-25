@@ -16,6 +16,7 @@ generated via Monte Carlo permutation.
 Dependencies:
     - pandas
     - numpy
+    - scipy
     - tqdm
     - joblib
 
@@ -32,6 +33,8 @@ Typical use cases include:
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import connected_components
 from tqdm import tqdm
 
 
@@ -213,26 +216,11 @@ class S:
             vals = clique_labels.values
             same = (vals[fi] == vals[nj]) & (~pd.isna(vals[fi])) & (~pd.isna(vals[nj]))
 
-            # Union-Find over all nodes
-            parent = np.arange(n)
-
-            def find(x):
-                while parent[x] != x:
-                    parent[x] = parent[parent[x]]
-                    x = parent[x]
-                return x
-
-            def union(a, b):
-                ra, rb = find(a), find(b)
-                if ra != rb:
-                    parent[rb] = ra
-
-            for a, b, keep in zip(fi, nj, same, strict=True):
-                if keep:
-                    union(a, b)
+            edges = np.ones(same.sum(), dtype=np.int8)
+            intersection = coo_matrix((edges, (fi[same], nj[same])), shape=(n, n))
+            _, roots = connected_components(intersection, directed=False)
 
             valid = ~pd.isna(vals)
-            roots = np.array([find(x) for x in range(n)])
             comp_ids = roots[valid]
             c = np.unique(comp_ids).size
 
