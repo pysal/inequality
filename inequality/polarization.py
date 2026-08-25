@@ -29,10 +29,10 @@ Typical use cases include:
 
 """
 
-import pandas as pd
 import numpy as np
-from tqdm import tqdm
+import pandas as pd
 from joblib import Parallel, delayed
+from tqdm import tqdm
 
 
 class S:
@@ -176,8 +176,8 @@ class S:
         n = df.shape[0]
         self.n = n
         if bins is not None:
-            Ca = len(bins) - 1
-            labels = range(Ca)
+            ca = len(bins) - 1
+            labels = range(ca)
             clique = pd.cut(df[column], bins=bins, labels=labels)
             # Guard against out-of-range data excluded by pandas.cut
             if clique.isna().any():
@@ -185,8 +185,9 @@ class S:
                 bin_min, bin_max = bins[0], bins[-1]
                 if min_val < bin_min or max_val > bin_max:
                     raise ValueError(
-                        f"Data outside bin range: data min={min_val:.3f}, max={max_val:.3f}, "
-                        f"but bins bound [{bin_min:.3f}, {bin_max:.3f}]. "
+                        f"Data outside bin range: data min={min_val:.3f}, "
+                        f"max={max_val:.3f}, but bins bound "
+                        f"[{bin_min:.3f}, {bin_max:.3f}]. "
                         "Adjust 'bins' to fully include the data range."
                     )
 
@@ -195,11 +196,11 @@ class S:
                 raise ValueError("'k' must be a positive integer less than n.")
             clique = pd.qcut(df[column], q=k, labels=False, duplicates="drop")
             clique = pd.Series(clique, index=df.index)
-            Ca = k
-            labels = range(Ca)
+            ca = k
+            labels = range(ca)
 
-        Cg = g.n_components
-        k = max(Cg, Ca)
+        cg = g.n_components
+        k = max(cg, ca)
 
         node_index = pd.Index(df.index)
         pos = pd.Series(np.arange(self.n), index=node_index)
@@ -226,7 +227,7 @@ class S:
                 if ra != rb:
                     parent[rb] = ra
 
-            for a, b, keep in zip(fi, nj, same):
+            for a, b, keep in zip(fi, nj, same, strict=True):
                 if keep:
                     union(a, b)
 
@@ -267,8 +268,8 @@ class S:
         )
         self.statistic_ = s
         self.permutations = permutations
-        self.n_a_components = Ca
-        self.n_g_components = Cg
+        self.n_a_components = ca
+        self.n_g_components = cg
         valid_i = self.labels["i_labels"] >= 0
         self.n_i_components = int(self.labels.loc[valid_i, "i_labels"].nunique())
         if keep_sim:

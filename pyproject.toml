@@ -71,10 +71,11 @@ include = ["inequality", "inequality.*"]
 
 [tool.ruff]
 line-length = 88
+exclude = ["inequality/tests/*", "docs/*"]
+force-exclude = true
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
-exclude = ["inequality/tests/*", "docs/*"]
 
 [tool.ruff.lint.per-file-ignores]
 "*__init__.py" = [
