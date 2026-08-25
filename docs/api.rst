@@ -49,8 +49,16 @@ Wolfson Bipolarization Measure
    :toctree: generated/
 
     wolfson.wolfson
-    
-	     
+
+
+Spatial Polarization Measure
+-----------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    polarization.S
+
 Pengram
 -------
 

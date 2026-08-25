@@ -27,17 +27,11 @@ Typical use cases include:
     - Generating empirical p-values to assess the significance of
       observed spatial polarization patterns.
 
-TODO
-- [x] API
-- [x] tests
-- [x] update docstring (params and example)
-- [x] profiling
-- [ ] notebook
 """
 
 import pandas as pd
 import numpy as np
-from tqdm import trange
+from tqdm import tqdm
 from joblib import Parallel, delayed
 
 
@@ -52,7 +46,9 @@ class S:
 
     The index is calculated by comparing the observed number of connected
     components in the graph induced by group membership against a null
-    distribution generated through Monte Carlo permutation.
+    distribution generated through Monte Carlo permutation. See
+    :cite:`rey_mind_the_gap_2026` for the underlying spatial polarization
+    framework.
 
     Attributes
     ----------
@@ -175,7 +171,7 @@ class S:
         verbose : bool, default True
         If True, display a progress bar during permutation computation.
         """
-        progress_iter = trange if verbose else range
+        progress_iter = tqdm if verbose else (lambda x: x)
 
         n = df.shape[0]
         self.n = n
@@ -251,17 +247,15 @@ class S:
 
         s, ilabels = _calc(clique, n, k, ilabels=True)
 
-        rng = np.random.default_rng(seed)
-
-        def permute_and_calc(series, n, k, seed_i):
-            rng_i = np.random.default_rng(seed_i)
+        def permute_and_calc(series, n, k, child_seed):
+            rng_i = np.random.default_rng(child_seed)
             shuffled = pd.Series(rng_i.permutation(series.values), index=series.index)
             return _calc(shuffled, n, k)
 
-        seeds = rng.integers(low=0, high=1e9, size=permutations)
+        child_seeds = np.random.SeedSequence(seed).spawn(permutations)
         sim = Parallel(n_jobs=n_jobs)(
-            delayed(permute_and_calc)(clique, n, k, seeds[current_seed])
-            for current_seed in progress_iter(permutations)
+            delayed(permute_and_calc)(clique, n, k, child_seed)
+            for child_seed in progress_iter(child_seeds)
         )
         sim = np.array(sim)
         self.column = column
@@ -282,23 +276,23 @@ class S:
 
     def __repr__(self):
         summary = f"""S Spatial Polarization Summary
-{'='*55}
+{"=" * 55}
 {"Variable:":<35}{self.column:>20}
 {"n:":<35}{self.n:>20}
-{'-'*55}
+{"-" * 55}
 {"S:":<40}{self.statistic_:>15.4f}
 """
 
         if self.permutations > 0:
-            summary += f"""{'p-value:':<40}{self.p_value:>15.4f}
+            summary += f"""{"p-value:":<40}{self.p_value:>15.4f}
 {"permutations:":<35}{self.permutations:>20d}
 """
 
-        summary += f"""{'-'*55}
+        summary += f"""{"-" * 55}
 {"Number of attribute components:":<40}{self.n_a_components:>15d}
 {"Number of spatial components:":<40}{self.n_g_components:>15d}
 {"Number of intersection components:":<40}{self.n_i_components:>15d}
-{'='*55}
+{"=" * 55}
 """
 
         return summary
