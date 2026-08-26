@@ -81,8 +81,8 @@ class S:
         Array of simulated index values from the permutation test.
         Present only if `keep_sim` is True.
 
-    Example
-    -------
+    Examples
+    --------
     >>> import numpy as np
     >>> import pandas as pd
     >>> from libpysal.weights import lat2W
