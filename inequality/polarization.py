@@ -57,35 +57,26 @@ class S:
     ----------
     column : str
         The name of the variable analyzed for spatial polarization.
-
     n : int
         Number of observations.
-
     statistic_ : float
         The observed spatial polarization index.
-
     p_value : float
         Monte Carlo p-value based on the permutation distribution.
         Present only if `permutations > 0`.
-
     permutations : int
         The number of permutations used in the significance test.
-
     n_a_components : int
         Number of attribute-based groups (bins).
-
     n_g_components : int
         Number of spatial components in the original graph.
-
     n_i_components : int
         Number of connected components in the intersection subgraph.
-
     labels : pandas.DataFrame
         A dataframe containing:
             - i_labels: labels for intersection components
             - a_labels: attribute bin labels
             - g_labels: original spatial component labels
-
     sim : numpy.ndarray, optional
         Array of simulated index values from the permutation test.
         Present only if `keep_sim` is True.
@@ -149,44 +140,35 @@ class S:
         Parameters
         ----------
         df : pandas.DataFrame
-        Dataframe containing spatial observations. Index must align with
-        nodes in the graph `g`.
-
+            Dataframe containing spatial observations. Index must align with
+            nodes in the graph `g`.
         g : libpysal.graph.Graph
-        A PySAL graph representing spatial adjacency.
-
+            A PySAL graph representing spatial adjacency.
         column : str
-        Name of the column in `df` to evaluate for spatial polarization.
-
+            Name of the column in `df` to evaluate for spatial polarization.
         k : int, default 2
-        Number of quantile bins to divide the variable into, if `bins` is not specified.
-
+            Number of quantile bins to divide the variable into, if `bins` is not specified.
         bins : list of float, optional
-        Explicit cutpoints to bin the variable, passed directly to
-        `pandas.cut`. Overrides `k` if provided.
+            Explicit cutpoints to bin the variable, passed directly to
+            `pandas.cut`. Overrides `k` if provided.
 
-        The first and last values in `bins` define the lower and upper
-        bounds of the binning range. Any data values below the lowest
-        bin edge or above the highest bin edge will be excluded (i.e.,
-        assigned `NaN`). This can lead to errors in the computation of
-        the S index if observations are dropped because of out-of-range
-        values. To ensure all data are included, make sure the first
-        and last bin edges bound the full range of the data.
-
+            The first and last values in `bins` define the lower and upper
+            bounds of the binning range. Any data values below the lowest
+            bin edge or above the highest bin edge will be excluded (i.e.,
+            assigned `NaN`). This can lead to errors in the computation of
+            the S index if observations are dropped because of out-of-range
+            values. To ensure all data are included, make sure the first
+            and last bin edges bound the full range of the data.
         permutations : int, default 999
-        Number of random permutations to generate the null distribution.
-
+            Number of random permutations to generate the null distribution.
         seed : int or None, optional
-        Seed for random number generator (reproducibility).
-
+            Seed for random number generator (reproducibility).
         keep_sim : bool, default False
-        If True, store the full array of simulated statistics.
-
+            If True, store the full array of simulated statistics.
         n_jobs : int, default 1
-        Number of parallel jobs for permutations. Use -1 for all CPUs.
-
+            Number of parallel jobs for permutations. Use -1 for all CPUs.
         verbose : bool, default True
-        If True, display a progress bar during permutation computation.
+            If True, display a progress bar during permutation computation.
         """
         progress_iter = tqdm if verbose else (lambda x: x)
 

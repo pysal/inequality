@@ -7,23 +7,15 @@ dependencies:
   - libpysal
   - matplotlib
   - numpy
+  - pandas
   - scipy
   # testing
   - codecov
+  - geopandas
+  - joblib
   - mapclassify
   - pytest
   - pytest-cov
   - pytest-xdist
   - seaborn
-  # docs
-  - nbsphinx
-  - numpydoc
-  - sphinx
-  - sphinx-gallery
-  - sphinxcontrib-bibtex
-  - pydata-sphinx-theme
-  - pandas
   - tqdm
-  - joblib
-  - geopandas
-  - ipykernel
