@@ -147,7 +147,8 @@ class S:
         column : str
             Name of the column in `df` to evaluate for spatial polarization.
         k : int, default 2
-            Number of quantile bins to divide the variable into, if `bins` is not specified.
+            Number of quantile bins to divide the variable into, if `bins` is
+            not specified.
         bins : list of float, optional
             Explicit cutpoints to bin the variable, passed directly to
             `pandas.cut`. Overrides `k` if provided.
