@@ -11,4 +11,5 @@ Measuring Spatial Inequality
    Gini Index <gini.ipynb>
    Theil Index <theil.ipynb>
    Wolfson Index <wolfson.ipynb>
+   Spatial Polarization <spatial_polarization.ipynb>
 

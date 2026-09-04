@@ -24,11 +24,13 @@ classifiers = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "joblib",
     "libpysal>=4.12",
     "matplotlib>=3.10",
     "numpy>=2.0",
     "pandas>=2.3",
     "scipy>=1.14",
+    "tqdm",
 ]
 
 [project.urls]
@@ -41,13 +43,15 @@ dev = [
     "ruff",
 ]
 docs = [
+    "geopandas",
+    "ipykernel",
     "nbsphinx",
     "numpydoc",
+    "pydata-sphinx-theme",
     "sphinx",
-    "sphinxcontrib-bibtex",
     "sphinx-gallery",
     "sphinx_bootstrap_theme",
-    "pydata-sphinx-theme"
+    "sphinxcontrib-bibtex",
 ]
 tests = [
     "codecov",

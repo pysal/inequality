@@ -5,10 +5,14 @@ dependencies:
   - python=3.14
   # testing
   - codecov
+  - geopandas
+  - joblib
+  - pandas
   - pytest
   - pytest-cov
   - pytest-xdist
   - seaborn
+  - tqdm
   - pip:
     # dev versions of packages
     - --pre \
