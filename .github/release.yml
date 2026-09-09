@@ -2,8 +2,10 @@ changelog:
   exclude:
     labels:
       - ignore-for-release
+      - pre-commit.ci autofix
     authors:
       - dependabot
+      - pre-commit-ci
   categories:
     - title: Bug Fixes
       labels:
@@ -11,9 +13,15 @@ changelog:
     - title: Enhancements
       labels:
         - enhancement
+        - api
+    - title: Documentation
+      labels:
+        - docs
     - title: Maintenance
       labels:
-        - maintenance
+        - maint
+        - CI/testing
+        - deprecation
     - title: Other Changes
       labels:
         - "*"
