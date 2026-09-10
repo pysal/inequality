@@ -26,7 +26,7 @@ class Theil:
     Parameters
     ----------
 
-    y : numpy.array, pandas.Series, or pandas.DataFrame
+    y : array-like or pandas.DataFrame
         An array in the shape :math:`(n,t)` or :math:`(n,)`
         with :math:`n` taken as the observations across which inequality is
         calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is
@@ -87,7 +87,7 @@ class TheilD:
     Parameters
     ----------
 
-    y : numpy.array, pandas.Series, or pandas.DataFrame
+    y : array-like or pandas.DataFrame
         An array in the shape :math:`(n,t)` or :math:`(n,)`
         with :math:`n` taken as the observations across which inequality is
         calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is
@@ -177,7 +177,7 @@ class TheilDSim:
     Parameters
     ----------
 
-    y : numpy.array, pandas.Series, or pandas.DataFrame
+    y : array-like or pandas.DataFrame
         An array in the shape :math:`(n,t)` or :math:`(n,)`
         with :math:`n` taken as the observations across which inequality is
         calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is

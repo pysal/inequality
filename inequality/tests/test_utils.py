@@ -1,4 +1,4 @@
-"""Officially supported pandas/list/ndarray input across the package (GL#104)."""
+"""Officially supported array-like / pandas input across the package (GL#104)."""
 
 import numpy as np
 import pandas as pd
@@ -19,6 +19,23 @@ class TestResolveArray:
 
     def test_tuple(self):
         np.testing.assert_array_equal(_resolve_array((1, 2, 3)), np.array([1, 2, 3]))
+
+    def test_range(self):
+        np.testing.assert_array_equal(_resolve_array(range(4)), np.array([0, 1, 2, 3]))
+
+    def test_generator(self):
+        np.testing.assert_array_equal(
+            _resolve_array(x * x for x in range(4)), np.array([0, 1, 4, 9])
+        )
+
+    def test_iterator(self):
+        np.testing.assert_array_equal(
+            _resolve_array(iter([1, 2, 3])), np.array([1, 2, 3])
+        )
+
+    def test_set(self):
+        # order is undefined but the contents must round-trip
+        assert sorted(_resolve_array({3, 1, 2}).tolist()) == [1, 2, 3]
 
     def test_ndarray_passthrough(self):
         arr = np.array([1.0, 2.0, 3.0])
@@ -43,9 +60,10 @@ class TestResolveArray:
         with pytest.raises(ValueError, match="'column' argument must be provided"):
             _resolve_array(pd.DataFrame({"a": [1, 2]}))
 
-    def test_unsupported_type(self):
+    @pytest.mark.parametrize("bad", ["abc", 42, 3.5, None])
+    def test_unsupported_type(self, bad):
         with pytest.raises(TypeError, match="Input should be"):
-            _resolve_array({"a": 1})
+            _resolve_array(bad)
 
     def test_decorator(self):
         @consistent_input
@@ -53,6 +71,7 @@ class TestResolveArray:
             return data.sum()
 
         assert total([1, 2, 3]) == 6
+        assert total(x for x in [1, 2, 3]) == 6
         assert total(pd.DataFrame({"a": [1, 2, 3]}), column="a") == 6
 
 
@@ -60,6 +79,9 @@ class TestGiniInput:
     def test_equivalence(self):
         expected = Gini(np.array(INCOMES)).g
         assert Gini(INCOMES).g == expected
+        assert Gini(tuple(INCOMES)).g == expected
+        assert Gini(iter(INCOMES)).g == expected
+        assert Gini(x for x in INCOMES).g == expected
         assert Gini(pd.Series(INCOMES)).g == expected
         assert Gini(pd.DataFrame({"y": INCOMES}), column="y").g == expected
 

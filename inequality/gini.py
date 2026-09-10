@@ -54,7 +54,7 @@ class Gini:
     Parameters
     ----------
 
-    x : list, numpy.array, pandas.Series, or pandas.DataFrame
+    x : array-like or pandas.DataFrame
         An array in the shape :math:`(n,1)` containing the attribute values.
         For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
     column : str, optional
@@ -85,7 +85,7 @@ class Gini_Spatial:  # noqa N801
     Parameters
     ----------
 
-    x : list, numpy.array, pandas.Series, or pandas.DataFrame
+    x : array-like or pandas.DataFrame
         An array in the shape :math:`(n,1)` containing the attribute values.
         For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
     w : libpysal.weights.W

@@ -15,7 +15,7 @@ def atkinson(y, epsilon, column=None):
 
     Parameters
     ----------
-    y : array-like, pandas.Series, or pandas.DataFrame
+    y : array-like or pandas.DataFrame
         An array of income or wealth values. For a :class:`pandas.DataFrame`,
         pass ``column`` to select the values.
     epsilon : float
@@ -81,7 +81,7 @@ class Atkinson:
 
     Parameters
     ----------
-    y: array-like, pandas.Series, or pandas.DataFrame
+    y: array-like or pandas.DataFrame
         An array of income or wealth values. For a :class:`pandas.DataFrame`,
         pass ``column`` to select the values.
     epsilon: float
