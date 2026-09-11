@@ -54,12 +54,10 @@ class Gini:
     Parameters
     ----------
 
-    x : array-like or pandas.DataFrame
+    x : array-like
         An array in the shape :math:`(n,1)` containing the attribute values.
-        For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
-    column : str, optional
-        Name of the column holding the attribute values when ``x`` is a
-        :class:`pandas.DataFrame`.
+        For a :class:`pandas.DataFrame` column, pass it as a Series, e.g.
+        ``Gini(df["col"])``.
 
     Attributes
     ----------
@@ -69,8 +67,8 @@ class Gini:
 
     """
 
-    def __init__(self, x, column=None):
-        x = _resolve_array(x, column)
+    def __init__(self, x):
+        x = _resolve_array(x)
         self.g = _gini(x)
 
 
@@ -85,16 +83,14 @@ class Gini_Spatial:  # noqa N801
     Parameters
     ----------
 
-    x : array-like or pandas.DataFrame
+    x : array-like
         An array in the shape :math:`(n,1)` containing the attribute values.
-        For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
+        For a :class:`pandas.DataFrame` column, pass it as a Series, e.g.
+        ``Gini_Spatial(df["col"], w)``.
     w : libpysal.weights.W
         Binary spatial weights object.
     permutations : int (default 99)
        The number of permutations for inference.
-    column : str, optional
-        Name of the column holding the attribute values when ``x`` is a
-        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -163,8 +159,8 @@ class Gini_Spatial:  # noqa N801
 
     """
 
-    def __init__(self, x, w, permutations=99, column=None):
-        x = _resolve_array(x, column)
+    def __init__(self, x, w, permutations=99):
+        x = _resolve_array(x)
         g = _gini(x)
         self.g = g
         n = len(x)

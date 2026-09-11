@@ -3,10 +3,16 @@
 The measures in :mod:`inequality` historically operated on plain
 :class:`numpy.ndarray` objects and only supported :mod:`pandas` structures by
 coincidence.  :func:`_resolve_array` and the :func:`consistent_input` decorator
-centralize the conversion so every public entry point can officially accept any
-array-like (a list, tuple, set, range, generator, :class:`numpy.ndarray`,
-:class:`pandas.Series`, ...) or a :class:`pandas.DataFrame` (via a ``column``
-selector) without the caller having to reach for ``.values``.
+centralize the conversion so every public entry point can officially accept
+any array-like (a list, tuple, set, range, generator, :class:`numpy.ndarray`,
+:class:`pandas.Series`, ...) without the caller having to reach for
+``.values``.
+
+A :class:`pandas.DataFrame` is deliberately **not** accepted directly: per
+the PySAL federation convention (see the discussion on
+`PR #116 <https://github.com/pysal/inequality/pull/116>`__), select the column
+yourself and pass the resulting Series/array, e.g. ``Gini(df["col"])`` rather
+than ``Gini(df, column="col")``.
 """
 
 from functools import wraps
@@ -18,20 +24,16 @@ from pandas.api.types import is_list_like
 __all__ = ["consistent_input"]
 
 
-def _resolve_array(data, column=None):
+def _resolve_array(data):
     """Normalize supported input to a plain :class:`numpy.ndarray`.
 
     Parameters
     ----------
-    data : array-like or pandas.DataFrame
+    data : array-like
         Any list-like object (``list``, ``tuple``, ``set``, ``range``,
         generator, :class:`numpy.ndarray`, :class:`pandas.Series`,
-        :class:`pandas.Index`, ...) or a :class:`pandas.DataFrame`.  Strings
-        and scalars are rejected.
-    column : str or list of str, optional
-        Required when ``data`` is a :class:`pandas.DataFrame`; selects the
-        column(s) holding the values.  A single string yields a 1-D array; a
-        list of strings yields a 2-D ``(n, k)`` array.
+        :class:`pandas.Index`, ...). Strings, scalars, and
+        :class:`pandas.DataFrame` are rejected.
 
     Returns
     -------
@@ -39,10 +41,9 @@ def _resolve_array(data, column=None):
 
     Raises
     ------
-    ValueError
-        If ``data`` is a :class:`pandas.DataFrame` and ``column`` is not given.
     TypeError
-        If ``data`` is not list-like (e.g. a string or a scalar).
+        If ``data`` is a :class:`pandas.DataFrame`, or is not list-like
+        (e.g. a string or a scalar).
 
     Examples
     --------
@@ -53,13 +54,21 @@ def _resolve_array(data, column=None):
     array([0, 1, 4, 9])
     >>> _resolve_array(pd.Series([1, 2, 3]))
     array([1, 2, 3])
-    >>> _resolve_array(pd.DataFrame({"a": [1, 2], "b": [3, 4]}), column="a")
-    array([1, 2])
+    >>> _resolve_array(pd.DataFrame({"a": [1, 2]}))
+    Traceback (most recent call last):
+        ...
+    TypeError: DataFrame input is not supported directly \
+— pass a column as a Series, e.g. Gini(df['col']).
     """
     if isinstance(data, pd.DataFrame):
-        if column is None:
-            raise ValueError("For DataFrame input, 'column' argument must be provided.")
-        return np.asarray(data[column])
+        # A DataFrame is technically list-like too (pandas.api.types.is_list_like
+        # is True for it), but iterating one yields its *column names*, not the
+        # data - silently falling through to the generic branch below would
+        # compute a nonsense result instead of erroring.
+        raise TypeError(
+            "DataFrame input is not supported directly — pass a column as a "
+            "Series, e.g. Gini(df['col'])."
+        )
     if isinstance(data, np.ndarray | pd.Series):
         return np.asarray(data)
     if is_list_like(data):
@@ -68,7 +77,7 @@ def _resolve_array(data, column=None):
         return np.asarray(list(data))
     raise TypeError(
         "Input should be array-like (list, tuple, ndarray, generator, "
-        "pandas Series, ...) or a pandas DataFrame with a 'column' selector."
+        "pandas Series, ...)."
     )
 
 
@@ -76,9 +85,10 @@ def consistent_input(func):
     """Decorate ``func`` so its first positional argument is normalized.
 
     The wrapped function is always called with a plain
-    :class:`numpy.ndarray`.  Callers may pass any array-like (list, tuple,
-    generator, ``ndarray``, :class:`pandas.Series`, ...) or a
-    :class:`pandas.DataFrame` together with a ``column=`` keyword.
+    :class:`numpy.ndarray`. Callers may pass any array-like (list, tuple,
+    generator, ``ndarray``, :class:`pandas.Series`, ...); a
+    :class:`pandas.DataFrame` is rejected — select the column first, e.g.
+    ``total(df["a"])``.
 
     Examples
     --------
@@ -88,12 +98,12 @@ def consistent_input(func):
     ...     return int(data.sum())
     >>> total([1, 2, 3])
     6
-    >>> total(pd.DataFrame({"a": [1, 2, 3]}), column="a")
+    >>> total(pd.DataFrame({"a": [1, 2, 3]})["a"])
     6
     """
 
     @wraps(func)
-    def wrapper(data, *args, column=None, **kwargs):
-        return func(_resolve_array(data, column), *args, **kwargs)
+    def wrapper(data, *args, **kwargs):
+        return func(_resolve_array(data), *args, **kwargs)
 
     return wrapper

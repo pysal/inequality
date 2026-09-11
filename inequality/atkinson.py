@@ -5,7 +5,7 @@ from .utils import _resolve_array
 __all__ = ["Atkinson", "atkinson"]
 
 
-def atkinson(y, epsilon, column=None):
+def atkinson(y, epsilon):
     """Compute the Atkinson index for a given distribution of income or wealth.
 
     The Atkinson index is a measure of economic inequality that takes
@@ -15,16 +15,13 @@ def atkinson(y, epsilon, column=None):
 
     Parameters
     ----------
-    y : array-like or pandas.DataFrame
-        An array of income or wealth values. For a :class:`pandas.DataFrame`,
-        pass ``column`` to select the values.
+    y : array-like
+        An array of income or wealth values. For a :class:`pandas.DataFrame`
+        column, pass it as a Series, e.g. ``atkinson(df["col"], 0.5)``.
     epsilon : float
         The inequality aversion parameter. Higher values of epsilon
         give more weight to the lower end of the distribution, making
         the index more sensitive to changes in the lower tail.
-    column : str, optional
-        Name of the column holding the values when ``y`` is a
-        :class:`pandas.DataFrame`.
 
     Returns
     -------
@@ -51,7 +48,7 @@ def atkinson(y, epsilon, column=None):
     0.13161
 
     """
-    y = _resolve_array(y, column)
+    y = _resolve_array(y)
     if np.any(y <= 0):
         raise ValueError("All values in 'y' must be positive.")
     if epsilon < 0:
@@ -81,16 +78,13 @@ class Atkinson:
 
     Parameters
     ----------
-    y: array-like or pandas.DataFrame
-        An array of income or wealth values. For a :class:`pandas.DataFrame`,
-        pass ``column`` to select the values.
+    y: array-like
+        An array of income or wealth values. For a :class:`pandas.DataFrame`
+        column, pass it as a Series, e.g. ``Atkinson(df["col"], 0.5)``.
     epsilon: float
         The inequality aversion parameter. Higher values of epsilon
         give more weight to the lower end of the distribution, making
         the index more sensitive to changes in the lower tail.
-    column: str, optional
-        Name of the column holding the values when ``y`` is a
-        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -120,8 +114,8 @@ class Atkinson:
 
     """
 
-    def __init__(self, y, epsilon, column=None):
-        y = _resolve_array(y, column)
+    def __init__(self, y, epsilon):
+        y = _resolve_array(y)
         if np.any(y <= 0):
             raise ValueError("All values in 'y' must be positive.")
         if epsilon < 0:
