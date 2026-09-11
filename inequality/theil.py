@@ -144,11 +144,11 @@ class TheilD:
 
         if ytot.size == 1:  # y is 1-d
             sg = gtot / (ytot * 1.0)
-            sg.shape = (sg.size, 1)
+            sg = sg.reshape(sg.size, 1)
         else:
             sg = numpy.dot(gtot, numpy.diag(1.0 / ytot))
         ng = numpy.array([sum(partition == gid) for gid in groups])
-        ng.shape = (ng.size,)  # ensure ng is 1-d
+        ng = ng.reshape(ng.size)  # ensure ng is 1-d
         n = y.shape[0]
         # between group inequality
         sg = sg + SMALL * (sg == 0)  # can't have 0 values
