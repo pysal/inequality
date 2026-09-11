@@ -7,6 +7,8 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import numpy
 from scipy.stats import norm
 
+from .utils import _resolve_array
+
 __all__ = ["Gini", "Gini_Spatial"]
 
 
@@ -52,8 +54,12 @@ class Gini:
     Parameters
     ----------
 
-    y : numpy.array
+    x : list, numpy.array, pandas.Series, or pandas.DataFrame
         An array in the shape :math:`(n,1)` containing the attribute values.
+        For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
+    column : str, optional
+        Name of the column holding the attribute values when ``x`` is a
+        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -63,7 +69,8 @@ class Gini:
 
     """
 
-    def __init__(self, x):
+    def __init__(self, x, column=None):
+        x = _resolve_array(x, column)
         self.g = _gini(x)
 
 
@@ -78,12 +85,16 @@ class Gini_Spatial:  # noqa N801
     Parameters
     ----------
 
-    y : numpy.array
+    x : list, numpy.array, pandas.Series, or pandas.DataFrame
         An array in the shape :math:`(n,1)` containing the attribute values.
+        For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
     w : libpysal.weights.W
         Binary spatial weights object.
     permutations : int (default 99)
        The number of permutations for inference.
+    column : str, optional
+        Name of the column holding the attribute values when ``x`` is a
+        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -152,8 +163,8 @@ class Gini_Spatial:  # noqa N801
 
     """
 
-    def __init__(self, x, w, permutations=99):
-        x = numpy.asarray(x)
+    def __init__(self, x, w, permutations=99, column=None):
+        x = _resolve_array(x, column)
         g = _gini(x)
         self.g = g
         n = len(x)

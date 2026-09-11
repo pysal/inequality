@@ -1,9 +1,11 @@
 import numpy as np
 
+from .utils import _resolve_array
+
 __all__ = ["Atkinson", "atkinson"]
 
 
-def atkinson(y, epsilon):
+def atkinson(y, epsilon, column=None):
     """Compute the Atkinson index for a given distribution of income or wealth.
 
     The Atkinson index is a measure of economic inequality that takes
@@ -13,12 +15,16 @@ def atkinson(y, epsilon):
 
     Parameters
     ----------
-    y : array-like
-        An array of income or wealth values.
+    y : array-like, pandas.Series, or pandas.DataFrame
+        An array of income or wealth values. For a :class:`pandas.DataFrame`,
+        pass ``column`` to select the values.
     epsilon : float
         The inequality aversion parameter. Higher values of epsilon
         give more weight to the lower end of the distribution, making
         the index more sensitive to changes in the lower tail.
+    column : str, optional
+        Name of the column holding the values when ``y`` is a
+        :class:`pandas.DataFrame`.
 
     Returns
     -------
@@ -45,7 +51,7 @@ def atkinson(y, epsilon):
     0.13161
 
     """
-    y = np.asarray(y)
+    y = _resolve_array(y, column)
     if np.any(y <= 0):
         raise ValueError("All values in 'y' must be positive.")
     if epsilon < 0:
@@ -75,12 +81,16 @@ class Atkinson:
 
     Parameters
     ----------
-    y: array-like
-        An array of income or wealth values.
+    y: array-like, pandas.Series, or pandas.DataFrame
+        An array of income or wealth values. For a :class:`pandas.DataFrame`,
+        pass ``column`` to select the values.
     epsilon: float
         The inequality aversion parameter. Higher values of epsilon
         give more weight to the lower end of the distribution, making
         the index more sensitive to changes in the lower tail.
+    column: str, optional
+        Name of the column holding the values when ``y`` is a
+        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -110,8 +120,8 @@ class Atkinson:
 
     """
 
-    def __init__(self, y, epsilon):
-        y = np.asarray(y)
+    def __init__(self, y, epsilon, column=None):
+        y = _resolve_array(y, column)
         if np.any(y <= 0):
             raise ValueError("All values in 'y' must be positive.")
         if epsilon < 0:
