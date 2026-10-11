@@ -7,7 +7,7 @@
 import contextlib
 from importlib.metadata import PackageNotFoundError, version
 
-from . import atkinson, gini, pen, polarization, schutz, theil, wolfson
+from . import atkinson, gini, palma, pen, polarization, schutz, theil, wolfson
 from .atkinson import Atkinson
 from .gini import Gini, Gini_Spatial
 from .polarization import S
@@ -18,6 +18,7 @@ __all__ = [
     # submodules
     "atkinson",
     "gini",
+    "palma",
     "pen",
     "polarization",
     "schutz",
