@@ -24,6 +24,14 @@ Gini Inequality Measures
     gini.Gini
     gini.Gini_Spatial
 
+Palma Ratio
+-----------
+
+.. autosummary::
+   :toctree: generated/
+
+    palma.palma
+
 Schutz Inequality Measures
 --------------------------
 
