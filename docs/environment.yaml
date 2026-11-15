@@ -1,0 +1,44 @@
+name: docs
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14
+  - beautifulsoup4
+  - geopandas
+  - jinja2
+  - packaging
+  - pandas
+  - platformdirs
+  - requests
+  - scipy
+  - shapely
+  # testing
+  - matplotlib
+  - tobler
+  - h3-py
+  # optional
+  - geodatasets
+  - joblib
+  - networkx
+  - numba
+  - pyarrow
+  - scikit-learn
+  - sqlalchemy
+  - zstd
+  - pandarm
+  - xarray
+  # for docs build action (this env only)
+  - ipykernel
+  - myst-nb
+  - sphinx<9
+  - sphinxcontrib-bibtex
+  - sphinx-autosummary-accessors
+  - sphinx-copybutton
+  - sphinx-immaterial
+  - pandoc
+  - seaborn
+  - esda
+  - watermark
+  - pip
+  - pip:
+    - pulp<4
