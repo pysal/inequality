@@ -24,3 +24,6 @@ develop-eggs
 lib
 lib64
 __pycache__
+
+docs/build
+docs/source/generated

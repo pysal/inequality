@@ -43,15 +43,18 @@ dev = [
     "ruff",
 ]
 docs = [
-    "geopandas",
-    "ipykernel",
-    "nbsphinx",
-    "numpydoc",
-    "pydata-sphinx-theme",
+    "myst-nb",
+    "pandoc",
     "sphinx",
-    "sphinx-gallery",
-    "sphinx_bootstrap_theme",
+    "sphinx-autosummary-accessors",
     "sphinxcontrib-bibtex",
+    "sphinx-copybutton",
+    "sphinx-immaterial",
+    "geopandas",
+    "watermark",
+    "seaborn",
+    "joblib",
+    "mapclassify",
 ]
 tests = [
     "codecov",

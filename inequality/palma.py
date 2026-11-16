@@ -28,9 +28,6 @@ def palma(data):
     data : array-like, pandas.Series, or pandas.DataFrame
         Income or wealth values. For a :class:`pandas.DataFrame`, pass
         ``column`` to select the values.
-    column : str, optional
-        Name of the column holding the values when ``data`` is a
-        :class:`pandas.DataFrame`.
 
     Returns
     -------
