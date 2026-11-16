@@ -3,42 +3,23 @@ channels:
   - conda-forge
 dependencies:
   - python=3.14
-  - beautifulsoup4
-  - geopandas
-  - jinja2
-  - packaging
-  - pandas
-  - platformdirs
-  - requests
-  - scipy
-  - shapely
-  # testing
+  # required
+  - libpysal
   - matplotlib
-  - tobler
-  - h3-py
-  # optional
-  - geodatasets
+  - numpy
+  - pandas
+  - scipy
+  - geopandas
   - joblib
-  - networkx
-  - numba
-  - pyarrow
-  - scikit-learn
-  - sqlalchemy
-  - zstd
-  - pandarm
-  - xarray
+  - mapclassify
+  - seaborn
+  - tqdm
   # for docs build action (this env only)
   - ipykernel
   - myst-nb
-  - sphinx<9
+  - sphinx
   - sphinxcontrib-bibtex
   - sphinx-autosummary-accessors
   - sphinx-copybutton
   - sphinx-immaterial
-  - pandoc
-  - seaborn
-  - esda
   - watermark
-  - pip
-  - pip:
-    - pulp<4
