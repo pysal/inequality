@@ -1,0 +1,11 @@
+﻿inequality.atkinson.Atkinson
+============================
+
+.. currentmodule:: inequality.atkinson
+
+.. autoclass:: Atkinson
+
+   
+   
+
+   

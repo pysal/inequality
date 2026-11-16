@@ -1,0 +1,1936 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../installation.html">
+      
+      
+        <link rel="next" href="theil.html">
+      
+      
+      <link rel="icon" href="../../_static/pysal_favicon.ico">
+    
+    
+      
+        <title>Gini-Based Measures of Spatial Inequality and Polarization - inequality</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.2b7fb0df65482c23e.min.css?v=666199ae" />
+        <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+        <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d127c87d" />
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#imports-input-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="inequality" class="md-header__button md-logo" aria-label="inequality" data-md-component="logo">
+      <img src="../../_static/pysal_logo.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            inequality
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Gini-Based Measures of Spatial Inequality and Polarization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="red"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pysal/inequality/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pysal/inequality
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="inequality" class="md-nav__button md-logo" aria-label="inequality" data-md-component="logo">
+      <img src="../../_static/pysal_logo.svg" alt="logo">
+    </a>
+    inequality
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pysal/inequality/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pysal/inequality
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Home</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Installation</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>User Guide</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>User Guide</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Gini-<wbr>Based Measures of  Spatial Inequality and Polarization</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Gini-<wbr>Based Measures of  Spatial Inequality and Polarization</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#imports-input-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Imports &amp; Input Data</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classic-gini-coefficient" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Classic Gini Coefficient</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-invariance-of-the-gini-coefficient" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Spatial Invariance of the Gini Coefficient</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-gini-coefficient" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Spatial Gini Coefficient</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gini-spatial-polarization-index" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Gini Spatial Polarization Index</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gini Spatial Polarization Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alternative-neighbor-definitions" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Alternative neighbor definitions</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>References</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="theil.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Demonstrating the Theil Index of Inequality</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wolfson.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Demonstrating the Wolfson Bipolarization Coefficient:<wbr></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="spatial_polarization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Spatial Polarization</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viz/pengram.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Pen’s Parade and Pengrams</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viz/schutz.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Lorenz Curves and Schutz Lines</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>References</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>API</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>API reference</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>For contributors</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span>For contributors</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysal/inequality" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Git<wbr>Hub</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysal/inequality/releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Changelog</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#imports-input-data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Imports &amp; Input Data</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classic-gini-coefficient" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Classic Gini Coefficient</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-invariance-of-the-gini-coefficient" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Spatial Invariance of the Gini Coefficient</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-gini-coefficient" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Spatial Gini Coefficient</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gini-spatial-polarization-index" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Gini Spatial Polarization Index</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gini Spatial Polarization Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alternative-neighbor-definitions" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Alternative neighbor definitions</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>References</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+  
+    <a href="https://github.com/pysal/inequality/blob/main/docs/source/user-guide/measure/gini.ipynb" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m.12 13.5 3.74 3.74 1.42-1.41-2.33-2.33 2.33-2.33-1.42-1.41zm11.16 0-3.74-3.74-1.42 1.41 2.33 2.33-2.33 2.33 1.42 1.41z"/></svg>
+    </a>
+  
+  
+
+<h1 id="gini-based-measures-of-spatial-inequality-and-polarization">Gini-Based Measures of  Spatial Inequality and Polarization<a class="headerlink" href="#gini-based-measures-of-spatial-inequality-and-polarization" title="Link to this heading">¶</a></h1>
+<p>This notebook explores the measurement of spatial inequality and polarization using the Gini coefficient, with a particular focus on Mexican state-level income data between 1940 and 2000.  <code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> extends the classic Gini coefficient, which quantifies income inequality,  to account for spatial relationships among neighboring regions. By leveraging spatial weights matrices, we distinguish between inequality contributions from neighboring areas versus distant areas, enabling a deeper understanding of spatial economic disparities.</p>
+<p>The analysis begins with an overview of the data, which includes decennial per capita incomes of Mexican states, followed by the calculation of the classic Gini coefficient to establish baseline inequality levels. We then extend the analysis to the spatial Gini coefficient, incorporating spatial relationships to reveal localized inequality patterns. The notebook culminates in the Gini-based spatial polarization index, which highlights the extent to which the inequality has a spatial structure.</p>
+<h2 id="imports-input-data">Imports &amp; Input Data<a class="headerlink" href="#imports-input-data" title="Link to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>Last updated: 2026-11-16T10:31:51.373797+01:00
+
+Python implementation: CPython
+Python version       : 3.14.10
+IPython version      : 9.18.1
+
+Compiler    : Clang 20.1.8 
+OS          : Darwin
+Release     : 27.0.0
+Machine     : arm64
+Processor   : arm
+CPU cores   : 10
+Architecture: 64bit
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">inequality</span>
+
+<span class="o">%</span><span class="k">watermark</span> -w
+<span class="o">%</span><span class="k">watermark</span> -iv
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>Watermark: 2.6.0
+
+geopandas  : 1.2.0
+inequality : 1.2.1.dev4+g77d802d6b.d20261115
+libpysal   : 4.15.1.dev15+g10abcb628
+mapclassify: 2.11.1.dev6+g7d7b2e214
+numpy      : 2.5.4
+pandas     : 3.1.1
+seaborn    : 0.13.2
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>To illustrate <code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> we utilize a built-in data set on per-capita gross domestic product for the 32 Mexican states measured each decade from 1940 through 2000:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="s2">"mexico"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>mexico
+======
+
+Decennial per capita incomes of Mexican states 1940-2000
+--------------------------------------------------------
+
+* mexico.csv: attribute data. (n=32, k=13)
+* mexico.gal: spatial weights in GAL format.
+* mexicojoin.shp: Polygon shapefile. (n=32)
+
+Data used in Rey, S.J. and M.L. Sastre Gutierrez. (2010) "Interregional inequality dynamics in Mexico." Spatial Economic Analysis, 5: 277-298.
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pth</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">"mexicojoin.shp"</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>POLY_ID</th>
+      <th>AREA</th>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>PERIMETER</th>
+      <th>ACRES</th>
+      <th>HECTARES</th>
+      <th>PCGDP1940</th>
+      <th>PCGDP1950</th>
+      <th>PCGDP1960</th>
+      <th>...</th>
+      <th>GR9000</th>
+      <th>LPCGDP40</th>
+      <th>LPCGDP50</th>
+      <th>LPCGDP60</th>
+      <th>LPCGDP70</th>
+      <th>LPCGDP80</th>
+      <th>LPCGDP90</th>
+      <th>LPCGDP00</th>
+      <th>TEST</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7.252751e+10</td>
+      <td>MX02</td>
+      <td>Baja California Norte</td>
+      <td>2040312.385</td>
+      <td>1.792187e+07</td>
+      <td>7252751.376</td>
+      <td>22361.0</td>
+      <td>20977.0</td>
+      <td>17865.0</td>
+      <td>...</td>
+      <td>0.05</td>
+      <td>4.35</td>
+      <td>4.32</td>
+      <td>4.25</td>
+      <td>4.40</td>
+      <td>4.47</td>
+      <td>4.43</td>
+      <td>4.48</td>
+      <td>1.0</td>
+      <td>MULTIPOLYGON (((-113.13972 29.01778, -113.2405...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7.225988e+10</td>
+      <td>MX03</td>
+      <td>Baja California Sur</td>
+      <td>2912880.772</td>
+      <td>1.785573e+07</td>
+      <td>7225987.769</td>
+      <td>9573.0</td>
+      <td>16013.0</td>
+      <td>16707.0</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>3.98</td>
+      <td>4.20</td>
+      <td>4.22</td>
+      <td>4.39</td>
+      <td>4.46</td>
+      <td>4.41</td>
+      <td>4.42</td>
+      <td>2.0</td>
+      <td>MULTIPOLYGON (((-111.20612 25.80278, -111.2302...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2.731957e+10</td>
+      <td>MX18</td>
+      <td>Nayarit</td>
+      <td>1034770.341</td>
+      <td>6.750785e+06</td>
+      <td>2731956.859</td>
+      <td>4836.0</td>
+      <td>7515.0</td>
+      <td>7621.0</td>
+      <td>...</td>
+      <td>-0.05</td>
+      <td>3.68</td>
+      <td>3.88</td>
+      <td>3.88</td>
+      <td>4.04</td>
+      <td>4.13</td>
+      <td>4.11</td>
+      <td>4.06</td>
+      <td>3.0</td>
+      <td>MULTIPOLYGON (((-106.62108 21.56531, -106.6475...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>7.961008e+10</td>
+      <td>MX14</td>
+      <td>Jalisco</td>
+      <td>2324727.436</td>
+      <td>1.967200e+07</td>
+      <td>7961008.285</td>
+      <td>5309.0</td>
+      <td>8232.0</td>
+      <td>9953.0</td>
+      <td>...</td>
+      <td>0.03</td>
+      <td>3.73</td>
+      <td>3.92</td>
+      <td>4.00</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.30</td>
+      <td>4.33</td>
+      <td>4.0</td>
+      <td>POLYGON ((-101.5249 21.85664, -101.5883 21.772...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.467030e+09</td>
+      <td>MX01</td>
+      <td>Aguascalientes</td>
+      <td>313895.530</td>
+      <td>1.350927e+06</td>
+      <td>546702.985</td>
+      <td>10384.0</td>
+      <td>6234.0</td>
+      <td>8714.0</td>
+      <td>...</td>
+      <td>0.13</td>
+      <td>4.02</td>
+      <td>3.79</td>
+      <td>3.94</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.32</td>
+      <td>4.44</td>
+      <td>5.0</td>
+      <td>POLYGON ((-101.8462 22.01176, -101.9653 21.883...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pth</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">"mexicojoin.shp"</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+
+<span class="c1"># we will use greedy from mapclassify</span>
+<span class="c1"># states to ensure contiguous states are of a different color</span>
+<span class="n">sgdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"NAME"</span><span class="p">)</span>
+<span class="n">sgdf</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sgdf</span><span class="p">[</span><span class="s2">"label"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">33</span><span class="p">)</span>
+<span class="n">sgdf</span><span class="p">[</span><span class="s2">"greedy"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapclassify</span><span class="o">.</span><span class="n">greedy</span><span class="p">(</span><span class="n">sgdf</span><span class="p">)</span>
+
+<span class="n">font_size</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">outside</span> <span class="o">=</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">29</span><span class="p">]</span>
+<span class="n">oc</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">103</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">95</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">)]</span>
+<span class="n">oe</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mf">102.55</span><span class="p">,</span> <span class="mf">17.49</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">95.5</span><span class="p">,</span> <span class="mf">22.1</span><span class="p">)]</span>
+<span class="n">oinfo</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">outside</span><span class="p">,</span> <span class="n">oc</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sgdf</span><span class="p">[</span><span class="s2">"centroid"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sgdf</span><span class="o">.</span><span class="n">centroid</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sgdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"greedy"</span><span class="p">,</span>
+    <span class="n">categorical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"Set3"</span><span class="p">,</span>
+    <span class="c1"># legend=True,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"w"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sgdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">"centroid"</span><span class="p">]</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">'NAME'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">outside</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">out</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">oinfo</span><span class="p">):</span>
+    <span class="n">idx</span><span class="p">,</span> <span class="n">coords</span> <span class="o">=</span> <span class="n">out</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">coords</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">idx</span><span class="p">),</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">start_point</span> <span class="o">=</span> <span class="n">coords</span>
+    <span class="n">end_point</span> <span class="o">=</span> <span class="n">sgdf</span><span class="o">.</span><span class="n">centroid</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">start_point</span> <span class="o">=</span> <span class="n">oe</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">LineString</span><span class="p">([</span><span class="n">start_point</span><span class="p">,</span> <span class="n">end_point</span><span class="p">])</span>
+
+    <span class="n">line_gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">([</span><span class="n">line</span><span class="p">])</span>
+
+    <span class="n">line_gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">120</span><span class="p">,</span>
+            <span class="mi">20</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">110</span><span class="p">,</span>
+            <span class="mi">20</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">16</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+        <span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>/var/folders/n0/xbnn2f2d0ybbp2c_bf_9ztzw0000gn/T/ipykernel_40394/4237573787.py:7: Pandas4Warning: The inplace keyword in GeoDataFrame.reset_index is deprecated and will be removed in a future version (PDEP-8).
+See https://pandas.pydata.org/docs/dev/whatsnew/v3.1.0.html#deprecation-inplace for more details.
+  sgdf.reset_index(inplace=True)
+</code></pre></div>
+</div>
+<img alt="../../_images/4f0301906046b533b6b758962f18466b28a4c1e0f3126fec8d40d9b5a4da295f.png" src="../../_images/4f0301906046b533b6b758962f18466b28a4c1e0f3126fec8d40d9b5a4da295f.png" />
+</div>
+</div>
+<p>We begin with two views of the Mexican state income distribution. On the left we have a choropleth map using
+a quintile classification to depict the <em>spatial distribution</em> of incomes.
+To the map’s right we have a kernel density estimate (KDE) of the <em>attribute distribution</em>.</p>
+<p>The map and KDE together indicate that economic development was
+unevenly distributed across Mexico in 1940, with a majority of states
+having relatively low per capita GDP and a small number of outliers
+with much higher values.  <code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> implements a variety of indices to explore the inequality from distributional and spatial lenses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Two subplots in one row</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Left column: Choropleth map</span>
+<span class="n">ax_map</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"PCGDP1940"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"Quantiles"</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"fmt"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">"</span><span class="p">},</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">ax_map</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">ax_map</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"PC GDP 1940"</span><span class="p">)</span>
+
+<span class="c1"># Right column: Kernel density plot</span>
+<span class="n">seaborn</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940"</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bw_adjust</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Kernel Density: PC GDP 1940"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Per Capita GDP"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
+
+<span class="c1"># Adjust layout for better spacing</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Show the plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1bdb919aa0cfda11dd71c800702eb04d94cca8b114aca2099b3977cacaedb43c.png" src="../../_images/1bdb919aa0cfda11dd71c800702eb04d94cca8b114aca2099b3977cacaedb43c.png" />
+</div>
+</div>
+<h2 id="classic-gini-coefficient">Classic Gini Coefficient<a class="headerlink" href="#classic-gini-coefficient" title="Link to this heading">¶</a></h2>
+<p>The Gini coefficient can be expressed as the relative mean absolute difference in incomes between pairs of observations:
+$<span class="math notranslate nohighlight">\(G = \frac{\sum_i \sum_j \left| x_i - x_j \right |}{2\bar{x}n^2}\)</span><span class="math notranslate nohighlight">\(
+where \)</span>x_i<span class="math notranslate nohighlight">\( is the per capita income of area \)</span>i<span class="math notranslate nohighlight">\(, \)</span>\bar{x}<span class="math notranslate nohighlight">\( is the mean of the area per capita incomes, and \)</span>n$ is the number of areas.</p>
+<p>The numerator, <span class="math notranslate nohighlight">\(\sum_i \sum_j \left | x_i - x_j \right |\)</span> is a measure of inequality in the data set. The Gini normalizes this measure relative to the mean income and the number of pairwise comparisons. As a result of the normalization, the Gini coefficient is bounded between 0 (perfect equality) and 1 (maximum inequality).</p>
+<p>Focusing on 1940, the Gini coefficient for Mexican state per capita income is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gini_1940</span> <span class="o">=</span> <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+<span class="n">gini_1940</span><span class="o">.</span><span class="n">g</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.3537237117345285)
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>There are a number of possible interpretations of this figure. Using the equation above, the mean relative absolute deviation between all pairs of Mexican states represents 35 percent of the mean income that year.</p>
+<p>A second interpretation is a graphical one:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">inequality.schutz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Schutz</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">s</span> <span class="o">=</span> <span class="n">Schutz</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s2">"PCGDP1940"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/024412202b6f9692b7bcea817e72640d4d1fd04e4ca4fe941cc37e1a4a2796b3.png" src="../../_images/024412202b6f9692b7bcea817e72640d4d1fd04e4ca4fe941cc37e1a4a2796b3.png" />
+</div>
+</div>
+<p>The Gini coefficient of 0.35 represents the percentage of the area below the line of perfect inequality that lies above the Lorenz Curve.</p>
+<p>Thus, as the Gini coefficient increases in value, inequality is increasing, as is the area of the lens formed by the diagonal and the Lorenz curve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP2000"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">g</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.2581130824882791)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">s</span> <span class="o">=</span> <span class="n">Schutz</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="s2">"PCGDP2000"</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ca763c230501e5cf6708d0f356bef7cead3f3bd53a8e40feabc1d987b89c031f.png" src="../../_images/ca763c230501e5cf6708d0f356bef7cead3f3bd53a8e40feabc1d987b89c031f.png" />
+</div>
+</div>
+<p>In comparing the distribution from 1940 to that in 2000, we see that overall inequality has declined. The lower value of the Gini for 2000 as well as the smaller area of the inequality lens in the second plot demonstrate the decline.</p>
+<p>We can plot the time series of Gini values by decade to see the long term trend of a decline between these two terminal decades, with the steepest drop in inequality occuring in the first two periods of the sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">decades</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1940</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ginis</span> <span class="o">=</span> <span class="p">[</span><span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="sa">f</span><span class="s2">"PCGDP</span><span class="si">{</span><span class="n">decade</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">g</span> <span class="k">for</span> <span class="n">decade</span> <span class="ow">in</span> <span class="n">decades</span><span class="p">]</span>
+
+<span class="n">ginis_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">ginis</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Gini"</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">decades</span><span class="p">))</span>
+<span class="n">ginis_df</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7e729cc1ce519e194f402b26cb372cd6576462c0bc8ef418b3145b5455fd04c7.png" src="../../_images/7e729cc1ce519e194f402b26cb372cd6576462c0bc8ef418b3145b5455fd04c7.png" />
+</div>
+</div>
+<h2 id="spatial-invariance-of-the-gini-coefficient">Spatial Invariance of the Gini Coefficient<a class="headerlink" href="#spatial-invariance-of-the-gini-coefficient" title="Link to this heading">¶</a></h2>
+<p>The Gini coefficient measures the inequality in the distribution as reflected in the average pairwise difference, normalized to the sample mean.</p>
+<p>Although often used to measure inequality in geographical distributions, the geographical configuration of the observations is not actually taken into consideration in the classic Gini. In other words, the Gini coefficient is a <em>spatially invariant</em> measure of inequality.
+This means that the Gini coefficient is not sensitive to the spatial distribution of the attribute values.</p>
+<p>To see this, we can randomly permute the values from the 1940 map and contrast the two spatial distributions. On the left is the choropleth map for the observed 1940 spatial distribution of state income values, and on the right we have the permuted values. Below the two figures are the kernel densities for the attribute distributions associated with each of the maps. The two densities are identical despite the two maps being markedly different.</p>
+<p>We also see that the Gini index takes on the same value for each of the spatial distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940r"</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">PCGDP1940</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"PCGDP1940"</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"quantiles"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"fmt"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">"</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"PCGDP1940"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+
+<span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s2">"PCGDP1940r"</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"quantiles"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span>
+    <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span><span class="s2">"fmt"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">"</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"PCGDP1940r"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">"off"</span><span class="p">)</span>
+
+<span class="n">seaborn</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940"</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Kernel Density of PCGDP1940"</span><span class="p">)</span>
+
+<span class="n">seaborn</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940r"</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"orange"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Kernel Density of PCGDP1940r"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/9c1f67727746aa802cdd85c750961a7dcb62c368fc34da8fc27f02c1adb53784.png" src="../../_images/9c1f67727746aa802cdd85c750961a7dcb62c368fc34da8fc27f02c1adb53784.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="p">(</span>
+    <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">g</span>
+    <span class="o">==</span> <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940r"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">g</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.True_
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="spatial-gini-coefficient">Spatial Gini Coefficient<a class="headerlink" href="#spatial-gini-coefficient" title="Link to this heading">¶</a></h2>
+<p>To introduce the spatial dimension into the analysis of income inequality, the spatial Gini makes use of a decomposition of the numerator of the Gini:</p>
+<div class="math notranslate nohighlight">
+\[ \sum_i \sum_j \left | x_i - x_j \right | = \sum_i \sum_j  \gamma_{i,j} \left | x_i - x_j \right | +   \sum_i \sum_j(1-\gamma_{i,j}) \left | x_i - x_j \right |\]</div>
+<p>where <span class="math notranslate nohighlight">\(\gamma_{i,j}\)</span> is a binary indicator taking on a value of 1 if areas <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> are considered spatial neighbors, and 0 otherwise.
+The first term in the decomposition is the contribution to overall inequality due to inequality between pairs of spatial neighbors, while the second term is the contribution due to inequality between pairs of “distant” observations.
+In what follows, we note that
+the numerator of the Gini is the sum of the absolute deviations (SAD).</p>
+<p>The relative contribution of these two inequality components to the SAD will be a function of two factors:</p>
+<ul class="simple">
+<li><p>the relative number of neighboring (distant) pairs</p></li>
+<li><p>the inequality within each set of pairs</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">pysal-inequality</span></code> originally had a single Gini-based measure of spatial inequality based on the work of Rey and Smith (2013).
+This compared the sum of the observed absolute deviations of the distant pairs against what would be expected were incomes randomly distributed in space.
+Inference on this index relies on random permutations of the observed values to simulate the null hypothesis of spatially random incomes.</p>
+<p>To implement the spatial Gini, a definition of neighboring pairs is required. For this, we can use a Queen contiguity rule where two states are considered neighbors if their borders touch:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">wq</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">Queen</span><span class="o">.</span><span class="n">from_dataframe</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">use_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini_Spatial</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940"</span><span class="p">],</span> <span class="n">wq</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The sum of the absolute differences between non-neighbor pairs is stored in the <code class="docutils literal notranslate"><span class="pre">gc.wcg</span></code> attribute:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gs</span><span class="o">.</span><span class="n">wcg</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(4735906.0)
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Whether this value is large or not, is a question of inference.
+A pseudo p-value based on random permutations is stored in the <code class="docutils literal notranslate"><span class="pre">gs.p_sim</span></code> attribute:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gs</span><span class="o">.</span><span class="n">p_sim</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.01)
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">gs.p_sim</span></code> value of 0.01 indicates that none of the 99 random permutations of incomes in space generated a sum of the pairwise differences for the distant pairs that was as large as what we observed in the actual pattern.</p>
+<p>Repeating this analysis for the same year, but with the random spatial distribution of the attribute values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gsr</span> <span class="o">=</span> <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini_Spatial</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940r"</span><span class="p">],</span> <span class="n">wq</span><span class="p">)</span>
+<span class="n">gsr</span><span class="o">.</span><span class="n">wcg</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(4457788.0)
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>we see that the differences between the “distant” pairs has declined relative to what we saw for the observed distribution.
+Moreover, the spatial gini index for the random distribution is no longer statistically significant:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gsr</span><span class="o">.</span><span class="n">p_sim</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.29)
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="gini-spatial-polarization-index">Gini Spatial Polarization Index<a class="headerlink" href="#gini-spatial-polarization-index" title="Link to this heading">¶</a></h2>
+<p>Using the decomposition of the SAD into the two components, we can draw inspiration from the spatial polarization literature where Zhang and Kanbur (2001)  have suggested that an index of polarization defined as a ratio of inequality between regions over inequality within regions. Adapting this to our Gini decomposition, one such Gini-Based Spatial Polarization Index could be:
+$<span class="math notranslate nohighlight">\(
+GP = \frac{ \sum_i \sum_j(1-\gamma_{i,j}) \left | x_i - x_j \right |} {\sum_i \sum_j  \gamma_{i,j} \left | x_i - x_j \right | }  \)</span>$</p>
+<p>However, simply decomposing the SAD into that due to the neighboring pairs and that due to the distant pairs will place more weight on the distant pairs component.
+This is because they will generally outnumber the  neighboring pairs.</p>
+<p>Thus, a polarization index formed as the ratio of the two components would be difficult to interpret and therefore potentially misleading.
+Instead,
+the polarization should take the relative size of the two pair sets into account:</p>
+<p><span class="math notranslate nohighlight">\(n_{\text{pairs}} = n(n-1)/2\)</span></p>
+<p><span class="math notranslate nohighlight">\(n_{\text{pairs}} = n_{\text{neighbor pairs}} + n_{\text{distant pairs}}\)</span></p>
+<p>Under the null, the average difference between two observations should be the same, whether the pair of observations are neighbors or not. That means that, under the null:</p>
+<p><span class="math notranslate nohighlight">\(E[GP] = \frac{n_{\text{distant pairs}}} {n_{\text{neighbor pairs}}}\)</span></p>
+<p>We can use this to normalize and define the Gini Spatial Polarization index as:
+$<span class="math notranslate nohighlight">\(
+GP/E[GP] = \left( \frac{ \sum_i \sum_j(1-\gamma_{i,j}) \left | x_i - x_j \right |} {\sum_i \sum_j  \gamma_{i,j} \left | x_i - x_j \right | } \right ) / \left ( \frac{n_{\text{distant pairs}}} {n_{\text{neighbor pairs}}} \right )
+\)</span>$</p>
+<p>We can view this index in two ways. First, the Gini Polarization is expressed relative to its expected value. In cases where this exceeds 1, the differences due to distant pairs is larger than that due to neighboring pairs under the expectation of no difference.</p>
+<p>The second view of the Gini Polarization index is as a ratio of the average pairwise difference for the distant pairs over the average pairwise difference for the neighboring pairs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">polarization_sim</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">polarization</span>
+
+<span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">maxd</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">obs</span><span class="p">)</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">maxd</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">kde_values</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">kde_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Kernel Density Estimate"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Value = </span><span class="si">{</span><span class="n">obs</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Gini Spatial Polarization Index 1940"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Values"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">gs</span><span class="o">.</span><span class="n">polarization_p_sim</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d4fc3da7b0664b801e87ef7659586fb629d64dffe7971afdd881a28a70214a64.png" src="../../_images/d4fc3da7b0664b801e87ef7659586fb629d64dffe7971afdd881a28a70214a64.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.01)
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The Gini Polarization index of 1.52 means that the average pairwise difference between observations that are distant is 52 percent larger than the average pairwise difference for neighboring observations.
+The kernel density of the spatial polarization indices from the 99 random permutations of the observed income values for 1940 suggests that the observed index value is significantly different from what would be expected under the null of a spatially random income distribution. In fact, none of the synthetic distributions generated spatial polarization values as large as the observed value.</p>
+<p>If we repeat this for the random permutation for 1940 that we used above, the spatial polarization index for the “observed” spatial distribution takes on the value of 0.92.
+And, based on the pseudo p-value, this index is not a significant departure from the null of spatially random incomes for 1940.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gsr</span><span class="o">.</span><span class="n">polarization</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.9232850295559094)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gsr</span><span class="o">.</span><span class="n">polarization_sim</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(1.001666653801155)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gsr</span><span class="o">.</span><span class="n">polarization_sim</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(1.343479320163225)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Data array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gsr</span><span class="o">.</span><span class="n">polarization_sim</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">gsr</span><span class="o">.</span><span class="n">polarization</span>
+
+<span class="c1"># Kernel Density Estimation</span>
+<span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">maxd</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">obs</span><span class="p">)</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">maxd</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">kde_values</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">kde_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Kernel Density Estimate"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Value = </span><span class="si">{</span><span class="n">obs</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Gini Spatial Polarization Index 1940 (Random)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Values"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">gsr</span><span class="o">.</span><span class="n">polarization_p_sim</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/5a815519f627fe4f077eb16d494083a5508d7f7f1e428cb215df984c3cec77eb.png" src="../../_images/5a815519f627fe4f077eb16d494083a5508d7f7f1e428cb215df984c3cec77eb.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.72)
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="alternative-neighbor-definitions">Alternative neighbor definitions<a class="headerlink" href="#alternative-neighbor-definitions" title="Link to this heading">¶</a></h3>
+<p>The spatial decomposition used in both the spatial Gini and the Gini
+spatial polarization index can accommodate different definitions of
+neighboring pairs. To illustrate this, we utilize a regional partition
+scheme used by Hanson (1996) to study the effects of the North
+American Free Trade Agreement. This assigns the states into five
+exhaustive and mutually exclusive regions portrayed below. Using this
+partition we can defined neighbor pairs based on regional membership.
+That is, two states belonging to the same region constitute a
+neighboring pair, while two states belonging to different regions are
+defined as a distant pair.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">regimes</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s2">"HANSON98"</span><span class="p">]</span>
+
+<span class="n">wb</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">block_weights</span><span class="p">(</span><span class="n">regimes</span><span class="p">,</span> <span class="n">silence_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wb</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>&lt;libpysal.weights.weights.W at 0x16b41f0e0&gt;
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">ax</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">"HANSON98"</span><span class="p">,</span> <span class="n">categorical</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Regions"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1f095d01895e0654d063547bfe971cd08f1606528e2ed51b8afe0b867c59e350.png" src="../../_images/1f095d01895e0654d063547bfe971cd08f1606528e2ed51b8afe0b867c59e350.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">gsh</span> <span class="o">=</span> <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini_Spatial</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940"</span><span class="p">],</span> <span class="n">wb</span><span class="p">)</span>
+<span class="n">gsh</span><span class="o">.</span><span class="n">p_sim</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.01)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Data array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gsh</span><span class="o">.</span><span class="n">polarization_sim</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">gsh</span><span class="o">.</span><span class="n">polarization</span>
+
+<span class="c1"># Kernel Density Estimation</span>
+<span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">maxd</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">obs</span><span class="p">)</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">maxd</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">kde_values</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">kde_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Kernel Density Estimate"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Value = </span><span class="si">{</span><span class="n">obs</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Gini Spatial Polarization 1940 (Hanson)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Values"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6295414fe2dada7c58a7eba33b944ccaccaf9fdfa70d1ec48e6a5925113acad9.png" src="../../_images/6295414fe2dada7c58a7eba33b944ccaccaf9fdfa70d1ec48e6a5925113acad9.png" />
+</div>
+</div>
+<p>The Gini Spatial Polarization index takes on a value of 1.29 for the
+Hanson partition, with an associated p-value of 0.01. Note that the
+shape of the index distribution under the null is markedly different
+from that based on the Queen contiguity structure. In both cases, the
+observed index values are significant, however it is clear that the
+spatial structure of the particular neighbor graph needs to be taken
+into account to ensure meaningful inference.</p>
+<p>Finally, we repeat the analysis using the Hanson partition, but this time for the random spatial distribution of incomes in 1940.
+As was the case for the Queen definition of neighbors, the polarization index is no longer significant for this synthetic distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Random Incomes</span>
+<span class="n">gshr</span> <span class="o">=</span> <span class="n">inequality</span><span class="o">.</span><span class="n">gini</span><span class="o">.</span><span class="n">Gini_Spatial</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">"PCGDP1940r"</span><span class="p">],</span> <span class="n">wb</span><span class="p">)</span>
+<span class="n">gshr</span><span class="o">.</span><span class="n">p_sim</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.35)
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">gshr</span><span class="o">.</span><span class="n">polarization_sim</span>
+
+<span class="n">obs</span> <span class="o">=</span> <span class="n">gshr</span><span class="o">.</span><span class="n">polarization</span>
+
+<span class="c1"># Kernel Density Estimation</span>
+<span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">maxd</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">obs</span><span class="p">)</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">maxd</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">kde_values</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">kde_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Kernel Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Value = </span><span class="si">{</span><span class="n">obs</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Gini Spatial Polarization 1940 (Hanson Random)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Values"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Density"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b8af307817874b35d7af350fb008a30dd1ae0d336096770b5d53d5dcfffce6bd.png" src="../../_images/b8af307817874b35d7af350fb008a30dd1ae0d336096770b5d53d5dcfffce6bd.png" />
+</div>
+</div>
+<h2 id="references">References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Hanson, Gordon H. U.S.-Mexico Integration and Regional Economies. Cambridge: National Bureau of Economic Research, 1996.</p></li>
+<li><p>Rey, Sergio J., and Richard J Smith. “A Spatial Decomposition of the Gini Coefficient.” Letters in Spatial and Resource Sciences 6 (2013): 55–70.</p></li>
+<li><p>Zhang, Xiaobo, and Ravi Kanbur. “What Difference Do Polarisation Measures Make?: An Application to China.” Journal of Development Studies 37 (2001): 85–98.</p></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2018-, pysal developers.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    9.2.0.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.code.copy", "content.action.edit"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "https://pysal.org/inequality/versions.json"}}</script>
+    
+      
+        <script src="../../_static/sphinx_immaterial_theme.567b0e0fd947ea7d9.min.js?v=5850e81b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script id="MathJax-script" src="../../_static/mathjax/tex-mml-chtml.js?v=cadf963e"></script>
+    
+  </body>
+</html>

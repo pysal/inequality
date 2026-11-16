@@ -1,0 +1,3200 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="wolfson.html">
+      
+      
+        <link rel="next" href="../viz/pengram.html">
+      
+      
+      <link rel="icon" href="../../_static/pysal_favicon.ico">
+    
+    
+      
+        <title>Spatial Polarization - inequality</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.2b7fb0df65482c23e.min.css?v=666199ae" />
+        <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+        <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d127c87d" />
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-synthetic-check-a-regular-40x40-lattice" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="inequality" class="md-header__button md-logo" aria-label="inequality" data-md-component="logo">
+      <img src="../../_static/pysal_logo.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            inequality
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spatial Polarization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="red"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pysal/inequality/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pysal/inequality
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="inequality" class="md-nav__button md-logo" aria-label="inequality" data-md-component="logo">
+      <img src="../../_static/pysal_logo.svg" alt="logo">
+    </a>
+    inequality
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pysal/inequality/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pysal/inequality
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Home</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Installation</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>User Guide</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>User Guide</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gini.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Gini-<wbr>Based Measures of  Spatial Inequality and Polarization</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="theil.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Demonstrating the Theil Index of Inequality</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wolfson.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Demonstrating the Wolfson Bipolarization Coefficient:<wbr></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Spatial Polarization</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Spatial Polarization</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-synthetic-check-a-regular-40x40-lattice" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>A synthetic check:<wbr> a regular 40x40 lattice</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-study-mexican-state-income-1940-2000" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Case study:<wbr> Mexican state income, 1940-<wbr>2000</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-bipolarization-to-multipolarization" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>From bipolarization to multipolarization</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-polarization-across-decades-and-classification-schemes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Comparing polarization across decades and classification schemes</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Summary</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viz/pengram.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Pen’s Parade and Pengrams</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viz/schutz.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Lorenz Curves and Schutz Lines</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>References</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>API</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>API reference</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>For contributors</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span>For contributors</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysal/inequality" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Git<wbr>Hub</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysal/inequality/releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Changelog</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-synthetic-check-a-regular-40x40-lattice" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>A synthetic check:<wbr> a regular 40x40 lattice</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-study-mexican-state-income-1940-2000" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Case study:<wbr> Mexican state income, 1940-<wbr>2000</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-bipolarization-to-multipolarization" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>From bipolarization to multipolarization</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-polarization-across-decades-and-classification-schemes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Comparing polarization across decades and classification schemes</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Summary</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+  
+    <a href="https://github.com/pysal/inequality/blob/main/docs/source/user-guide/measure/spatial_polarization.ipynb" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m.12 13.5 3.74 3.74 1.42-1.41-2.33-2.33 2.33-2.33-1.42-1.41zm11.16 0-3.74-3.74-1.42 1.41 2.33 2.33-2.33 2.33 1.42 1.41z"/></svg>
+    </a>
+  
+  
+
+<h1 id="spatial-polarization">Spatial Polarization<a class="headerlink" href="#spatial-polarization" title="Link to this heading">¶</a></h1>
+<p>This notebook illustrates the <code class="docutils literal notranslate"><span class="pre">S</span></code> spatial polarization index implemented in <code class="docutils literal notranslate"><span class="pre">inequality.polarization</span></code>, based on the graph-intersection framework proposed in:</p>
+<blockquote>
+<div><p>Rey, S. J. (2026). Mind the gap and the map: measuring distributional and spatial income polarisation. <em>Spatial Economic Analysis</em>. https://doi.org/10.1080/17421772.2025.2606783</p>
+</div></blockquote>
+<p>Polarization is distinct from inequality: following Esteban and Ray (1994), it combines <em>alienation</em> (how far apart groups are) with <em>group identification</em> (how homogeneous each group is). Zhang and Kanbur (2001) measure spatial polarization as a ratio of between-region to within-region inequality, but require an exogenously fixed partition of space into regions. Rey (2026) instead defines spatial polarization directly from two graphs built over the same set of <code class="docutils literal notranslate"><span class="pre">n</span></code> locations:</p>
+<ul class="simple">
+<li><p>an <strong>attribute graph</strong> <code class="docutils literal notranslate"><span class="pre">A</span></code>, connecting pairs of locations that fall in the same value class (e.g., both above or both below the median of some variable), and</p></li>
+<li><p>a <strong>spatial graph</strong> <code class="docutils literal notranslate"><span class="pre">G</span></code>, connecting pairs of locations that are geographic neighbours.</p></li>
+</ul>
+<p>Intersecting <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">G</span></code> gives a graph <code class="docutils literal notranslate"><span class="pre">I</span></code> whose edges are pairs that are <em>both</em> attribute-similar and spatially adjacent. Comparing the number of connected components of <code class="docutils literal notranslate"><span class="pre">I</span></code>, <code class="docutils literal notranslate"><span class="pre">k_I</span></code>, against <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">max(k_A,</span> <span class="pre">k_G)</span></code> and <code class="docutils literal notranslate"><span class="pre">n</span></code> gives the index:</p>
+<p><code class="docutils literal notranslate"><span class="pre">S(A,</span> <span class="pre">G)</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">-</span> <span class="pre">(k_I</span> <span class="pre">-</span> <span class="pre">k)</span> <span class="pre">/</span> <span class="pre">(n</span> <span class="pre">-</span> <span class="pre">k)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">S</span></code> ranges from 0 (no overlap between spatial and attribute structure) to 1 (complete overlap: the connected pieces of the spatial graph line up exactly with the value classes). Splitting the attribute at the median (<code class="docutils literal notranslate"><span class="pre">k=2</span></code>) gives the <em>spatial bipolarization</em> index; using more than two classes generalizes to <em>spatial multipolarization</em>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">S</span></code> class below implements this index and adds a permutation-based inference procedure (randomly reshuffling the attribute values across locations) to obtain a pseudo p-value for the observed statistic - an extension beyond the purely descriptive index presented in the paper, which flags inference as a direction for future work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">inequality.polarization</span><span class="w"> </span><span class="kn">import</span> <span class="n">S</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">libpysal.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">Graph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">libpysal.weights</span><span class="w"> </span><span class="kn">import</span> <span class="n">lat2W</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="a-synthetic-check-a-regular-40x40-lattice">A synthetic check: a regular 40x40 lattice<a class="headerlink" href="#a-synthetic-check-a-regular-40x40-lattice" title="Link to this heading">¶</a></h2>
+<p>As a first, controlled example, we place <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">1600</span></code> observations on a regular 40x40 lattice (contiguity via <code class="docutils literal notranslate"><span class="pre">lat2W</span></code>) and assign them the values <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">1599</span></code> in row-major order. Because values increase steadily along each row before dropping back down at the start of the next, splitting at the median (<code class="docutils literal notranslate"><span class="pre">k=2</span></code>, the default) produces two attribute classes - low and high - that are each spatially contiguous within most rows. We should therefore expect a fairly high, though not perfect, spatial polarization value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1600</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"y"</span><span class="p">:</span> <span class="n">y</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">from_W</span><span class="p">(</span><span class="n">lat2W</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>By default <code class="docutils literal notranslate"><span class="pre">S</span></code> runs <code class="docutils literal notranslate"><span class="pre">permutations=999</span></code> random reshuffles of the attribute values to build a null distribution, so <code class="docutils literal notranslate"><span class="pre">p_value</span></code> reports how (un)likely the observed spatial polarization would be if the values were randomly scattered across locations instead of following their actual spatial arrangement. <code class="docutils literal notranslate"><span class="pre">n_jobs=4</span></code> parallelizes the permutations across four worker processes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+  1%|▋                                                                                     | 8/999 [00:00&lt;01:04, 15.35it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 1681.97it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                             y
+n:                                                 1600
+-------------------------------------------------------
+S:                                               1.0000
+p-value:                                         0.0010
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    2
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">permutations=0</span></code> skips the inference step entirely and returns just the observed statistic - useful when only the descriptive index is needed, or when many variables are being screened before running significance tests on the interesting ones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>0it [00:00, ?it/s]
+0it [00:00, ?it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                             y
+n:                                                 1600
+-------------------------------------------------------
+S:                                               1.0000
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    2
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">labels</span></code> attribute exposes the underlying classification for every location: <code class="docutils literal notranslate"><span class="pre">a_labels</span></code> is the attribute (value-class) membership, <code class="docutils literal notranslate"><span class="pre">g_labels</span></code> the spatial-graph component membership, and <code class="docutils literal notranslate"><span class="pre">i_labels</span></code> the component membership in the intersection graph <code class="docutils literal notranslate"><span class="pre">I</span></code> used to compute <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="o">.</span><span class="n">labels</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>i_labels</th>
+      <th>a_labels</th>
+      <th>g_labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1595</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1596</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1597</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1598</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1599</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1600 rows × 3 columns</p>
+</div></div></div>
+</div>
+<p>Since permutation inference is embarrassingly parallel, it’s worth checking how much <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> helps in practice on this 1,600-observation lattice.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="o">%%timeit</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>106 ms ± 4.13 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+</code></pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21304.31it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 17575.37it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20138.17it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21328.49it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20196.51it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20445.84it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 17988.63it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 18384.53it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20558.09it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22057.39it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21094.73it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21450.56it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21808.84it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20481.82it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20051.83it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20986.54it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21407.05it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21252.22it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20966.27it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20334.32it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 19873.60it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21837.02it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22205.96it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22066.68it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21534.79it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20195.25it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20913.22it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21053.71it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22057.85it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20573.03it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21211.02it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20889.97it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21427.20it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21222.09it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21619.12it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 19823.77it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 19001.04it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20185.42it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21499.98it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20967.53it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20102.23it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21552.51it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21778.91it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21889.61it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20693.02it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21594.83it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21966.15it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21267.11it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21277.58it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21990.36it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21494.14it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 19934.87it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20515.12it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21660.36it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22063.66it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21399.29it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20664.75it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20615.34it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21125.47it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 19573.73it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 18421.55it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 18689.24it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 18410.70it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 10062.85it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 19783.33it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21336.53it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20036.58it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21734.85it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22455.52it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22146.93it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21525.16it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22040.45it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22068.54it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 20923.24it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22240.97it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21528.26it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22126.11it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22442.89it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 22073.89it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21369.39it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 21745.79it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>For reference, the full source of <code class="docutils literal notranslate"><span class="pre">S</span></code> - the sparse-graph component counting, quantile binning, and permutation loop - can be inspected directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code>S<span class="o">??</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="case-study-mexican-state-income-1940-2000">Case study: Mexican state income, 1940-2000<a class="headerlink" href="#case-study-mexican-state-income-1940-2000" title="Link to this heading">¶</a></h2>
+<p>The paper’s illustrative application - reproduced here - examines per-capita GDP for Mexico’s 32 states (31 states plus Ciudad de Mexico) at ten-year intervals from 1940 to 2000. The series extends Esquivel’s (1999) 1940-1990 data with the 2000 figures from Rey and Sastre-Gutierrez (2010), and ships with <code class="docutils literal notranslate"><span class="pre">libpysal.examples</span></code> as the <code class="docutils literal notranslate"><span class="pre">&quot;mexico&quot;</span></code> dataset.</p>
+<p>Across this 70-year span the distribution of state incomes shows persistent right skew and a pronounced north-south divide, with low-income states concentrated in the south. The question the spatial polarization index is built to answer is not just <em>how unequal</em> incomes are (that’s the job of Theil’s T or the Gini index), but <em>how spatially organized</em> that inequality is - do similarly poor, or similarly rich, states cluster together geographically?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="s2">"mexico"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>mexico
+======
+
+Decennial per capita incomes of Mexican states 1940-2000
+--------------------------------------------------------
+
+* mexico.csv: attribute data. (n=32, k=13)
+* mexico.gal: spatial weights in GAL format.
+* mexicojoin.shp: Polygon shapefile. (n=32)
+
+Data used in Rey, S.J. and M.L. Sastre Gutierrez. (2010) "Interregional inequality dynamics in Mexico." Spatial Economic Analysis, 5: 277-298.
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">mexico</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">load_example</span><span class="p">(</span><span class="s2">"mexico"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">mexico</span><span class="o">.</span><span class="n">get_file_list</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>['/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/mexicojoin.dbf',
+ '/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/mexico.gal',
+ '/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/mexico.csv',
+ '/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/mexicojoin.shx',
+ '/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/mexicojoin.shp',
+ '/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/README.md',
+ '/Users/martinfleis/dev/pysal/libpysal/libpysal/examples/mexico/mexicojoin.prj']
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">"mexicojoin.shp"</span><span class="p">))</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>&lt;Axes: xlabel='x', ylabel='y'&gt;
+</code></pre></div>
+</div>
+<img alt="../../_images/4c28ed21053e29bd9890db10a2f6a2ded7b5a37b786ac8af9728778013ba7830.png" src="../../_images/4c28ed21053e29bd9890db10a2f6a2ded7b5a37b786ac8af9728778013ba7830.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>POLY_ID</th>
+      <th>AREA</th>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>PERIMETER</th>
+      <th>ACRES</th>
+      <th>HECTARES</th>
+      <th>PCGDP1940</th>
+      <th>PCGDP1950</th>
+      <th>PCGDP1960</th>
+      <th>...</th>
+      <th>GR9000</th>
+      <th>LPCGDP40</th>
+      <th>LPCGDP50</th>
+      <th>LPCGDP60</th>
+      <th>LPCGDP70</th>
+      <th>LPCGDP80</th>
+      <th>LPCGDP90</th>
+      <th>LPCGDP00</th>
+      <th>TEST</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7.252751e+10</td>
+      <td>MX02</td>
+      <td>Baja California Norte</td>
+      <td>2040312.385</td>
+      <td>1.792187e+07</td>
+      <td>7252751.376</td>
+      <td>22361.0</td>
+      <td>20977.0</td>
+      <td>17865.0</td>
+      <td>...</td>
+      <td>0.05</td>
+      <td>4.35</td>
+      <td>4.32</td>
+      <td>4.25</td>
+      <td>4.40</td>
+      <td>4.47</td>
+      <td>4.43</td>
+      <td>4.48</td>
+      <td>1.0</td>
+      <td>MULTIPOLYGON (((-113.13972 29.01778, -113.2405...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>7.225988e+10</td>
+      <td>MX03</td>
+      <td>Baja California Sur</td>
+      <td>2912880.772</td>
+      <td>1.785573e+07</td>
+      <td>7225987.769</td>
+      <td>9573.0</td>
+      <td>16013.0</td>
+      <td>16707.0</td>
+      <td>...</td>
+      <td>0.00</td>
+      <td>3.98</td>
+      <td>4.20</td>
+      <td>4.22</td>
+      <td>4.39</td>
+      <td>4.46</td>
+      <td>4.41</td>
+      <td>4.42</td>
+      <td>2.0</td>
+      <td>MULTIPOLYGON (((-111.20612 25.80278, -111.2302...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2.731957e+10</td>
+      <td>MX18</td>
+      <td>Nayarit</td>
+      <td>1034770.341</td>
+      <td>6.750785e+06</td>
+      <td>2731956.859</td>
+      <td>4836.0</td>
+      <td>7515.0</td>
+      <td>7621.0</td>
+      <td>...</td>
+      <td>-0.05</td>
+      <td>3.68</td>
+      <td>3.88</td>
+      <td>3.88</td>
+      <td>4.04</td>
+      <td>4.13</td>
+      <td>4.11</td>
+      <td>4.06</td>
+      <td>3.0</td>
+      <td>MULTIPOLYGON (((-106.62108 21.56531, -106.6475...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>7.961008e+10</td>
+      <td>MX14</td>
+      <td>Jalisco</td>
+      <td>2324727.436</td>
+      <td>1.967200e+07</td>
+      <td>7961008.285</td>
+      <td>5309.0</td>
+      <td>8232.0</td>
+      <td>9953.0</td>
+      <td>...</td>
+      <td>0.03</td>
+      <td>3.73</td>
+      <td>3.92</td>
+      <td>4.00</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.30</td>
+      <td>4.33</td>
+      <td>4.0</td>
+      <td>POLYGON ((-101.5249 21.85664, -101.5883 21.772...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.467030e+09</td>
+      <td>MX01</td>
+      <td>Aguascalientes</td>
+      <td>313895.530</td>
+      <td>1.350927e+06</td>
+      <td>546702.985</td>
+      <td>10384.0</td>
+      <td>6234.0</td>
+      <td>8714.0</td>
+      <td>...</td>
+      <td>0.13</td>
+      <td>4.02</td>
+      <td>3.79</td>
+      <td>3.94</td>
+      <td>4.21</td>
+      <td>4.32</td>
+      <td>4.32</td>
+      <td>4.44</td>
+      <td>5.0</td>
+      <td>POLYGON ((-101.8462 22.01176, -101.9653 21.883...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 35 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code>S<span class="o">?</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The spatial graph <code class="docutils literal notranslate"><span class="pre">G</span></code> is built from queen contiguity among the 32 states (two states are neighbours if they share at least a boundary point). In the paper this graph is fully connected (<code class="docutils literal notranslate"><span class="pre">k_G</span> <span class="pre">=</span> <span class="pre">1</span></code>), with a density of 13.5%, a median of 4 neighbours per state, ranging from 1 (Baja California Sur) to 9 (San Luis Potosi).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">sg</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">build_contiguity</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">sg</span><span class="o">.</span><span class="n">n_components</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>1
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">k=2</span></code> (the default), <code class="docutils literal notranslate"><span class="pre">S</span></code> splits <code class="docutils literal notranslate"><span class="pre">PCGDP1940</span></code> at its median to form the attribute graph - states above the median are mutually “neighbours” in <code class="docutils literal notranslate"><span class="pre">A</span></code>, as are states below it - and intersects it with the queen contiguity graph. This is the spatial bipolarization index. For 1940, the paper reports a value of 0.87: the low-income states form a single, large connected component running from the southern border up through the centre of the country, while the high-income states are split into five separate spatial clusters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">s1940</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span> <span class="s2">"PCGDP1940"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15442.17it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">s1940</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1170
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>To trace how spatial bipolarization evolves, we repeat the calculation for each decade’s income variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pcgdp_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"PCGDP</span><span class="si">{</span><span class="n">dec</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">dec</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1940</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pcgdp_vars</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>['PCGDP1940',
+ 'PCGDP1950',
+ 'PCGDP1960',
+ 'PCGDP1970',
+ 'PCGDP1980',
+ 'PCGDP1990',
+ 'PCGDP2000']
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">S</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">pcgdp_vars</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15176.99it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15364.03it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15666.13it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15734.25it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15715.19it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15720.38it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15654.13it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1220
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1950
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1110
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1960
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1270
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1970
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.9000
+p-value:                                         0.0320
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    5
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1980
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8333
+p-value:                                         0.2820
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    7
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1990
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1190
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP2000
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1250
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="from-bipolarization-to-multipolarization">From bipolarization to multipolarization<a class="headerlink" href="#from-bipolarization-to-multipolarization" title="Link to this heading">¶</a></h2>
+<p>Splitting at the median is just one choice for the attribute graph. Using <code class="docutils literal notranslate"><span class="pre">k&gt;2</span></code> quantile classes generalizes the bipolarization index to <em>spatial multipolarization</em> - the same intersection-graph construction, but now <code class="docutils literal notranslate"><span class="pre">A</span></code> connects locations that fall in the same one of <code class="docutils literal notranslate"><span class="pre">k</span></code> quantile bins rather than just “above” or “below” the median. Here we repeat the calculation for each decade using tertiles (<code class="docutils literal notranslate"><span class="pre">k=3</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res3</span> <span class="o">=</span> <span class="p">[</span><span class="n">S</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">pcgdp_vars</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15661.44it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15721.74it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15498.72it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15684.60it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15730.77it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15740.87it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15655.30it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res3</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.7241
+p-value:                                         0.0620
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   11
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1950
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8276
+p-value:                                         0.0010
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                    8
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1960
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6897
+p-value:                                         0.1580
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   12
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1970
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6897
+p-value:                                         0.1510
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   12
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1980
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6897
+p-value:                                         0.1390
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   12
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1990
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6552
+p-value:                                         0.2610
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   13
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP2000
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.7241
+p-value:                                         0.0680
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   11
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>More generally, we can sweep over several values of <code class="docutils literal notranslate"><span class="pre">k</span></code> (bipolar, tertiles, quintiles, septiles) for every decade to see how sensitive the polarization pattern is to the number of attribute classes. Finer classifications (larger <code class="docutils literal notranslate"><span class="pre">k</span></code>) tend to fragment the attribute graph into more components, which - all else equal - pushes <code class="docutils literal notranslate"><span class="pre">S</span></code> down, so comparisons across <code class="docutils literal notranslate"><span class="pre">k</span></code> are best read as “how does the <em>relative</em> ranking across decades change,” rather than as directly comparable magnitudes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">S</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">pcgdp_vars</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15532.67it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15618.65it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15704.59it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15690.77it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15649.04it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15618.13it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15660.45it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15774.00it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15628.67it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15533.60it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15594.30it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15757.15it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15684.37it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15750.93it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15816.69it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15885.95it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15581.13it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15703.06it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15605.22it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15682.66it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15667.89it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15715.90it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15853.13it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15869.22it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15783.03it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15442.63it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15707.77it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15884.38it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1070
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.7241
+p-value:                                         0.0650
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   11
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6667
+p-value:                                         0.0010
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   14
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1940
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.3600
+p-value:                                         0.2720
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   23
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1950
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1180
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1950
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8276
+p-value:                                         0.0010
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                    8
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1950
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.7037
+p-value:                                         0.0010
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   13
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1950
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.4400
+p-value:                                         0.0710
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   21
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1960
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1030
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1960
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6897
+p-value:                                         0.1350
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   12
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1960
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.4815
+p-value:                                         0.1830
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   19
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1960
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.2800
+p-value:                                         0.6150
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   25
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1970
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.9000
+p-value:                                         0.0420
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    5
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1970
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6897
+p-value:                                         0.1320
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   12
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1970
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.4444
+p-value:                                         0.3230
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   20
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1970
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.3200
+p-value:                                         0.4340
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   24
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1980
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8333
+p-value:                                         0.2830
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    7
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1980
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6897
+p-value:                                         0.1640
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   12
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1980
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.4074
+p-value:                                         0.4980
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   21
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1980
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.3600
+p-value:                                         0.3000
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   23
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1990
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1480
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1990
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.6552
+p-value:                                         0.2610
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   13
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1990
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.5185
+p-value:                                         0.0970
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   18
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP1990
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.4400
+p-value:                                         0.0810
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   21
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP2000
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.8667
+p-value:                                         0.1170
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       2
+Number of spatial components:                         1
+Number of intersection components:                    6
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP2000
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.7241
+p-value:                                         0.0590
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       3
+Number of spatial components:                         1
+Number of intersection components:                   11
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP2000
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.4444
+p-value:                                         0.3290
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       5
+Number of spatial components:                         1
+Number of intersection components:                   20
+=======================================================
+
+S Spatial Polarization Summary
+=======================================================
+Variable:                                     PCGDP2000
+n:                                                   32
+-------------------------------------------------------
+S:                                               0.3200
+p-value:                                         0.4380
+permutations:                                       999
+-------------------------------------------------------
+Number of attribute components:                       7
+Number of spatial components:                         1
+Number of intersection components:                   24
+=======================================================
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>It helps to look at the actual quantile classifications behind these numbers before interpreting the index values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">"PCGDP1940"</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">"quantiles"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>&lt;Axes: xlabel='x', ylabel='y'&gt;
+</code></pre></div>
+</div>
+<img alt="../../_images/a5c4810b37567456102f3004bff803dab6dee65a21302477fc38780593490f43.png" src="../../_images/a5c4810b37567456102f3004bff803dab6dee65a21302477fc38780593490f43.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">"PCGDP1950"</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">"quantiles"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>&lt;Axes: xlabel='x', ylabel='y'&gt;
+</code></pre></div>
+</div>
+<img alt="../../_images/79509460ebc655936cbcf4ac2b7dd72f96daeda3f4db7b77ef89a4135ad1d86c.png" src="../../_images/79509460ebc655936cbcf4ac2b7dd72f96daeda3f4db7b77ef89a4135ad1d86c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">"PCGDP1950"</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">"quantiles"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>&lt;Axes: xlabel='x', ylabel='y'&gt;
+</code></pre></div>
+</div>
+<img alt="../../_images/7655a7df08d55eb75bf990c724888d856925b8ad92a94b6e98f1b4f8181ab458.png" src="../../_images/7655a7df08d55eb75bf990c724888d856925b8ad92a94b6e98f1b4f8181ab458.png" />
+</div>
+</div>
+<p>Beyond the summary statistic, an <code class="docutils literal notranslate"><span class="pre">S</span></code> object exposes the full component bookkeeping behind it: the number of components in the intersection, spatial, and attribute graphs, and the per-location labels used to build them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">n_i_components</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>24
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">labels</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>i_labels</th>
+      <th>a_labels</th>
+      <th>g_labels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>3</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>9</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>11</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>12</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>13</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>12</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>8</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>15</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>16</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>15</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>17</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>18</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>19</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>20</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>21</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>5</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>22</td>
+      <td>6</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>23</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>7</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">r0</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="nb">dir</span><span class="p">(</span><span class="n">r0</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>['__class__',
+ '__delattr__',
+ '__dict__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__firstlineno__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__getstate__',
+ '__gt__',
+ '__hash__',
+ '__init__',
+ '__init_subclass__',
+ '__le__',
+ '__lt__',
+ '__module__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__sizeof__',
+ '__static_attributes__',
+ '__str__',
+ '__subclasshook__',
+ '__weakref__',
+ 'column',
+ 'labels',
+ 'n',
+ 'n_a_components',
+ 'n_g_components',
+ 'n_i_components',
+ 'p_value',
+ 'permutations',
+ 'statistic_']
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">r0</span><span class="o">.</span><span class="n">permutations</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>999
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">r0</span><span class="o">.</span><span class="n">statistic_</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>0.31999999999999995
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">r0</span><span class="o">.</span><span class="n">p_value</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>np.float64(0.438)
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="comparing-polarization-across-decades-and-classification-schemes">Comparing polarization across decades and classification schemes<a class="headerlink" href="#comparing-polarization-across-decades-and-classification-schemes" title="Link to this heading">¶</a></h2>
+<p>Putting it together, we compute the index, its Monte Carlo p-value, and the number of intersection components for every combination of <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">in</span> <span class="pre">[2,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">7]</span></code> and decade, and collect the results into a single dataframe for comparison - in the same spirit as the paper’s comparison of the spatial polarization trajectory against Theil’s T over time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">rng</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1940</span><span class="p">,</span> <span class="mi">1950</span><span class="p">,</span> <span class="mi">1960</span><span class="p">,</span> <span class="mi">1970</span><span class="p">,</span> <span class="mi">1980</span><span class="p">,</span> <span class="mi">1990</span><span class="p">,</span> <span class="mi">2000</span><span class="p">]:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"PCGDP</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">sg</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">year</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">statistic_</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">n_i_components</span><span class="p">])</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15537.05it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15576.33it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15738.98it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15782.49it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15787.25it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15818.54it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15738.80it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15769.54it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15746.43it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15729.88it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15772.51it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15746.19it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15907.18it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15869.04it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15746.19it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15787.96it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15488.58it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15855.41it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15664.90it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15765.09it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15034.97it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15682.90it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15837.31it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15793.50it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15914.91it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15851.03it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15991.63it/s]
+  0%|                                                                                              | 0/999 [00:00&lt;?, ?it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████| 999/999 [00:00&lt;00:00, 15991.93it/s]
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"k"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">,</span> <span class="s2">"n_i"</span><span class="p">])</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>k</th>
+      <th>s</th>
+      <th>p</th>
+      <th>n_i</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1940.0</td>
+      <td>2.0</td>
+      <td>0.866667</td>
+      <td>0.130</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1950.0</td>
+      <td>2.0</td>
+      <td>0.866667</td>
+      <td>0.098</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1960.0</td>
+      <td>2.0</td>
+      <td>0.866667</td>
+      <td>0.098</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1970.0</td>
+      <td>2.0</td>
+      <td>0.900000</td>
+      <td>0.031</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1980.0</td>
+      <td>2.0</td>
+      <td>0.833333</td>
+      <td>0.279</td>
+      <td>7.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Filtering to the statistically significant results (<code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&lt;=</span> <span class="pre">0.05</span></code> under the permutation null) highlights which decade/classification combinations show spatial polarization stronger than would be expected if incomes were randomly scattered across the map rather than concentrated by geography.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res_df</span><span class="p">[</span><span class="n">res_df</span><span class="o">.</span><span class="n">p</span> <span class="o">&lt;=</span> <span class="mf">0.05</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>k</th>
+      <th>s</th>
+      <th>p</th>
+      <th>n_i</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>1970.0</td>
+      <td>2.0</td>
+      <td>0.900000</td>
+      <td>0.031</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1950.0</td>
+      <td>3.0</td>
+      <td>0.827586</td>
+      <td>0.002</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>1940.0</td>
+      <td>5.0</td>
+      <td>0.666667</td>
+      <td>0.005</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1950.0</td>
+      <td>5.0</td>
+      <td>0.703704</td>
+      <td>0.002</td>
+      <td>13.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">res_df</span><span class="p">[</span><span class="n">res_df</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2000</span><span class="p">]</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>k</th>
+      <th>s</th>
+      <th>p</th>
+      <th>n_i</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>2000.0</td>
+      <td>2.0</td>
+      <td>0.866667</td>
+      <td>0.108</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>2000.0</td>
+      <td>3.0</td>
+      <td>0.724138</td>
+      <td>0.054</td>
+      <td>11.0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2000.0</td>
+      <td>5.0</td>
+      <td>0.444444</td>
+      <td>0.307</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>2000.0</td>
+      <td>7.0</td>
+      <td>0.320000</td>
+      <td>0.423</td>
+      <td>24.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
+<p>Across both the synthetic lattice and the Mexican states application, <code class="docutils literal notranslate"><span class="pre">S</span></code> quantifies something inequality measures like the Gini index or Theil’s T cannot: whether similar values are <em>organized in space</em>. As Rey (2026) shows for Mexico, national income inequality (Theil’s T) and spatial polarization can move independently - inequality between states can fall even while the geographic clustering of rich and poor states persists or intensifies, consistent with a persistent poverty trap in the south alongside a more spatially fragmented set of high-income states elsewhere in the country.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2018-, pysal developers.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    9.2.0.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.code.copy", "content.action.edit"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "https://pysal.org/inequality/versions.json"}}</script>
+    
+      
+        <script src="../../_static/sphinx_immaterial_theme.567b0e0fd947ea7d9.min.js?v=5850e81b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

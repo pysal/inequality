@@ -1,0 +1,1405 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../measure/spatial_polarization.html">
+      
+      
+        <link rel="next" href="schutz.html">
+      
+      
+      <link rel="icon" href="../../_static/pysal_favicon.ico">
+    
+    
+      
+        <title>Pen’s Parade and Pengrams - inequality</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../_static/sphinx_immaterial_theme.2b7fb0df65482c23e.min.css?v=666199ae" />
+        <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+        <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d127c87d" />
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="inequality" class="md-header__button md-logo" aria-label="inequality" data-md-component="logo">
+      <img src="../../_static/pysal_logo.svg" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            inequality
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pen’s Parade and Pengrams
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="red"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pysal/inequality/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pysal/inequality
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="inequality" class="md-nav__button md-logo" aria-label="inequality" data-md-component="logo">
+      <img src="../../_static/pysal_logo.svg" alt="logo">
+    </a>
+    inequality
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pysal/inequality/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pysal/inequality
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Home</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Installation</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>User Guide</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>User Guide</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../measure/gini.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Gini-<wbr>Based Measures of  Spatial Inequality and Polarization</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../measure/theil.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Demonstrating the Theil Index of Inequality</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../measure/wolfson.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Demonstrating the Wolfson Bipolarization Coefficient:<wbr></span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../measure/spatial_polarization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Spatial Polarization</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>Pen’s Parade and Pengrams</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Pen’s Parade and Pengrams</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pen-s-parade" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Pen’s Parade</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pen’s Parade">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pen-parade-options" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Pen Parade Options</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weighted-pen-s-parade" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Weighted Pen’s Parade</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pengram" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Pengram</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pengram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queries" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Queries</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subplotting" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Subplotting</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="schutz.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Lorenz Curves and Schutz Lines</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>References</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>API</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>API reference</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>For contributors</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span>For contributors</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysal/inequality" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Git<wbr>Hub</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysal/inequality/releases" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Changelog</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Data</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pen-s-parade" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Pen’s Parade</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pen’s Parade">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pen-parade-options" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Pen Parade Options</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weighted-pen-s-parade" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Weighted Pen’s Parade</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pengram" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Pengram</span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pengram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queries" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Queries</span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subplotting" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Subplotting</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+  
+    <a href="https://github.com/pysal/inequality/blob/main/docs/source/user-guide/viz/pengram.ipynb" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 9h5.5L13 3.5zM6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2m.12 13.5 3.74 3.74 1.42-1.41-2.33-2.33 2.33-2.33-1.42-1.41zm11.16 0-3.74-3.74-1.42 1.41 2.33 2.33-2.33 2.33 1.42 1.41z"/></svg>
+    </a>
+  
+  
+
+<h1 id="pen-s-parade-and-pengrams">Pen’s Parade and Pengrams<a class="headerlink" href="#pen-s-parade-and-pengrams" title="Link to this heading">¶</a></h1>
+<p>This notebook explores the concepts of Pen’s Parade and Pengrams, which are graphical methods used to depict income inequality, both at the individual level and in spatial analysis. The Pen’s Parade, named after economist Jan Pen, illustrates the distribution of income by visualizing individuals as different heights proportional to their income. This notebook adapts the Pen’s Parade for spatial data, treating regions as units and showing the spatial distribution of income levels across different areas. Through this approach, we can visualize income inequality both geographically and statistically, allowing for a clearer understanding of wealth concentration across regions. Additionally, the notebook demonstrates how to create weighted Pengrams, which adjust the visual representation based on factors such as population size.</p>
+<p>Although we illustrate these methods using income, it is important to highlight that the Pen’s Parade and Pengram can be applied not only to income but to other variables like wealth, education levels, or even health metrics.</p>
+<h2 id="data">Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h2>
+<p>To illustrate the concepts of Pen’s Parade and Pengrams, this notebook utilizes data on per capita Gross Domestic Product (GDP) for Mexico’s 32 states, covering the decades from 1940 to 2000. Per capita GDP is calculated by dividing the total GDP of a region by its population, providing a measure of the average economic output per person. This metric serves as a useful indicator of the standard of living and economic development across different states. By analyzing this data, we can effectively visualize and assess income inequality and economic disparities both over time and across various regions within Mexico.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>Last updated: 2026-11-16T10:32:21.759372+01:00
+
+Python implementation: CPython
+Python version       : 3.14.10
+IPython version      : 9.18.1
+
+Compiler    : Clang 20.1.8 
+OS          : Darwin
+Release     : 27.0.0
+Machine     : arm64
+Processor   : arm
+CPU cores   : 10
+Architecture: 64bit
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">inequality.pen</span><span class="w"> </span><span class="kn">import</span> <span class="n">pen</span><span class="p">,</span> <span class="n">pengram</span>
+
+<span class="o">%</span><span class="k">watermark</span> -w
+<span class="o">%</span><span class="k">watermark</span> -iv
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><code>Watermark: 2.6.0
+
+geopandas : 1.2.0
+inequality: 1.2.1.dev4+g77d802d6b.d20261115
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">"weighted.shp"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>POLY_ID</th>
+      <th>AREA</th>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>PERIMETER</th>
+      <th>ACRES</th>
+      <th>HECTARES</th>
+      <th>PCGDP1940</th>
+      <th>PCGDP1950</th>
+      <th>PCGDP1960</th>
+      <th>...</th>
+      <th>TEST</th>
+      <th>Name_1</th>
+      <th>Population</th>
+      <th>NAMEp</th>
+      <th>populati_1</th>
+      <th>Y2000</th>
+      <th>y2000_1</th>
+      <th>p</th>
+      <th>State</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+      <td>5.467030e+09</td>
+      <td>MX01</td>
+      <td>Aguascalientes</td>
+      <td>313895.530</td>
+      <td>1.350927e+06</td>
+      <td>546702.985</td>
+      <td>10384.0</td>
+      <td>6234.0</td>
+      <td>8714.0</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>Aguascalientes</td>
+      <td>944285</td>
+      <td>Aguascalientes</td>
+      <td>944285</td>
+      <td>2.623413e+10</td>
+      <td>27782.0</td>
+      <td>0.009647</td>
+      <td>Aguascalientes</td>
+      <td>POLYGON ((-101.8462 22.01176, -101.9653 21.883...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7.252751e+10</td>
+      <td>MX02</td>
+      <td>Baja California Norte</td>
+      <td>2040312.385</td>
+      <td>1.792187e+07</td>
+      <td>7252751.376</td>
+      <td>22361.0</td>
+      <td>20977.0</td>
+      <td>17865.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>Querétaro de Arteaga</td>
+      <td>1404306</td>
+      <td>Baja California Norte</td>
+      <td>1404306</td>
+      <td>4.192556e+10</td>
+      <td>29855.0</td>
+      <td>0.014347</td>
+      <td>Baja California Norte</td>
+      <td>MULTIPOLYGON (((-113.13972 29.01778, -113.2405...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>7.225988e+10</td>
+      <td>MX03</td>
+      <td>Baja California Sur</td>
+      <td>2912880.772</td>
+      <td>1.785573e+07</td>
+      <td>7225987.769</td>
+      <td>9573.0</td>
+      <td>16013.0</td>
+      <td>16707.0</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>Baja California Sur</td>
+      <td>424041</td>
+      <td>Baja California Sur</td>
+      <td>424041</td>
+      <td>1.106874e+10</td>
+      <td>26103.0</td>
+      <td>0.004332</td>
+      <td>Baja California Sur</td>
+      <td>MULTIPOLYGON (((-111.20612 25.80278, -111.2302...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>15</td>
+      <td>5.016584e+10</td>
+      <td>MX04</td>
+      <td>Campeche</td>
+      <td>1575361.146</td>
+      <td>1.239620e+07</td>
+      <td>5016583.723</td>
+      <td>3758.0</td>
+      <td>4929.0</td>
+      <td>5925.0</td>
+      <td>...</td>
+      <td>15.0</td>
+      <td>Campeche</td>
+      <td>690689</td>
+      <td>Campeche</td>
+      <td>690689</td>
+      <td>2.497739e+10</td>
+      <td>36163.0</td>
+      <td>0.007056</td>
+      <td>Campeche</td>
+      <td>MULTIPOLYGON (((-91.83446 18.63805, -91.84195 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>22</td>
+      <td>7.339157e+10</td>
+      <td>MX05</td>
+      <td>Chiapas</td>
+      <td>1477195.199</td>
+      <td>1.813538e+07</td>
+      <td>7339157.376</td>
+      <td>2934.0</td>
+      <td>4138.0</td>
+      <td>5280.0</td>
+      <td>...</td>
+      <td>22.0</td>
+      <td>Chiapas</td>
+      <td>3920892</td>
+      <td>Chiapas</td>
+      <td>3920892</td>
+      <td>3.404903e+10</td>
+      <td>8684.0</td>
+      <td>0.040057</td>
+      <td>Chiapas</td>
+      <td>POLYGON ((-91.4375 17.24111, -91.35278 17.1763...</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 43 columns</p>
+</div></div></div>
+</div>
+<h2 id="pen-s-parade">Pen’s Parade<a class="headerlink" href="#pen-s-parade" title="Link to this heading">¶</a></h2>
+<p>The parade proceeds from the poorest individuals to the wealthiest, where those with the lowest incomes appear as very short figures, while the wealthiest individuals tower above the rest. This visualization allows us to see the stark disparities in income distribution, often revealing that a large portion of the population has much lower incomes, with only a small percentage earning exceptionally high amounts. As the parade progresses, there is usually a gradual increase in height, but the final segment often shows a dramatic spike, symbolizing the extreme concentration of wealth in the hands of a few.</p>
+<p>This method is particularly powerful because it combines a vivid, intuitive picture with a clear, ordered progression of income distribution. The Pen’s Parade makes inequality tangible by visually showing not only the presence of inequality but also its scale and extremity. It emphasizes the vast differences between individuals at the lower and upper ends of the income spectrum, making it clear how much of the total wealth is held by the top earners. This graphical representation is useful in discussions about income inequality as it demonstrates the inequality’s real-world impact, illustrating the imbalance in a way that is more immediate and relatable than abstract statistical measures alone, such as the Gini coefficient.</p>
+<p>For spatial analysis, the regions take the place of individuals, as the focus is on the spatial distribution of incomes, rather than the distribution of individual incomes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">col</span> <span class="o">=</span> <span class="s2">"PCGDP2000"</span>
+<span class="n">weight</span> <span class="o">=</span> <span class="s2">"p"</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">"NAME"</span>
+<span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="n">pen</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/9beea2bedfc5fc9a01fa9be3ce7034e3277972c5cc88e78d74d3c114dcd9fb0f.png" src="../../_images/9beea2bedfc5fc9a01fa9be3ce7034e3277972c5cc88e78d74d3c114dcd9fb0f.png" />
+</div>
+</div>
+<p>As can be seen in this Pen’s Parade for 2000, the sharp rise at the end signifies concentration of income among the highest income states, suggesting high income inequality.</p>
+<h3 id="pen-parade-options">Pen Parade Options<a class="headerlink" href="#pen-parade-options" title="Link to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="n">pen</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/50d529016b9d0caa3101cc2046a3d158f326ac41dae131910c9e86585fa5bfc2.png" src="../../_images/50d529016b9d0caa3101cc2046a3d158f326ac41dae131910c9e86585fa5bfc2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="n">pen</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4e38a72a0f0cd5ba5a6df4523a253f5949a33ad57f6c0a39974053f6d3c6b64a.png" src="../../_images/4e38a72a0f0cd5ba5a6df4523a253f5949a33ad57f6c0a39974053f6d3c6b64a.png" />
+</div>
+</div>
+<h2 id="weighted-pen-s-parade">Weighted Pen’s Parade<a class="headerlink" href="#weighted-pen-s-parade" title="Link to this heading">¶</a></h2>
+<p>Weighting the Pengram by population size provides a more nuanced understanding of inequality. Without weighting, each state’s income distribution may obscure the fact that some regions have larger populations, which can distort how we perceive inequality on a per-person basis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">wp</span> <span class="o">=</span> <span class="n">pen</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4f9012639b3c72b7be287657cda06fd85fba4ba0d0c2abf936850d79480f9b98.png" src="../../_images/4f9012639b3c72b7be287657cda06fd85fba4ba0d0c2abf936850d79480f9b98.png" />
+</div>
+</div>
+<p>The weighted Pen’s Parade introduces complexity but has some inherent limitations. A key drawback is that it assumes no inequality exists among individuals within each state, as everyone is assigned the same income level. Consequently, this leads to the assumption that in comparing two states with different per capita incomes, the poorest individuals in the wealthier state would still be wealthier than the richest individuals in the poorer state. This assumption conflicts with real-world data (<a class="reference external" href="https://github.com/sjsrey/spatial_inequality?tab=readme-ov-file">Rey, 2024</a>).</p>
+<h2 id="pengram">Pengram<a class="headerlink" href="#pengram" title="Link to this heading">¶</a></h2>
+<p>While the Pen’s Parade effectively shows where individual states fall within the overall income distribution, it overlooks the geographic dimension of income inequality. The <strong>Pengram</strong> addresses this by extending the Pen’s Parade to incorporate a spatial component, combining the income distribution with a choropleth map. This dual approach allows us to visualize not only the statistical distribution of incomes but also how these incomes are geographically distributed across different regions. By blending both perspectives, the Pengram provides a more comprehensive view of inequality, linking spatial and statistical elements in a single visualization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pengram</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/8e13ae36622859410f2c035ca234282b4443309349f540fe2e7121582bf8ec5d.png" src="../../_images/8e13ae36622859410f2c035ca234282b4443309349f540fe2e7121582bf8ec5d.png" />
+</div>
+</div>
+<p>By using a Pengram, we can identify regions that may be economically lagging and those where income is concentrated.
+we can observe that wealthier regions are primarily concentrated in the northern and central states, while southern states have significantly lower income levels, which suggests regional economic disparity.</p>
+<p>This dual analysis of statistical and spatial distribution allows policymakers and researchers to target interventions more effectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pengram</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">leg_pos</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/91905bbff6339870896b488fcef271ff366c49013a9ccd0f1a3f54fc10fd4585.png" src="../../_images/91905bbff6339870896b488fcef271ff366c49013a9ccd0f1a3f54fc10fd4585.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pengram</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">leg_pos</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">"FisherJenks"</span><span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/650d0f33aad6aa6f9164b90e907789b5ead1512d796ae4e408df58cbca8dafa3.png" src="../../_images/650d0f33aad6aa6f9164b90e907789b5ead1512d796ae4e408df58cbca8dafa3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pengram</span><span class="p">(</span>
+    <span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">leg_pos</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">"FisherJenks"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/204640a50c47cdf9c7142c446908d182349b3b3c89b89553407cc1820e85ac6f.png" src="../../_images/204640a50c47cdf9c7142c446908d182349b3b3c89b89553407cc1820e85ac6f.png" />
+</div>
+</div>
+<h3 id="queries">Queries<a class="headerlink" href="#queries" title="Link to this heading">¶</a></h3>
+<p>The Pengram enables users to search for and highlight specific subsets of areas, both on the map and within the Pengram itself.
+This feature allows users to focus on specific regions of interest, making it easier to analyze economic disparities in targeted areas. For instance, searching for states like Chiapas and Campeche, which appear far apart in the Pen’s Parade due to their significant income differences, but are actually contiguous on the map, highlights abrupt spatial disparities. This helps illustrate how neighboring regions can experience vastly different levels of income, underscoring the complexity of geographic inequality.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">pengram</span><span class="p">(</span>
+    <span class="n">gdf</span><span class="p">,</span>
+    <span class="n">col</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span>
+    <span class="n">leg_pos</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s2">"FisherJenks"</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">query</span><span class="o">=</span><span class="p">[</span><span class="s2">"Chiapas"</span><span class="p">,</span> <span class="s2">"Campeche"</span><span class="p">],</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a5288baacede6e8a2def6aefae5bada45018eccfda5e613aed4cb6ca78ef2884.png" src="../../_images/a5288baacede6e8a2def6aefae5bada45018eccfda5e613aed4cb6ca78ef2884.png" />
+</div>
+</div>
+<h2 id="subplotting">Subplotting<a class="headerlink" href="#subplotting" title="Link to this heading">¶</a></h2>
+<p>Both the Pen’s Parade and Pengram are implemented using Matplotlib objects. By combining various visualizations—such as KDE plots, choropleth maps, and the Pen’s Parade—we can examine multiple aspects of inequality in a single view. For example, this approach allows us to compare the distribution of per capita GDP across states while simultaneously observing how it corresponds to their geographic locations. Additionally, these plots can be embedded in a single figure, making them easy to include in reports or papers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">"height_ratios"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+<span class="n">ax0</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">seaborn</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">gdf</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"PCGDP2000"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax0</span><span class="p">)</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">"PCGDP2000"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">pen</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">pengram</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">);</span>
+</code></pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/24a833b97daa84ca9977c0e3d8a68d7edd497ac7c4645b0d475915ba4e433530.png" src="../../_images/24a833b97daa84ca9977c0e3d8a68d7edd497ac7c4645b0d475915ba4e433530.png" />
+</div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2018-, pysal developers.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    9.2.0.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.top", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.code.copy", "content.action.edit"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "https://pysal.org/inequality/versions.json"}}</script>
+    
+      
+        <script src="../../_static/sphinx_immaterial_theme.567b0e0fd947ea7d9.min.js?v=5850e81b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    
+  </body>
+</html>

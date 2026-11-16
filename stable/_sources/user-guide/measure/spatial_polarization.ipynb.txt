@@ -1,0 +1,755 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "caf6602c-7454-4a47-aaa7-fa4f0ce1008e",
+   "metadata": {},
+   "source": [
+    "# Spatial Polarization\n",
+    "\n",
+    "This notebook illustrates the `S` spatial polarization index implemented in `inequality.polarization`, based on the graph-intersection framework proposed in:\n",
+    "\n",
+    "> Rey, S. J. (2026). Mind the gap and the map: measuring distributional and spatial income polarisation. *Spatial Economic Analysis*. https://doi.org/10.1080/17421772.2025.2606783\n",
+    "\n",
+    "Polarization is distinct from inequality: following Esteban and Ray (1994), it combines *alienation* (how far apart groups are) with *group identification* (how homogeneous each group is). Zhang and Kanbur (2001) measure spatial polarization as a ratio of between-region to within-region inequality, but require an exogenously fixed partition of space into regions. Rey (2026) instead defines spatial polarization directly from two graphs built over the same set of `n` locations:\n",
+    "\n",
+    "- an **attribute graph** `A`, connecting pairs of locations that fall in the same value class (e.g., both above or both below the median of some variable), and\n",
+    "- a **spatial graph** `G`, connecting pairs of locations that are geographic neighbours.\n",
+    "\n",
+    "Intersecting `A` and `G` gives a graph `I` whose edges are pairs that are *both* attribute-similar and spatially adjacent. Comparing the number of connected components of `I`, `k_I`, against `k = max(k_A, k_G)` and `n` gives the index:\n",
+    "\n",
+    "`S(A, G) = 1 - (k_I - k) / (n - k)`\n",
+    "\n",
+    "`S` ranges from 0 (no overlap between spatial and attribute structure) to 1 (complete overlap: the connected pieces of the spatial graph line up exactly with the value classes). Splitting the attribute at the median (`k=2`) gives the *spatial bipolarization* index; using more than two classes generalizes to *spatial multipolarization*.\n",
+    "\n",
+    "The `S` class below implements this index and adds a permutation-based inference procedure (randomly reshuffling the attribute values across locations) to obtain a pseudo p-value for the observed statistic - an extension beyond the purely descriptive index presented in the paper, which flags inference as a direction for future work.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d09fcaa6-1a8e-4e1f-b978-db9a1469db5b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from inequality.polarization import S"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3c8a3af6-ce3a-4037-9a86-de4f1e64f729",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import libpysal\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "from libpysal.graph import Graph\n",
+    "from libpysal.weights import lat2W"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "83779c4b-6fbe-47f7-89d6-cfa68d1338e1",
+   "metadata": {},
+   "source": [
+    "## A synthetic check: a regular 40x40 lattice\n",
+    "\n",
+    "As a first, controlled example, we place `n = 1600` observations on a regular 40x40 lattice (contiguity via `lat2W`) and assign them the values `0, 1, ..., 1599` in row-major order. Because values increase steadily along each row before dropping back down at the start of the next, splitting at the median (`k=2`, the default) produces two attribute classes - low and high - that are each spatially contiguous within most rows. We should therefore expect a fairly high, though not perfect, spatial polarization value."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "659b670f-b731-4015-98dc-d7386295bd4a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y = np.arange(1600)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "03248117-9da3-4ac5-9aaf-fcb56abb67fb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = pd.DataFrame({\"y\": y}, index=y)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "28d05b53-eb6a-498e-9050-c10c095c027c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "g = Graph.from_W(lat2W(40, 40))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0d18f7e6-34f9-401c-850f-acaa07b2df77",
+   "metadata": {},
+   "source": [
+    "By default `S` runs `permutations=999` random reshuffles of the attribute values to build a null distribution, so `p_value` reports how (un)likely the observed spatial polarization would be if the values were randomly scattered across locations instead of following their actual spatial arrangement. `n_jobs=4` parallelizes the permutations across four worker processes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c96adc7f-bf76-4407-bb2f-0249b75b4a66",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res = S(df, g, \"y\", n_jobs=4)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3820ae90-2406-4485-bcc5-1f85c22cff76",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "83192d82-41cc-4266-b3a9-aa279bed048b",
+   "metadata": {},
+   "source": [
+    "Setting `permutations=0` skips the inference step entirely and returns just the observed statistic - useful when only the descriptive index is needed, or when many variables are being screened before running significance tests on the interesting ones."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "28ceff55-90a2-46f4-b64a-760cdb0e67ac",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res = S(df, g, \"y\", permutations=0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c30f727b-7406-4b84-8062-f4ae854af3e5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a98b3876-a6da-4f79-a5b7-4df1be4d543d",
+   "metadata": {},
+   "source": [
+    "The `labels` attribute exposes the underlying classification for every location: `a_labels` is the attribute (value-class) membership, `g_labels` the spatial-graph component membership, and `i_labels` the component membership in the intersection graph `I` used to compute `S`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "140befef-66ec-446a-9231-9a08307e6f26",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res.labels"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c35af06c-796d-4fd2-a925-9670785f57a5",
+   "metadata": {},
+   "source": [
+    "Since permutation inference is embarrassingly parallel, it's worth checking how much `n_jobs` helps in practice on this 1,600-observation lattice."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "81178266-78b7-4d6f-a0a3-4a12fa30d072",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%%timeit\n",
+    "res = S(df, g, \"y\", n_jobs=4)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1f0d94bb-dac2-49c5-9528-5ae69a8f70bb",
+   "metadata": {},
+   "source": [
+    "For reference, the full source of `S` - the sparse-graph component counting, quantile binning, and permutation loop - can be inspected directly."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "09cae444-9ffa-4aed-97be-42774e166053",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "S??"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2bd2cbcd-a82c-4fe1-880d-a32154c9a3c1",
+   "metadata": {},
+   "source": [
+    "## Case study: Mexican state income, 1940-2000\n",
+    "\n",
+    "The paper's illustrative application - reproduced here - examines per-capita GDP for Mexico's 32 states (31 states plus Ciudad de Mexico) at ten-year intervals from 1940 to 2000. The series extends Esquivel's (1999) 1940-1990 data with the 2000 figures from Rey and Sastre-Gutierrez (2010), and ships with `libpysal.examples` as the `\"mexico\"` dataset.\n",
+    "\n",
+    "Across this 70-year span the distribution of state incomes shows persistent right skew and a pronounced north-south divide, with low-income states concentrated in the south. The question the spatial polarization index is built to answer is not just *how unequal* incomes are (that's the job of Theil's T or the Gini index), but *how spatially organized* that inequality is - do similarly poor, or similarly rich, states cluster together geographically?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c0e8968d-4684-4fe8-aa39-4a0d08419102",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "libpysal.examples.explain(\"mexico\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ef935572-c67a-4924-9825-6e5143385b60",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mexico = libpysal.examples.load_example(\"mexico\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "add58234-3c44-47ee-a99b-b42654e5953e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mexico.get_file_list()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6b39ada8-232c-46c2-9e28-0e5b806a9f68",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import geopandas as gpd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7d92cc60-1edd-4b78-82fe-3bfd9e830065",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gdf = gpd.read_file(libpysal.examples.get_path(\"mexicojoin.shp\"))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "012667e5-c7d3-488e-9a90-3f2bd4d8bd69",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gdf.plot()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a1b266f8-93de-48e9-bed3-c84f5b9088a0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gdf.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b2c88d07-276a-4e2a-897e-8eed5266d645",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "S?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "48c5d75c-c891-4a57-bc48-f4fce39a48a0",
+   "metadata": {},
+   "source": [
+    "The spatial graph `G` is built from queen contiguity among the 32 states (two states are neighbours if they share at least a boundary point). In the paper this graph is fully connected (`k_G = 1`), with a density of 13.5%, a median of 4 neighbours per state, ranging from 1 (Baja California Sur) to 9 (San Luis Potosi)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9592b5ac-62e7-4603-a60e-8c31cc7cca27",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sg = Graph.build_contiguity(gdf)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a99150e0-3b7f-4269-8ca5-cea8a2f8b3ba",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sg.n_components"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "acc68ab2-5b1d-4b1a-bdbc-62a6113d3706",
+   "metadata": {},
+   "source": [
+    "With `k=2` (the default), `S` splits `PCGDP1940` at its median to form the attribute graph - states above the median are mutually \"neighbours\" in `A`, as are states below it - and intersects it with the queen contiguity graph. This is the spatial bipolarization index. For 1940, the paper reports a value of 0.87: the low-income states form a single, large connected component running from the southern border up through the centre of the country, while the high-income states are split into five separate spatial clusters."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "24ce4af5-267b-480c-82d0-4d2113543d71",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s1940 = S(gdf, sg, \"PCGDP1940\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4a0ea6c9-420e-480e-bdc3-79867f3b2bf3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s1940"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d6a12ff1-0344-4f53-88e3-3bb99e4eae30",
+   "metadata": {},
+   "source": [
+    "To trace how spatial bipolarization evolves, we repeat the calculation for each decade's income variable."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0abe472c-49bc-4a75-8dd9-6c9e5f6f05f6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pcgdp_vars = [f\"PCGDP{dec}\" for dec in range(1940, 2010, 10)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9cea1fd8-e5bb-4624-9b0d-3cb8a4ac74b8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pcgdp_vars"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "44d45b61-bd99-42c1-907a-d7713bf23725",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy\n",
+    "\n",
+    "rng = numpy.random.default_rng(42)\n",
+    "res = [S(gdf, sg, var) for var in pcgdp_vars]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "263be135-4341-4409-bd42-2c01a77d8c81",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[0]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "775f4f03-4ebb-42c0-bd29-027b77906a99",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2a0b931e-a3e3-452d-a3c4-bb159da3eceb",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[2]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "34fa8f65-226f-4867-8867-795b21e2c800",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[3]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2423b826-5494-4e16-ac86-43eea5f94530",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[4]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "827cafa4-74b1-482b-b40c-1ed8221db7d0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[5]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ecc272a4-a5b5-4f58-b358-29264b4a2460",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[6]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1a1203f7-e2d8-41af-a85b-1ac38c324372",
+   "metadata": {},
+   "source": [
+    "## From bipolarization to multipolarization\n",
+    "\n",
+    "Splitting at the median is just one choice for the attribute graph. Using `k>2` quantile classes generalizes the bipolarization index to *spatial multipolarization* - the same intersection-graph construction, but now `A` connects locations that fall in the same one of `k` quantile bins rather than just \"above\" or \"below\" the median. Here we repeat the calculation for each decade using tertiles (`k=3`)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "979269fe-fdbe-47ec-a9a3-93e7b34ed253",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res3 = [S(gdf, sg, var, k=3) for var in pcgdp_vars]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "92a9bfbc-87da-444f-b0e6-b7e98887f82d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for r in res3:\n",
+    "    print(r)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ce692f7a-99ad-4d1a-898b-f4e5a3814c68",
+   "metadata": {},
+   "source": [
+    "More generally, we can sweep over several values of `k` (bipolar, tertiles, quintiles, septiles) for every decade to see how sensitive the polarization pattern is to the number of attribute classes. Finer classifications (larger `k`) tend to fragment the attribute graph into more components, which - all else equal - pushes `S` down, so comparisons across `k` are best read as \"how does the *relative* ranking across decades change,\" rather than as directly comparable magnitudes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1b6c998f-5fa8-40fd-921a-d5899bedb044",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res = [S(gdf, sg, var, k=k) for var in pcgdp_vars for k in [2, 3, 5, 7]]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f7983c52-7e74-49f3-bbd2-2b1b6a55adca",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for r in res:\n",
+    "    print(r)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b1da27d3-4d9a-451e-b0d0-1373df96ead2",
+   "metadata": {},
+   "source": [
+    "It helps to look at the actual quantile classifications behind these numbers before interpreting the index values."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "22ba2771-e1f5-43ee-8b0e-98bdf04638fe",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gdf.plot(\"PCGDP1940\", scheme=\"quantiles\", k=3, legend=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "424393d2-4cc0-403d-aa8c-00b0fc4f4ce5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gdf.plot(\"PCGDP1950\", scheme=\"quantiles\", k=3, legend=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f098ecc7-476f-4df6-966c-c3ed5f671b64",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gdf.plot(\"PCGDP1950\", scheme=\"quantiles\", k=5, legend=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b8ea52ba-10ae-4a8e-ac51-ab74c2c96bb7",
+   "metadata": {},
+   "source": [
+    "Beyond the summary statistic, an `S` object exposes the full component bookkeeping behind it: the number of components in the intersection, spatial, and attribute graphs, and the per-location labels used to build them."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "18a72776-b7fe-4dee-b587-ecd75bb6fe37",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[-1].n_i_components"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "01d2537f-3fba-4483-824e-806d692904bd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res[-1].labels"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "14843d88-3634-4c81-8406-1a263ccc2929",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r0 = res[-1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5f87b5d9-643f-4044-bcd3-095621615294",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dir(r0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d9a3ada0-62cd-4b7d-bf97-0715292c5adf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r0.permutations"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "73c9c030-db56-4223-aa58-bba6b589cdc4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r0.statistic_"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5c7671fe-f37b-44f8-b81c-aac8add37d09",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r0.p_value"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "aaf23b93-ee87-4a52-bcfa-c56ba7f285db",
+   "metadata": {},
+   "source": [
+    "## Comparing polarization across decades and classification schemes\n",
+    "\n",
+    "Putting it together, we compute the index, its Monte Carlo p-value, and the number of intersection components for every combination of `k in [2, 3, 5, 7]` and decade, and collect the results into a single dataframe for comparison - in the same spirit as the paper's comparison of the spatial polarization trajectory against Theil's T over time."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bd986857-70b8-413b-86c0-11428a5e94b7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "rng = numpy.random.default_rng(42)\n",
+    "\n",
+    "res = []\n",
+    "for k in [2, 3, 5, 7]:\n",
+    "    for year in [1940, 1950, 1960, 1970, 1980, 1990, 2000]:\n",
+    "        v = f\"PCGDP{year}\"\n",
+    "        r = S(gdf, sg, v, k=k)\n",
+    "        res.append([year, k, r.statistic_, r.p_value, r.n_i_components])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b00ad604-a949-4c53-a8f9-07b9d4fb29b7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e3d9155d-f66a-47df-8cd6-28d8fcd88a41",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res_df = pd.DataFrame(data=np.array(res), columns=[\"year\", \"k\", \"s\", \"p\", \"n_i\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d309d727-423e-4653-8a90-ec510963b05a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res_df.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0bdcfbb1-5440-4a38-a4d6-ebda9b769e8d",
+   "metadata": {},
+   "source": [
+    "Filtering to the statistically significant results (`p <= 0.05` under the permutation null) highlights which decade/classification combinations show spatial polarization stronger than would be expected if incomes were randomly scattered across the map rather than concentrated by geography."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "346e63ab-2fd6-4479-8d2c-dfe105af520a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res_df[res_df.p <= 0.05]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "19f30825-4cd7-4166-a513-d83f5324d6d2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "res_df[res_df.year == 2000]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f3b11901-a5ef-4381-a5c5-8743704ce0ca",
+   "metadata": {},
+   "source": [
+    "## Summary\n",
+    "\n",
+    "Across both the synthetic lattice and the Mexican states application, `S` quantifies something inequality measures like the Gini index or Theil's T cannot: whether similar values are *organized in space*. As Rey (2026) shows for Mexico, national income inequality (Theil's T) and spatial polarization can move independently - inequality between states can fall even while the geographic clustering of rich and poor states persists or intensifies, consistent with a persistent poverty trap in the south alongside a more spatially fragmented set of high-income states elsewhere in the country."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

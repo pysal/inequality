@@ -1,0 +1,11 @@
+﻿inequality.gini.Gini
+====================
+
+.. currentmodule:: inequality.gini
+
+.. autoclass:: Gini
+
+   
+   
+
+   

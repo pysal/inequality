@@ -1,0 +1,20 @@
+﻿inequality.schutz.Schutz
+========================
+
+.. currentmodule:: inequality.schutz
+
+.. autoclass:: Schutz
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Schutz.calculate_intersection_point
+      ~Schutz.calculate_schutz_coefficient
+      ~Schutz.calculate_schutz_distance
+      ~Schutz.plot
+   
+
+   

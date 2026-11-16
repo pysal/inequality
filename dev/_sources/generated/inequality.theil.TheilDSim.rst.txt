@@ -1,0 +1,11 @@
+﻿inequality.theil.TheilDSim
+==========================
+
+.. currentmodule:: inequality.theil
+
+.. autoclass:: TheilDSim
+
+   
+   
+
+   

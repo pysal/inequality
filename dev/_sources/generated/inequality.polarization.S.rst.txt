@@ -1,0 +1,11 @@
+﻿inequality.polarization.S
+=========================
+
+.. currentmodule:: inequality.polarization
+
+.. autoclass:: S
+
+   
+   
+
+   

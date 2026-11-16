@@ -1,0 +1,11 @@
+﻿inequality.gini.Gini\_Spatial
+=============================
+
+.. currentmodule:: inequality.gini
+
+.. autoclass:: Gini_Spatial
+
+   
+   
+
+   
