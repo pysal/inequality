@@ -61,14 +61,6 @@ class Schutz:
         Initialize the Schutz object, calculate the Schutz distance,
         the intersection point with the line of perfect equality, and
         the original Schutz coefficient.
-
-        Parameters
-        ----------
-        df: pd.DataFrame
-            The input DataFrame containing the data.
-        column_name: str
-            The name of the column for which the Schutz coefficient is
-            to be calculated.
         """
         self.df = df
         self.column_name = column_name

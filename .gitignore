@@ -26,4 +26,4 @@ lib64
 __pycache__
 
 docs/build
-docs/generated
+docs/source/generated
