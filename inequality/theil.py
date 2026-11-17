@@ -26,17 +26,14 @@ class Theil:
     Parameters
     ----------
 
-    y : numpy.array, pandas.Series, or pandas.DataFrame
+    y : array-like
         An array in the shape :math:`(n,t)` or :math:`(n,)`
         with :math:`n` taken as the observations across which inequality is
         calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is
         determined. If ``y`` is :math:`(n,t)` then an array of inequality values are
-        determined, one value for each column in ``y``. For a
-        :class:`pandas.DataFrame`, pass ``column`` (a name or list of names) to
-        select the values.
-    column : str or list of str, optional
-        Name(s) of the column(s) holding the values when ``y`` is a
-        :class:`pandas.DataFrame`.
+        determined, one value for each column in ``y``. For a single
+        :class:`pandas.DataFrame` column, pass it as a Series (``df["col"]``);
+        for several columns, pass ``df[["a", "b"]].to_numpy()``.
 
     Attributes
     ----------
@@ -68,8 +65,8 @@ class Theil:
 
     """
 
-    def __init__(self, y, column=None):
-        y = _resolve_array(y, column)
+    def __init__(self, y):
+        y = _resolve_array(y)
         n = len(y)
         y = y + SMALL * (y == 0)  # can't have 0 values
         yt = y.sum(axis=0)
@@ -87,20 +84,17 @@ class TheilD:
     Parameters
     ----------
 
-    y : numpy.array, pandas.Series, or pandas.DataFrame
+    y : array-like
         An array in the shape :math:`(n,t)` or :math:`(n,)`
         with :math:`n` taken as the observations across which inequality is
         calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is
         determined. If ``y`` is :math:`(n,t)` then an array of inequality values are
-        determined, one value for each column in ``y``. For a
-        :class:`pandas.DataFrame`, pass ``column`` (a name or list of names) to
-        select the values.
+        determined, one value for each column in ``y``. For a single
+        :class:`pandas.DataFrame` column, pass it as a Series (``df["col"]``);
+        for several columns, pass ``df[["a", "b"]].to_numpy()``.
     partition : array-like or pandas.Series
         An array in the shape :math:`(n,)` of elements indicating which partition
         each observation belongs to. These are assumed to be exhaustive.
-    column : str or list of str, optional
-        Name(s) of the column(s) holding the values when ``y`` is a
-        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -138,8 +132,8 @@ class TheilD:
 
     """
 
-    def __init__(self, y, partition, column=None):
-        y = _resolve_array(y, column)
+    def __init__(self, y, partition):
+        y = _resolve_array(y)
         partition = _resolve_array(partition)
         groups = numpy.unique(partition)
         T = Theil(y).T  # noqa N806
@@ -150,11 +144,11 @@ class TheilD:
 
         if ytot.size == 1:  # y is 1-d
             sg = gtot / (ytot * 1.0)
-            sg.shape = (sg.size, 1)
+            sg = sg.reshape(sg.size, 1)
         else:
             sg = numpy.dot(gtot, numpy.diag(1.0 / ytot))
         ng = numpy.array([sum(partition == gid) for gid in groups])
-        ng.shape = (ng.size,)  # ensure ng is 1-d
+        ng = ng.reshape(ng.size)  # ensure ng is 1-d
         n = y.shape[0]
         # between group inequality
         sg = sg + SMALL * (sg == 0)  # can't have 0 values
@@ -177,23 +171,20 @@ class TheilDSim:
     Parameters
     ----------
 
-    y : numpy.array, pandas.Series, or pandas.DataFrame
+    y : array-like
         An array in the shape :math:`(n,t)` or :math:`(n,)`
         with :math:`n` taken as the observations across which inequality is
         calculated.  If ``y`` is :math:`(n,)` then a scalar inequality value is
         determined. If ``y`` is :math:`(n,t)` then an array of inequality values are
-        determined, one value for each column in ``y``. For a
-        :class:`pandas.DataFrame`, pass ``column`` (a name or list of names) to
-        select the values.
+        determined, one value for each column in ``y``. For a single
+        :class:`pandas.DataFrame` column, pass it as a Series (``df["col"]``);
+        for several columns, pass ``df[["a", "b"]].to_numpy()``.
     partition : array-like or pandas.Series
         An array in the shape :math:`(n,)` of elements indicating which partition
         each observation belongs to. These are assumed to be exhaustive.
     permutations : int
         The number of random spatial permutations for computationally
         based inference on the decomposition.
-    column : str or list of str, optional
-        Name(s) of the column(s) holding the values when ``y`` is a
-        :class:`pandas.DataFrame`.
 
     Attributes
     ----------
@@ -233,8 +224,8 @@ class TheilDSim:
 
     """
 
-    def __init__(self, y, partition, permutations=99, column=None):
-        y = _resolve_array(y, column)
+    def __init__(self, y, partition, permutations=99):
+        y = _resolve_array(y)
         partition = _resolve_array(partition)
         observed = TheilD(y, partition)
         bg_ct = observed.bg == observed.bg  # already have one extreme value
