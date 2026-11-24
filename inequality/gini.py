@@ -88,8 +88,9 @@ class Gini_Spatial:  # noqa N801
     x : list, numpy.array, pandas.Series, or pandas.DataFrame
         An array in the shape :math:`(n,1)` containing the attribute values.
         For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
-    w : libpysal.weights.W
-        Binary spatial weights object.
+    w : libpysal.weights.W or libpysal.graph.Graph
+        Binary spatial weights object. Its ids must be in the same order as
+        ``x``.
     permutations : int (default 99)
        The number of permutations for inference.
     column : str, optional
@@ -165,15 +166,17 @@ class Gini_Spatial:  # noqa N801
 
     def __init__(self, x, w, permutations=99, column=None):
         x = _resolve_array(x, column)
+        focal, neighbor, s0 = _neighbor_pairs(w)
         g = _gini(x)
         self.g = g
         n = len(x)
         den = x.mean() * 2 * n**2
         d = g * den  # sum of absolute devations SAD
-        wg = self._calc(x, w)  # sum of absolute deviations for neighbor pairs
+        # sum of absolute deviations for neighbor pairs
+        wg = self._calc(x, focal, neighbor)
         wcg = d - wg  # sum of absolution deviations for distant pairs
         n_pairs = n * (n - 1) / 2
-        n_n_pairs = w.s0 / 2
+        n_n_pairs = s0 / 2
         n_d_pairs = n_pairs - n_n_pairs
         polarization = (wcg / wg) * (n_n_pairs / n_d_pairs)
         self.polarization = polarization
@@ -191,7 +194,7 @@ class Gini_Spatial:  # noqa N801
             polarization_sim = numpy.zeros((permutations,))
             for perm in range(permutations):
                 numpy.random.shuffle(ids)
-                wcgp[perm] = d - self._calc(x[ids], w)
+                wcgp[perm] = d - self._calc(x[ids], focal, neighbor)
                 polar = wcgp[perm] / (d - wcgp[perm])
                 polarization_sim[perm] = polar * _scale
             above = wcgp >= self.wcg
@@ -209,8 +212,19 @@ class Gini_Spatial:  # noqa N801
             larger = (polarization_sim >= polarization).sum()
             self.polarization_p_sim = (larger + 1) / (permutations + 1)
 
-    def _calc(self, x, w):
-        sad_sum = 0.0
-        for i, js in w.neighbors.items():
-            sad_sum += numpy.abs(x[i] - x[js]).sum()
-        return sad_sum
+    def _calc(self, x, focal, neighbor):
+        return numpy.abs(x[focal] - x[neighbor]).sum()
+
+
+def _neighbor_pairs(w):
+    """
+    Positional indices of every neighbor pair, and the sum of the weights.
+
+    Both ``W`` and ``Graph`` expose a sparse matrix ordered like their ids, so
+    working from it handles either one, and ids that are not ``0..n-1``.
+    A ``Graph`` keeps isolates as self-loops with zero weight, so explicit
+    zeros are dropped before counting pairs.
+    """
+    adjacency = w.sparse.tocoo()
+    keep = adjacency.data != 0
+    return adjacency.row[keep], adjacency.col[keep], adjacency.data[keep].sum()
