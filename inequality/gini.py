@@ -89,8 +89,7 @@ class Gini_Spatial:  # noqa N801
         An array in the shape :math:`(n,1)` containing the attribute values.
         For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
     w : libpysal.weights.W or libpysal.graph.Graph
-        Binary spatial weights object. Its ids must be in the same order as
-        ``x``.
+        Binary spatial weights object aligned with ``x``.
     permutations : int (default 99)
        The number of permutations for inference.
     column : str, optional
