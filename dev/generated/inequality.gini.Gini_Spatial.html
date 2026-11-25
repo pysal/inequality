@@ -805,7 +805,7 @@
       <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
     
     <span class="md-ellipsis">
-      <span title="inequality.gini.Gini_Spatial.__init__.w (Python parameter) — Binary spatial weights object."><span>w</span></span>
+      <span title="inequality.gini.Gini_Spatial.__init__.w (Python parameter) — Binary spatial weights object aligned with x."><span>w</span></span>
     </span>
   </a>
   
@@ -1098,7 +1098,7 @@
       <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span>
     
     <span class="md-ellipsis">
-      <span title="inequality.gini.Gini_Spatial.polarization (Python attribute) — Spatial polarization index with an expected value of 1."><span>polarization</span></span>
+      <span title="inequality.gini.Gini_Spatial.polarization (Python attribute) — Spatial polarization index with an expected value of 1. nan if the neighbor component wg is zero."><span>polarization</span></span>
     </span>
   </a>
   
@@ -1522,7 +1522,7 @@
       <span aria-label="Python parameter" class="objinfo-icon objinfo-icon__sub-data" title="Python parameter">p</span>
     
     <span class="md-ellipsis">
-      <span title="inequality.gini.Gini_Spatial.__init__.w (Python parameter) — Binary spatial weights object."><span>w</span></span>
+      <span title="inequality.gini.Gini_Spatial.__init__.w (Python parameter) — Binary spatial weights object aligned with x."><span>w</span></span>
     </span>
   </a>
   
@@ -1815,7 +1815,7 @@
       <span aria-label="Python attribute" class="objinfo-icon objinfo-icon__alias" title="Python attribute">A</span>
     
     <span class="md-ellipsis">
-      <span title="inequality.gini.Gini_Spatial.polarization (Python attribute) — Spatial polarization index with an expected value of 1."><span>polarization</span></span>
+      <span title="inequality.gini.Gini_Spatial.polarization (Python attribute) — Spatial polarization index with an expected value of 1. nan if the neighbor component wg is zero."><span>polarization</span></span>
     </span>
   </a>
   
@@ -1925,7 +1925,7 @@
 <h1 id="inequality-gini-gini-spatial">inequality.gini.Gini_Spatial<a class="headerlink" href="#inequality-gini-gini-spatial" title="Link to this heading">¶</a></h1>
 <dl class="py class objdesc">
 <dt class="sig sig-object highlight sig-wrap py" id="inequality.gini.Gini_Spatial">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">inequality.gini.</span></span><span class="sig-name descname"><span class="pre">Gini_Spatial</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.x" title="inequality.gini.Gini_Spatial.__init__.x (Python parameter) — An array in the shape (n,1) containing the attribute values. For a pandas.DataFrame, pass column to select the values."><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.w" title="inequality.gini.Gini_Spatial.__init__.w (Python parameter) — Binary spatial weights object."><span class="n"><span class="pre">w</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.permutations" title="inequality.gini.Gini_Spatial.__init__.permutations (Python parameter) — The number of permutations for inference."><span class="n"><span class="pre">permutations</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">99</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.column" title="inequality.gini.Gini_Spatial.__init__.column (Python parameter) — Name of the column holding the attribute values when x is a pandas.DataFrame."><span class="n"><span class="pre">column</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pysal/inequality/blob/main/inequality/gini.py#L77-L216"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inequality.gini.Gini_Spatial" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">inequality.gini.</span></span><span class="sig-name descname"><span class="pre">Gini_Spatial</span></span><span class="sig-paren">(</span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.x" title="inequality.gini.Gini_Spatial.__init__.x (Python parameter) — An array in the shape (n,1) containing the attribute values. For a pandas.DataFrame, pass column to select the values."><span class="n"><span class="pre">x</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.w" title="inequality.gini.Gini_Spatial.__init__.w (Python parameter) — Binary spatial weights object aligned with x."><span class="n"><span class="pre">w</span></span></a></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.permutations" title="inequality.gini.Gini_Spatial.__init__.permutations (Python parameter) — The number of permutations for inference."><span class="n"><span class="pre">permutations</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="mi">99</span></code></em>, </span><span class="sig-param-decl"><em class="sig-param"><a class="n reference internal" href="#inequality.gini.Gini_Spatial.__init__.column" title="inequality.gini.Gini_Spatial.__init__.column (Python parameter) — Name of the column holding the attribute values when x is a pandas.DataFrame."><span class="n"><span class="pre">column</span></span></a><span class="o"><span class="pre">=</span></span><code class="code python default_value docutils literal highlight highlight-python"><span class="kc">None</span></code></em></span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pysal/inequality/blob/main/inequality/gini.py#L79-L244"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inequality.gini.Gini_Spatial" title="Link to this definition">¶</a></dt>
 <dd><p>Spatial Gini coefficient.</p>
 <p>Provides for computationally based inference regarding the contribution of
 spatial neighbor pairs to overall inequality across a set of regions.
@@ -1936,7 +1936,9 @@ See <span class="bibtex-citation" id="id1">[<a class="reference internal" href="
 <dt id="inequality.gini.Gini_Spatial.__init__.x"><span class="sig-name descname">x</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>, numpy.array, pandas.Series, or pandas.DataFrame</span></span><a class="headerlink" href="#inequality.gini.Gini_Spatial.__init__.x" title="Permalink to this definition">¶</a></dt><dd><p>An array in the shape <span class="math notranslate nohighlight">\((n,1)\)</span> containing the attribute values.
 For a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>, pass <code class="docutils literal notranslate"><span class="pre">column</span></code> to select the values.</p>
 </dd>
-<dt id="inequality.gini.Gini_Spatial.__init__.w"><span class="sig-name descname">w</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://pysal.org/libpysal/stable/generated/libpysal.weights.W.html#libpysal.weights.W" title="(in libpysal v4.15.1)">libpysal.weights.W</a></span></span><a class="headerlink" href="#inequality.gini.Gini_Spatial.__init__.w" title="Permalink to this definition">¶</a></dt><dd><p>Binary spatial weights object.</p>
+<dt id="inequality.gini.Gini_Spatial.__init__.w"><span class="sig-name descname">w</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://pysal.org/libpysal/stable/generated/libpysal.weights.W.html#libpysal.weights.W" title="(in libpysal v4.15.1)">libpysal.weights.W</a> or <a class="reference external" href="https://pysal.org/libpysal/stable/generated/libpysal.graph.Graph.html#libpysal.graph.Graph" title="(in libpysal v4.15.1)">libpysal.graph.Graph</a></span></span><a class="headerlink" href="#inequality.gini.Gini_Spatial.__init__.w" title="Permalink to this definition">¶</a></dt><dd><p>Binary spatial weights object aligned with <code class="docutils literal notranslate"><span class="pre">x</span></code>. Observations are
+matched by position, so <code class="docutils literal notranslate"><span class="pre">x</span></code> must be ordered like <code class="docutils literal notranslate"><span class="pre">w.id_order</span></code>
+(<code class="docutils literal notranslate"><span class="pre">W</span></code>) or <code class="docutils literal notranslate"><span class="pre">w.unique_ids</span></code> (<code class="docutils literal notranslate"><span class="pre">Graph</span></code>).</p>
 </dd>
 <dt id="inequality.gini.Gini_Spatial.__init__.permutations"><span class="sig-name descname">permutations</span><span class="p"> : </span><span class="desctype"><span class="desctype"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a> (default 99)</span></span><a class="headerlink" href="#inequality.gini.Gini_Spatial.__init__.permutations" title="Permalink to this definition">¶</a></dt><dd><p>The number of permutations for inference.</p>
 </dd>
@@ -2052,7 +2054,8 @@ standard normal approximation of permutation based values.</p>
 <dl class="py attribute objdesc">
 <dt class="sig sig-object highlight py" id="inequality.gini.Gini_Spatial.polarization">
 <span class="sig-name descname"><span class="pre">polarization</span></span><a class="reference external" href="https://github.com/pysal/inequality/blob/main/inequality/gini.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inequality.gini.Gini_Spatial.polarization" title="Link to this definition">¶</a></dt>
-<dd><p>Spatial polarization index with an expected value of 1.</p>
+<dd><p>Spatial polarization index with an expected value of 1. <code class="docutils literal notranslate"><span class="pre">nan</span></code> if
+the neighbor component <code class="docutils literal notranslate"><span class="pre">wg</span></code> is zero.</p>
 <dl class="field-list simple">
 <dt class="field-odd" id="inequality.gini.Gini_Spatial.polarization-type">Type<span class="colon">:</span><a class="headerlink" href="#inequality.gini.Gini_Spatial.polarization-type" title="Permalink to this headline">¶</a></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a></p>
@@ -2082,6 +2085,13 @@ standard normal approximation of permutation based values.</p>
 </dl>
 </dd></dl>
 
+<p class="rubric">Notes</p>
+<p>Any nonzero weight marks a neighbor pair. Weight values are ignored and
+self-loops are dropped, so a weighted or row standardized <code class="docutils literal notranslate"><span class="pre">Graph</span></code> gives
+the same result as its binary version.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">W</span></code> inputs, positions now follow <code class="docutils literal notranslate"><span class="pre">w.id_order</span></code> instead of using
+neighbor ids directly as indices, and links with an explicit zero weight
+are not counted as neighbors.</p>
 <p class="example rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
@@ -2183,7 +2193,7 @@ under the null of random spatial inequality.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.top", "search.share", "search.suggest", "toc.follow", "toc.sticky", "content.code.copy", "content.action.edit"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": null, "versionPath": "https://pysal.org/inequality/versions.json"}}</script>
     
       
-        <script src="../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../_static/sphinx_immaterial_theme.ce3f826234c1e494c.min.js?v=6917d573"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="../_static/copybutton.js?v=f281be69"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
