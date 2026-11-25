@@ -222,7 +222,11 @@ class Gini_Spatial:  # noqa N801
                 wg_perm = self._calc(x[ids], focal, neighbor)
                 wcgp[perm] = d - wg_perm
                 if wg_perm == 0:
-                    polarization_sim[perm] = numpy.nan
+                    # With neighbor links but no inequality between them in this
+                    # draw, polarization is unbounded, so it is at least as large
+                    # as any observed value. Without links it is undefined.
+                    unbounded = n_links > 0 and wcgp[perm] > 0
+                    polarization_sim[perm] = numpy.inf if unbounded else numpy.nan
                 else:
                     polarization_sim[perm] = wcgp[perm] / wg_perm * _scale
             above = wcgp >= self.wcg
@@ -236,9 +240,13 @@ class Gini_Spatial:  # noqa N801
             self.z_wcg = (self.wcg - self.e_wcg) / self.s_wcg
             self.p_z_sim = 1.0 - norm.cdf(self.z_wcg)
             self.polarization_sim = polarization_sim
-            # polarization is a directional concept, upper tail only
-            larger = (polarization_sim >= polarization).sum()
-            self.polarization_p_sim = (larger + 1) / (permutations + 1)
+            if numpy.isnan(polarization):
+                # observed polarization is undefined, so there is nothing to test
+                self.polarization_p_sim = numpy.nan
+            else:
+                # polarization is a directional concept, upper tail only
+                larger = (polarization_sim >= polarization).sum()
+                self.polarization_p_sim = (larger + 1) / (permutations + 1)
 
     def _calc(self, x, focal, neighbor):
         return numpy.abs(x[focal] - x[neighbor]).sum()

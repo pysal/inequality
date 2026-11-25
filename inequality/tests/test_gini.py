@@ -122,3 +122,25 @@ class TestGini:
         assert g.wg == 0
         assert numpy.isnan(g.polarization)
         assert numpy.isnan(g.polarization_sim).all()
+        assert numpy.isnan(g.polarization_p_sim)
+
+    def test_spatial_zero_wg_permutation_counts_as_larger(self):
+        # Permutations that put tied values on the neighbor pair give
+        # wg_perm == 0, so polarization is unbounded there, not undefined.
+        x = numpy.array([5.0, 9.0, 5.0, 1.0])
+        adjacency = pandas.Series(
+            [1.0, 1.0, 0.0, 0.0],
+            index=pandas.MultiIndex.from_tuples(
+                [(0, 1), (1, 0), (2, 2), (3, 3)], names=["focal", "neighbor"]
+            ),
+            name="weight",
+        )
+        numpy.random.seed(12345)
+        g = Gini_Spatial(x, Graph(adjacency), permutations=99)
+        assert numpy.isfinite(g.polarization)
+        zero_wg = g.wcgp == g.dtotal
+        assert zero_wg.any()
+        assert numpy.isinf(g.polarization_sim[zero_wg]).all()
+        assert not numpy.isnan(g.polarization_sim).any()
+        larger = (g.polarization_sim >= g.polarization).sum()
+        assert g.polarization_p_sim == (larger + 1) / 100
