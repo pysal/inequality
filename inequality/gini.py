@@ -139,9 +139,9 @@ class Gini_Spatial:  # noqa N801
     self-loops are dropped, so a weighted or row standardized ``Graph`` gives
     the same result as its binary version.
 
-    For ``W`` inputs, positions now follow ``w.id_order`` instead of using
-    neighbor ids directly as indices, and links with an explicit zero weight
-    are not counted as neighbors.
+    Ids are never used as indices into ``x``. They are mapped to positions
+    through ``w.id_order`` (``W``) or ``w.unique_ids`` (``Graph``). Links with
+    an explicit zero weight are not counted as neighbors.
 
     Examples
     --------
