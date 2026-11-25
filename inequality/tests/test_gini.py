@@ -1,6 +1,7 @@
 import libpysal
 import numpy
 import pandas
+import pytest
 from libpysal.graph import Graph
 
 from inequality.gini import Gini, Gini_Spatial
@@ -68,3 +69,56 @@ class TestGini:
         # one neighbor pair counted in both directions: |1 - 3| * 2
         assert g.wg == 4.0
         numpy.testing.assert_almost_equal(g.polarization, (g.wcg / g.wg) * (1 / 2))
+
+    def test_spatial_weighted_graph_matches_binary(self):
+        # Weight values must not change the pair count or polarization.
+        binary = Graph.from_W(self.w)
+        row_standardized = binary.transform("r")
+
+        numpy.random.seed(12345)
+        from_binary = Gini_Spatial(self.y, binary)
+        numpy.random.seed(12345)
+        from_weighted = Gini_Spatial(self.y, row_standardized)
+
+        for attr in ["wg", "wcg", "polarization", "p_sim", "polarization_p_sim"]:
+            numpy.testing.assert_almost_equal(
+                getattr(from_weighted, attr), getattr(from_binary, attr)
+            )
+
+    def test_spatial_self_loops_ignored(self):
+        graph = Graph.from_W(self.w)
+        with_loops = graph.assign_self_weight(1)
+
+        numpy.random.seed(12345)
+        expected = Gini_Spatial(self.y, graph)
+        numpy.random.seed(12345)
+        result = Gini_Spatial(self.y, with_loops)
+
+        for attr in ["wg", "wcg", "polarization", "polarization_p_sim"]:
+            numpy.testing.assert_almost_equal(
+                getattr(result, attr), getattr(expected, attr)
+            )
+
+    def test_spatial_w_not_modified(self):
+        before = self.w.sparse.toarray().copy()
+        Gini_Spatial(self.y, self.w, permutations=0)
+        numpy.testing.assert_array_equal(self.w.sparse.toarray(), before)
+
+    def test_spatial_length_mismatch(self):
+        with pytest.raises(ValueError, match="same number of observations"):
+            Gini_Spatial(self.y[:-1], self.w, permutations=0)
+
+    def test_spatial_isolates_only(self):
+        x = numpy.array([1.0, 3.0, 10.0])
+        adjacency = pandas.Series(
+            [0.0, 0.0, 0.0],
+            index=pandas.MultiIndex.from_tuples(
+                [(0, 0), (1, 1), (2, 2)], names=["focal", "neighbor"]
+            ),
+            name="weight",
+        )
+        with pytest.warns(RuntimeWarning, match="wg == 0"):
+            g = Gini_Spatial(x, Graph(adjacency), permutations=9)
+        assert g.wg == 0
+        assert numpy.isnan(g.polarization)
+        assert numpy.isnan(g.polarization_sim).all()
