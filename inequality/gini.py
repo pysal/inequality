@@ -4,6 +4,8 @@ Gini based Inequality Metrics
 
 __author__ = "Sergio J. Rey <srey@asu.edu> "
 
+import warnings
+
 import numpy
 from scipy.stats import norm
 
@@ -88,8 +90,10 @@ class Gini_Spatial:  # noqa N801
     x : list, numpy.array, pandas.Series, or pandas.DataFrame
         An array in the shape :math:`(n,1)` containing the attribute values.
         For a :class:`pandas.DataFrame`, pass ``column`` to select the values.
-    w : libpysal.weights.W
-        Binary spatial weights object.
+    w : libpysal.weights.W or libpysal.graph.Graph
+        Binary spatial weights object aligned with ``x``. Observations are
+        matched by position, so ``x`` must be ordered like ``w.id_order``
+        (``W``) or ``w.unique_ids`` (``Graph``).
     permutations : int (default 99)
        The number of permutations for inference.
     column : str, optional
@@ -122,11 +126,22 @@ class Gini_Spatial:  # noqa N801
         (If ``permuations > 0``) pseudo :math:`p`-value based on
         standard normal approximation of permutation based values.
     polarization: float
-        Spatial polarization index with an expected value of 1.
+        Spatial polarization index with an expected value of 1. ``nan`` if
+        the neighbor component ``wg`` is zero.
     polarization_p_sim: float
         (If ``permutations >0``) pseudo :math:`p`-value for polarization index.
     polarization_sim: float
         (If ``permutations >0``) polarization values under the null from permutations.
+
+    Notes
+    -----
+    Any nonzero weight marks a neighbor pair. Weight values are ignored and
+    self-loops are dropped, so a weighted or row standardized ``Graph`` gives
+    the same result as its binary version.
+
+    For ``W`` inputs, positions now follow ``w.id_order`` instead of using
+    neighbor ids directly as indices, and links with an explicit zero weight
+    are not counted as neighbors.
 
     Examples
     --------
@@ -165,17 +180,30 @@ class Gini_Spatial:  # noqa N801
 
     def __init__(self, x, w, permutations=99, column=None):
         x = _resolve_array(x, column)
+        if w.sparse.shape[0] != len(x):
+            raise ValueError("w and x must have the same number of observations")
+        focal, neighbor, n_links = _neighbor_pairs(w)
         g = _gini(x)
         self.g = g
         n = len(x)
         den = x.mean() * 2 * n**2
         d = g * den  # sum of absolute devations SAD
-        wg = self._calc(x, w)  # sum of absolute deviations for neighbor pairs
+        # sum of absolute deviations for neighbor pairs
+        wg = self._calc(x, focal, neighbor)
         wcg = d - wg  # sum of absolution deviations for distant pairs
         n_pairs = n * (n - 1) / 2
-        n_n_pairs = w.s0 / 2
+        n_n_pairs = n_links / 2
         n_d_pairs = n_pairs - n_n_pairs
-        polarization = (wcg / wg) * (n_n_pairs / n_d_pairs)
+        if wg == 0:
+            warnings.warn(
+                "No inequality between neighbor pairs (wg == 0); "
+                "polarization is undefined and set to nan.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+            polarization = numpy.nan
+        else:
+            polarization = (wcg / wg) * (n_n_pairs / n_d_pairs)
         self.polarization = polarization
         self.g = g
         self.wcg = wcg
@@ -191,9 +219,12 @@ class Gini_Spatial:  # noqa N801
             polarization_sim = numpy.zeros((permutations,))
             for perm in range(permutations):
                 numpy.random.shuffle(ids)
-                wcgp[perm] = d - self._calc(x[ids], w)
-                polar = wcgp[perm] / (d - wcgp[perm])
-                polarization_sim[perm] = polar * _scale
+                wg_perm = self._calc(x[ids], focal, neighbor)
+                wcgp[perm] = d - wg_perm
+                if wg_perm == 0:
+                    polarization_sim[perm] = numpy.nan
+                else:
+                    polarization_sim[perm] = wcgp[perm] / wg_perm * _scale
             above = wcgp >= self.wcg
             larger = above.sum()
             if (permutations - larger) < larger:
@@ -209,8 +240,20 @@ class Gini_Spatial:  # noqa N801
             larger = (polarization_sim >= polarization).sum()
             self.polarization_p_sim = (larger + 1) / (permutations + 1)
 
-    def _calc(self, x, w):
-        sad_sum = 0.0
-        for i, js in w.neighbors.items():
-            sad_sum += numpy.abs(x[i] - x[js]).sum()
-        return sad_sum
+    def _calc(self, x, focal, neighbor):
+        return numpy.abs(x[focal] - x[neighbor]).sum()
+
+
+def _neighbor_pairs(w):
+    """
+    Positional indices of every neighbor link, and the number of links.
+
+    Both ``W`` and ``Graph`` expose a sparse matrix ordered like their ids, so
+    working from it handles either one, and ids that are not ``0..n-1``.
+    Only nonzero, off-diagonal entries count as links, so weight values,
+    explicit zeros (a ``Graph`` stores isolates as zero-weight self-loops) and
+    self-loops do not change the pairs counted. ``w`` is not modified.
+    """
+    adjacency = w.sparse.tocoo()
+    keep = (adjacency.data != 0) & (adjacency.row != adjacency.col)
+    return adjacency.row[keep], adjacency.col[keep], int(keep.sum())
